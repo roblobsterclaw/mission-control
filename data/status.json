@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T20:44:10.432950+00:00",
+  "generatedAt": "2026-04-23T20:49:08.354759+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T20:38:55.930000+00:00",
+      "lastRun": "2026-04-23T20:43:55.941000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 14102,
+      "lastDurationMs": 18219,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T20:43:55.930000+00:00",
+      "nextRun": "2026-04-23T20:48:55.941000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -269,13 +269,13 @@
       "status": "active",
       "model": "anthropic/claude-opus-4-6",
       "currentTask": "Active conversation with Joe",
-      "elapsedMinutes": 1,
+      "elapsedMinutes": 0,
       "subagents": []
     },
     {
       "id": "hermes",
       "name": "Hermes",
-      "status": "idle",
+      "status": "active",
       "model": "openai/gpt-5.4-mini",
       "currentTask": "Last session: 2026-04-23 16:24 UTC",
       "elapsedMinutes": 0,
@@ -294,9 +294,9 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4622,
-        "outputTokens": 814680,
-        "cost": 1199.357
+        "inputTokens": 4638,
+        "outputTokens": 815330,
+        "cost": 1201.0925
       },
       "anthropic/claude-sonnet-4-6": {
         "inputTokens": 1032,
@@ -319,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1237.0919,
-    "projectedMonthlyCost": 5301.82,
+    "totalCost7days": 1238.8274,
+    "projectedMonthlyCost": 5309.26,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5301.82,
+      "ifFreeModelsUsed": 5309.26,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
