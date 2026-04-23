@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T22:40:33.330324+00:00",
+  "generatedAt": "2026-04-23T22:45:32.457516+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T22:35:17.727000+00:00",
+      "lastRun": "2026-04-23T22:40:17.738000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 19460,
+      "lastDurationMs": 20129,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T22:40:17.727000+00:00",
+      "nextRun": "2026-04-23T22:45:17.738000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -294,9 +294,9 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4785,
-        "outputTokens": 825979,
-        "cost": 1209.1311
+        "inputTokens": 4789,
+        "outputTokens": 826183,
+        "cost": 1209.1583
       },
       "anthropic/claude-sonnet-4-6": {
         "inputTokens": 1041,
@@ -319,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1247.4192,
-    "projectedMonthlyCost": 5346.08,
+    "totalCost7days": 1247.4464,
+    "projectedMonthlyCost": 5346.2,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5346.08,
+      "ifFreeModelsUsed": 5346.2,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
