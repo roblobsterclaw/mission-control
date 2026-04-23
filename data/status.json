@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T20:24:08.399964+00:00",
+  "generatedAt": "2026-04-23T20:29:08.619418+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,17 +9,17 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": null,
-      "lastStatus": "never",
-      "lastDurationMs": null,
+      "lastRun": "2026-04-23T20:23:55.894000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 16960,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T20:23:55.882000+00:00",
+      "nextRun": "2026-04-23T20:28:55.894000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "pending"
+      "deliveryStatus": "delivered"
     },
     {
       "id": "9ecaa6d2",
@@ -269,7 +269,7 @@
       "status": "active",
       "model": "anthropic/claude-opus-4-6",
       "currentTask": "Active conversation with Joe",
-      "elapsedMinutes": 0,
+      "elapsedMinutes": 2,
       "subagents": [
         {
           "id": "32544b27",
@@ -287,8 +287,8 @@
       "name": "Hermes",
       "status": "active",
       "model": "openai/gpt-5.4-mini",
-      "currentTask": "Last session: 2026-04-22 14:45 UTC",
-      "elapsedMinutes": 1,
+      "currentTask": "Last session: 2026-04-23 16:24 UTC",
+      "elapsedMinutes": 4,
       "subagents": []
     },
     {
@@ -304,9 +304,9 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4565,
-        "outputTokens": 807783,
-        "cost": 1189.7841
+        "inputTokens": 4576,
+        "outputTokens": 808809,
+        "cost": 1191.3455
       },
       "anthropic/claude-sonnet-4-6": {
         "inputTokens": 1032,
@@ -329,10 +329,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1227.5179,
-    "projectedMonthlyCost": 5260.79,
+    "totalCost7days": 1229.0793,
+    "projectedMonthlyCost": 5267.48,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5260.79,
+      "ifFreeModelsUsed": 5267.48,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
