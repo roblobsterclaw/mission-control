@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T20:34:06.576152+00:00",
+  "generatedAt": "2026-04-23T20:39:06.382535+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T20:28:55.907000+00:00",
+      "lastRun": "2026-04-23T20:33:55.919000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 20774,
+      "lastDurationMs": 17115,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T20:33:55.907000+00:00",
+      "nextRun": "2026-04-23T20:38:55.919000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -269,7 +269,7 @@
       "status": "active",
       "model": "anthropic/claude-opus-4-6",
       "currentTask": "Active conversation with Joe",
-      "elapsedMinutes": 0,
+      "elapsedMinutes": 1,
       "subagents": [
         {
           "id": "32544b27",
@@ -285,10 +285,10 @@
     {
       "id": "hermes",
       "name": "Hermes",
-      "status": "idle",
+      "status": "active",
       "model": "openai/gpt-5.4-mini",
       "currentTask": "Last session: 2026-04-23 16:24 UTC",
-      "elapsedMinutes": 0,
+      "elapsedMinutes": 1,
       "subagents": []
     },
     {
@@ -304,9 +304,9 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4590,
-        "outputTokens": 809377,
-        "cost": 1192.9541
+        "inputTokens": 4601,
+        "outputTokens": 810105,
+        "cost": 1194.5254
       },
       "anthropic/claude-sonnet-4-6": {
         "inputTokens": 1032,
@@ -329,10 +329,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1230.6923,
-    "projectedMonthlyCost": 5274.4,
+    "totalCost7days": 1232.2637,
+    "projectedMonthlyCost": 5281.13,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5274.4,
+      "ifFreeModelsUsed": 5281.13,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
