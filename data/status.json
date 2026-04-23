@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T22:25:32.866257+00:00",
+  "generatedAt": "2026-04-23T22:30:29.897852+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T22:20:17.693000+00:00",
+      "lastRun": "2026-04-23T22:25:17.705000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 16402,
+      "lastDurationMs": 19251,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T22:25:17.693000+00:00",
+      "nextRun": "2026-04-23T22:30:17.705000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -29,16 +29,16 @@
       "enabled": true,
       "schedule": "Every 30 min",
       "scheduleCron": "*/30 * * * *",
-      "lastRun": "2026-04-23T22:00:09.087000+00:00",
+      "lastRun": "2026-04-23T22:30:09.547000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 6548,
+      "lastDurationMs": 7533,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T22:30:00+00:00",
+      "nextRun": "2026-04-23T23:00:00+00:00",
       "model": "anthropic/claude-sonnet-4-6",
       "recommendedModel": "anthropic/claude-sonnet-4-6",
       "recommendedReason": "Complex creative/analysis — Sonnet is already optimal ✅",
-      "estimatedCostPerRun": 0.01061,
+      "estimatedCostPerRun": 0.0122,
       "deliveryStatus": "pending"
     },
     {
@@ -49,12 +49,12 @@
       "enabled": true,
       "schedule": "Every 30 min",
       "scheduleCron": "*/30 * * * *",
-      "lastRun": "2026-04-23T22:00:00.013000+00:00",
+      "lastRun": "2026-04-23T22:30:00.014000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 9074,
+      "lastDurationMs": 9533,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T22:30:00+00:00",
+      "nextRun": "2026-04-23T23:00:00+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -294,14 +294,14 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4769,
-        "outputTokens": 825194,
-        "cost": 1209.0241
+        "inputTokens": 4777,
+        "outputTokens": 825550,
+        "cost": 1209.0763
       },
       "anthropic/claude-sonnet-4-6": {
-        "inputTokens": 1041,
-        "outputTokens": 816879,
-        "cost": 37.7825
+        "inputTokens": 1045,
+        "outputTokens": 817009,
+        "cost": 37.8575
       },
       "openai/gpt-5.4-mini": {
         "inputTokens": 229057,
@@ -319,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1247.3111,
-    "projectedMonthlyCost": 5345.62,
+    "totalCost7days": 1247.4383,
+    "projectedMonthlyCost": 5346.16,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5345.62,
+      "ifFreeModelsUsed": 5346.16,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
