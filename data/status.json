@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T22:00:32.571288+00:00",
+  "generatedAt": "2026-04-23T22:05:27.781394+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,32 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T21:55:02.133000+00:00",
+      "lastRun": "2026-04-23T22:00:17.649000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 18735,
+      "lastDurationMs": 18839,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T22:00:02.133000+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "delivered"
-    },
-    {
-      "id": "fe8093f1",
-      "fullId": "fe8093f1-6c84-499d-b0d2-308acb7d6e72",
-      "name": "🦞 Lobster Press Scheduled Posts",
-      "project": "lobster-press",
-      "enabled": true,
-      "schedule": "Every hour",
-      "scheduleCron": "0 * * * *",
-      "lastRun": "2026-04-23T21:01:56.664000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 12636,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T22:01:56.651000+00:00",
+      "nextRun": "2026-04-23T22:05:17.649000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -95,6 +75,26 @@
       "lastError": null,
       "consecutiveErrors": 0,
       "nextRun": "2026-04-23T22:30:00+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "fe8093f1",
+      "fullId": "fe8093f1-6c84-499d-b0d2-308acb7d6e72",
+      "name": "🦞 Lobster Press Scheduled Posts",
+      "project": "lobster-press",
+      "enabled": true,
+      "schedule": "Every hour",
+      "scheduleCron": "0 * * * *",
+      "lastRun": "2026-04-23T22:01:56.683000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 13723,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-23T23:01:56.651000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -294,14 +294,14 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4740,
-        "outputTokens": 822246,
-        "cost": 1208.859
+        "inputTokens": 4749,
+        "outputTokens": 822720,
+        "cost": 1208.9255
       },
       "anthropic/claude-sonnet-4-6": {
-        "inputTokens": 1045,
-        "outputTokens": 817009,
-        "cost": 37.8531
+        "inputTokens": 1041,
+        "outputTokens": 816879,
+        "cost": 37.7825
       },
       "openai/gpt-5.4-mini": {
         "inputTokens": 265098,
@@ -319,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1247.2561,
-    "projectedMonthlyCost": 5345.38,
+    "totalCost7days": 1247.2521,
+    "projectedMonthlyCost": 5345.37,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5345.38,
+      "ifFreeModelsUsed": 5345.37,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
