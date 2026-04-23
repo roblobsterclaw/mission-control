@@ -1,6 +1,26 @@
 {
-  "generatedAt": "2026-04-23T20:10:24.272182+00:00",
+  "generatedAt": "2026-04-23T20:24:08.399964+00:00",
   "jobs": [
+    {
+      "id": "9eb6bcc2",
+      "fullId": "9eb6bcc2-66b6-416d-ac19-622db14092bc",
+      "name": "📊 Mission Control Dashboard Updater",
+      "project": "system",
+      "enabled": true,
+      "schedule": "Every 5m",
+      "scheduleCron": "every:5m",
+      "lastRun": null,
+      "lastStatus": "never",
+      "lastDurationMs": null,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-23T20:23:55.882000+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "pending"
+    },
     {
       "id": "9ecaa6d2",
       "fullId": "9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13",
@@ -248,27 +268,27 @@
       "name": "Rob Lobster 🦞",
       "status": "active",
       "model": "anthropic/claude-opus-4-6",
-      "currentTask": "Rob Lobster HQ id:-1003906473544 topic:8",
+      "currentTask": "Active conversation with Joe",
       "elapsedMinutes": 0,
       "subagents": [
         {
           "id": "32544b27",
           "task": "mission-control-live-data",
           "model": "claude-sonnet-4-6",
-          "status": "running",
+          "status": "completed",
           "durationSeconds": 776,
           "startedAt": "2026-04-23T19:56:36.264000+00:00",
-          "completedAt": null
+          "completedAt": "2026-04-23T20:09:32.555000+00:00"
         }
       ]
     },
     {
       "id": "hermes",
       "name": "Hermes",
-      "status": "idle",
+      "status": "active",
       "model": "openai/gpt-5.4-mini",
-      "currentTask": "Last session: 2026-04-23 15:30 UTC",
-      "elapsedMinutes": 0,
+      "currentTask": "Last session: 2026-04-22 14:45 UTC",
+      "elapsedMinutes": 1,
       "subagents": []
     },
     {
@@ -284,9 +304,9 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4537,
-        "outputTokens": 804754,
-        "cost": 1185.8984
+        "inputTokens": 4565,
+        "outputTokens": 807783,
+        "cost": 1189.7841
       },
       "anthropic/claude-sonnet-4-6": {
         "inputTokens": 1032,
@@ -299,9 +319,9 @@
         "cost": 0.4256
       },
       "openai/gpt-5.4-nano": {
-        "inputTokens": 525485,
-        "outputTokens": 3925,
-        "cost": 0.1203
+        "inputTokens": 510979,
+        "outputTokens": 3812,
+        "cost": 0.117
       },
       "openai/gpt-4.1-mini": {
         "inputTokens": 27699,
@@ -309,10 +329,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1223.6356,
-    "projectedMonthlyCost": 5244.15,
+    "totalCost7days": 1227.5179,
+    "projectedMonthlyCost": 5260.79,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5244.15,
+      "ifFreeModelsUsed": 5260.79,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
@@ -365,7 +385,7 @@
       "label": "System Ops",
       "emoji": "⚙️",
       "status": "healthy",
-      "metric": "3/3 jobs healthy",
+      "metric": "4/4 jobs healthy",
       "detail": "Gmail token refresh + RobGmail inbox check"
     }
   }
