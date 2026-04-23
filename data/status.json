@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T21:40:16.826276+00:00",
+  "generatedAt": "2026-04-23T21:45:12.163264+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T21:35:02.077000+00:00",
+      "lastRun": "2026-04-23T21:40:02.094000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 14108,
+      "lastDurationMs": 18949,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T21:40:02.077000+00:00",
+      "nextRun": "2026-04-23T21:45:02.094000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -266,10 +266,10 @@
     {
       "id": "main",
       "name": "Rob Lobster 🦞",
-      "status": "active",
+      "status": "idle",
       "model": "anthropic/claude-opus-4-6",
-      "currentTask": "Active conversation with Joe",
-      "elapsedMinutes": 3,
+      "currentTask": null,
+      "elapsedMinutes": 0,
       "subagents": []
     },
     {
@@ -278,7 +278,7 @@
       "status": "active",
       "model": "openai/gpt-5.4-mini",
       "currentTask": "Last session: 2026-04-23 17:32 UTC",
-      "elapsedMinutes": 0,
+      "elapsedMinutes": 1,
       "subagents": []
     },
     {
@@ -294,9 +294,9 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4720,
-        "outputTokens": 821272,
-        "cost": 1208.7252
+        "inputTokens": 4724,
+        "outputTokens": 821467,
+        "cost": 1208.7521
       },
       "anthropic/claude-sonnet-4-6": {
         "inputTokens": 1041,
@@ -309,9 +309,9 @@
         "cost": 0.4256
       },
       "openai/gpt-5.4-nano": {
-        "inputTokens": 481975,
-        "outputTokens": 3541,
-        "cost": 0.1103
+        "inputTokens": 467501,
+        "outputTokens": 3434,
+        "cost": 0.107
       },
       "openai/gpt-4.1-mini": {
         "inputTokens": 27699,
@@ -319,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1247.0506,
-    "projectedMonthlyCost": 5344.5,
+    "totalCost7days": 1247.0743,
+    "projectedMonthlyCost": 5344.6,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5344.5,
+      "ifFreeModelsUsed": 5344.6,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
