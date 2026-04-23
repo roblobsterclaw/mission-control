@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T21:04:09.373972+00:00",
+  "generatedAt": "2026-04-23T21:09:11.019984+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T20:58:55.977000+00:00",
+      "lastRun": "2026-04-23T21:03:55.988000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 20448,
+      "lastDurationMs": 17568,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T21:03:55.977000+00:00",
+      "nextRun": "2026-04-23T21:08:55.988000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -269,7 +269,7 @@
       "status": "active",
       "model": "anthropic/claude-opus-4-6",
       "currentTask": "Active conversation with Joe",
-      "elapsedMinutes": 3,
+      "elapsedMinutes": 4,
       "subagents": []
     },
     {
@@ -294,14 +294,14 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4678,
-        "outputTokens": 818753,
-        "cost": 1206.3474
+        "inputTokens": 4685,
+        "outputTokens": 819063,
+        "cost": 1206.4999
       },
       "anthropic/claude-sonnet-4-6": {
-        "inputTokens": 1039,
-        "outputTokens": 802056,
-        "cost": 37.3605
+        "inputTokens": 1035,
+        "outputTokens": 801922,
+        "cost": 37.2899
       },
       "openai/gpt-5.4-mini": {
         "inputTokens": 265098,
@@ -319,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1244.2585,
-    "projectedMonthlyCost": 5332.54,
+    "totalCost7days": 1244.3404,
+    "projectedMonthlyCost": 5332.89,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5332.54,
+      "ifFreeModelsUsed": 5332.89,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
