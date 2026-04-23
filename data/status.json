@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T22:55:31.983919+00:00",
+  "generatedAt": "2026-04-23T23:00:30.190216+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,52 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T22:50:17.763000+00:00",
+      "lastRun": "2026-04-23T22:55:17.774000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 14917,
+      "lastDurationMs": 18024,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T22:55:17.763000+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "delivered"
-    },
-    {
-      "id": "9ecaa6d2",
-      "fullId": "9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13",
-      "name": "🦞 Lobster Press Auto-Creator",
-      "project": "lobster-press",
-      "enabled": true,
-      "schedule": "Every 30 min",
-      "scheduleCron": "*/30 * * * *",
-      "lastRun": "2026-04-23T22:30:09.547000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 7533,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T23:00:00+00:00",
-      "model": "anthropic/claude-sonnet-4-6",
-      "recommendedModel": "anthropic/claude-sonnet-4-6",
-      "recommendedReason": "Complex creative/analysis — Sonnet is already optimal ✅",
-      "estimatedCostPerRun": 0.0122,
-      "deliveryStatus": "pending"
-    },
-    {
-      "id": "db7fc6fb",
-      "fullId": "db7fc6fb-928d-4912-8094-58b9a5a0f623",
-      "name": "🔑 Gmail Token Refresh",
-      "project": "system",
-      "enabled": true,
-      "schedule": "Every 30 min",
-      "scheduleCron": "*/30 * * * *",
-      "lastRun": "2026-04-23T22:30:00.014000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 9533,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T23:00:00+00:00",
+      "nextRun": "2026-04-23T23:00:17.774000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -75,6 +35,46 @@
       "lastError": null,
       "consecutiveErrors": 0,
       "nextRun": "2026-04-23T23:01:56.651000+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "9ecaa6d2",
+      "fullId": "9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13",
+      "name": "🦞 Lobster Press Auto-Creator",
+      "project": "lobster-press",
+      "enabled": true,
+      "schedule": "Every 30 min",
+      "scheduleCron": "*/30 * * * *",
+      "lastRun": "2026-04-23T23:00:08.712000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 6187,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-23T23:30:00+00:00",
+      "model": "anthropic/claude-sonnet-4-6",
+      "recommendedModel": "anthropic/claude-sonnet-4-6",
+      "recommendedReason": "Complex creative/analysis — Sonnet is already optimal ✅",
+      "estimatedCostPerRun": 0.01002,
+      "deliveryStatus": "pending"
+    },
+    {
+      "id": "db7fc6fb",
+      "fullId": "db7fc6fb-928d-4912-8094-58b9a5a0f623",
+      "name": "🔑 Gmail Token Refresh",
+      "project": "system",
+      "enabled": true,
+      "schedule": "Every 30 min",
+      "scheduleCron": "*/30 * * * *",
+      "lastRun": "2026-04-23T23:00:00.014000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 8698,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-23T23:30:00+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -294,14 +294,14 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4797,
-        "outputTokens": 826590,
-        "cost": 1209.2126
+        "inputTokens": 4805,
+        "outputTokens": 826943,
+        "cost": 1209.2647
       },
       "anthropic/claude-sonnet-4-6": {
-        "inputTokens": 1041,
-        "outputTokens": 816879,
-        "cost": 37.7869
+        "inputTokens": 1045,
+        "outputTokens": 817009,
+        "cost": 37.8618
       },
       "openai/gpt-5.4-mini": {
         "inputTokens": 229057,
@@ -319,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1247.5007,
-    "projectedMonthlyCost": 5346.43,
+    "totalCost7days": 1247.6277,
+    "projectedMonthlyCost": 5346.98,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5346.43,
+      "ifFreeModelsUsed": 5346.98,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
