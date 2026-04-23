@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T20:39:06.382535+00:00",
+  "generatedAt": "2026-04-23T20:44:10.432950+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-23T20:33:55.919000+00:00",
+      "lastRun": "2026-04-23T20:38:55.930000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 17115,
+      "lastDurationMs": 14102,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-23T20:38:55.919000+00:00",
+      "nextRun": "2026-04-23T20:43:55.930000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -270,25 +270,15 @@
       "model": "anthropic/claude-opus-4-6",
       "currentTask": "Active conversation with Joe",
       "elapsedMinutes": 1,
-      "subagents": [
-        {
-          "id": "32544b27",
-          "task": "mission-control-live-data",
-          "model": "claude-sonnet-4-6",
-          "status": "completed",
-          "durationSeconds": 776,
-          "startedAt": "2026-04-23T19:56:36.264000+00:00",
-          "completedAt": "2026-04-23T20:09:32.555000+00:00"
-        }
-      ]
+      "subagents": []
     },
     {
       "id": "hermes",
       "name": "Hermes",
-      "status": "active",
+      "status": "idle",
       "model": "openai/gpt-5.4-mini",
       "currentTask": "Last session: 2026-04-23 16:24 UTC",
-      "elapsedMinutes": 1,
+      "elapsedMinutes": 0,
       "subagents": []
     },
     {
@@ -304,9 +294,9 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4601,
-        "outputTokens": 810105,
-        "cost": 1194.5254
+        "inputTokens": 4622,
+        "outputTokens": 814680,
+        "cost": 1199.357
       },
       "anthropic/claude-sonnet-4-6": {
         "inputTokens": 1032,
@@ -319,9 +309,9 @@
         "cost": 0.4256
       },
       "openai/gpt-5.4-nano": {
-        "inputTokens": 510979,
-        "outputTokens": 3812,
-        "cost": 0.117
+        "inputTokens": 496465,
+        "outputTokens": 3667,
+        "cost": 0.1136
       },
       "openai/gpt-4.1-mini": {
         "inputTokens": 27699,
@@ -329,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1232.2637,
-    "projectedMonthlyCost": 5281.13,
+    "totalCost7days": 1237.0919,
+    "projectedMonthlyCost": 5301.82,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5281.13,
+      "ifFreeModelsUsed": 5301.82,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
