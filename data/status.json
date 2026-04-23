@@ -1,0 +1,382 @@
+{
+  "generatedAt": "2026-04-23T11:50:00Z",
+  "jobs": [
+    {
+      "id": "fe8093f1",
+      "name": "🦞 Lobster Press Publisher",
+      "project": "lobster-press",
+      "enabled": true,
+      "schedule": "Every hour",
+      "scheduleCron": "0 * * * *",
+      "lastRun": "2026-04-23T10:00:00Z",
+      "lastStatus": "error",
+      "lastDurationMs": 3200,
+      "lastError": "Delivery failed: missing target chatId",
+      "consecutiveErrors": 62,
+      "nextRun": "2026-04-23T12:00:00Z",
+      "model": "openai/gpt-5.4-nano",
+      "recommendedModel": "FREE: tencent/hy3-preview",
+      "recommendedReason": "Simple publish script — zero reasoning needed, free model handles it",
+      "estimatedCostPerRun": 0.002,
+      "deliveryStatus": "failed"
+    },
+    {
+      "id": "9ecaa6d2",
+      "name": "🦞 Lobster Press Creator",
+      "project": "lobster-press",
+      "enabled": true,
+      "schedule": "Every 30 min",
+      "scheduleCron": "*/30 * * * *",
+      "lastRun": "2026-04-23T11:30:00Z",
+      "lastStatus": "ok",
+      "lastDurationMs": 45000,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-23T12:00:00Z",
+      "model": "anthropic/claude-sonnet-4-6",
+      "recommendedModel": "anthropic/claude-sonnet-4-6",
+      "recommendedReason": "Content creation needs strong reasoning — Sonnet is appropriate",
+      "estimatedCostPerRun": 0.08,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "db7fc6fb",
+      "name": "🔑 Gmail Token Refresh",
+      "project": "system",
+      "enabled": true,
+      "schedule": "Every 30 min",
+      "scheduleCron": "*/30 * * * *",
+      "lastRun": "2026-04-23T11:30:00Z",
+      "lastStatus": "error",
+      "lastDurationMs": 1500,
+      "lastError": "Delivery failed: missing target chatId",
+      "consecutiveErrors": 50,
+      "nextRun": "2026-04-23T12:00:00Z",
+      "model": "openai/gpt-5.4-nano",
+      "recommendedModel": "FREE: openai/gpt-oss-20b",
+      "recommendedReason": "Token refresh is a simple script — free model is perfect",
+      "estimatedCostPerRun": 0.001,
+      "deliveryStatus": "failed"
+    },
+    {
+      "id": "329467b7",
+      "name": "🦞 Mission Control 8AM",
+      "project": "reports",
+      "enabled": true,
+      "schedule": "Daily 8:00 AM",
+      "scheduleCron": "0 8 * * *",
+      "lastRun": "2026-04-23T12:00:00Z",
+      "lastStatus": "ok",
+      "lastDurationMs": 120000,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-24T12:00:00Z",
+      "model": "openai/gpt-5.4-mini",
+      "recommendedModel": "openai/gpt-5.4-mini",
+      "recommendedReason": "Task execution needs decent reasoning but not Sonnet-level",
+      "estimatedCostPerRun": 0.05,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "24d7df27",
+      "name": "📧 Gmail Check",
+      "project": "system",
+      "enabled": true,
+      "schedule": "Every 3 hours",
+      "scheduleCron": "0 */3 * * *",
+      "lastRun": "2026-04-23T09:00:00Z",
+      "lastStatus": "ok",
+      "lastDurationMs": 8000,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-23T15:00:00Z",
+      "model": "openai/gpt-5.4-mini",
+      "recommendedModel": "FREE: tencent/hy3-preview",
+      "recommendedReason": "Email scanning is pattern matching — free model handles it",
+      "estimatedCostPerRun": 0.01,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "37d3ee4f",
+      "name": "🏆 World Cup Pool Backup",
+      "project": "world-cup-pool",
+      "enabled": true,
+      "schedule": "Daily midnight",
+      "scheduleCron": "0 0 * * *",
+      "lastRun": "2026-04-23T04:00:00Z",
+      "lastStatus": "error",
+      "lastDurationMs": 2000,
+      "lastError": "Delivery failed: missing target chatId",
+      "consecutiveErrors": 7,
+      "nextRun": "2026-04-24T04:00:00Z",
+      "model": "openai/gpt-5.4-mini",
+      "recommendedModel": "FREE: openai/gpt-oss-20b",
+      "recommendedReason": "Backup is a file operation — free model works fine",
+      "estimatedCostPerRun": 0.005,
+      "deliveryStatus": "failed"
+    },
+    {
+      "id": "6aecbebc",
+      "name": "📋 JFL TTD 5AM",
+      "project": "reports",
+      "enabled": true,
+      "schedule": "Daily 5:00 AM",
+      "scheduleCron": "0 5 * * *",
+      "lastRun": "2026-04-23T09:00:00Z",
+      "lastStatus": "ok",
+      "lastDurationMs": 90000,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-24T09:00:00Z",
+      "model": "anthropic/claude-sonnet-4-6",
+      "recommendedModel": "anthropic/claude-sonnet-4-6",
+      "recommendedReason": "TTD requires reading context and making priority decisions",
+      "estimatedCostPerRun": 0.12,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "55963e02",
+      "name": "☕ Morning Rundown 6AM",
+      "project": "reports",
+      "enabled": true,
+      "schedule": "Daily 6:00 AM",
+      "scheduleCron": "0 6 * * *",
+      "lastRun": "2026-04-23T10:00:00Z",
+      "lastStatus": "ok",
+      "lastDurationMs": 95000,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-24T10:00:00Z",
+      "model": "anthropic/claude-sonnet-4-6",
+      "recommendedModel": "anthropic/claude-sonnet-4-6",
+      "recommendedReason": "Market analysis + sports + weather synthesis needs reasoning",
+      "estimatedCostPerRun": 0.15,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "18a735bb",
+      "name": "🔍 Monitor: Henry/Alex Finn",
+      "project": "monitors",
+      "enabled": true,
+      "schedule": "Mondays 10:00 AM",
+      "scheduleCron": "0 10 * * 1",
+      "lastRun": "2026-04-21T14:00:00Z",
+      "lastStatus": "ok",
+      "lastDurationMs": 30000,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-28T14:00:00Z",
+      "model": "openai/gpt-5.4-mini",
+      "recommendedModel": "FREE: qwen/qwen3-coder",
+      "recommendedReason": "Web scraping and summarization — free model handles this",
+      "estimatedCostPerRun": 0.02,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "dd069748",
+      "name": "🔍 Monitor: Moonshot People",
+      "project": "monitors",
+      "enabled": true,
+      "schedule": "Wednesdays 10:00 AM",
+      "scheduleCron": "0 10 * * 3",
+      "lastRun": "2026-04-16T14:00:00Z",
+      "lastStatus": "ok",
+      "lastDurationMs": 28000,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-23T14:00:00Z",
+      "model": "openai/gpt-5.4-mini",
+      "recommendedModel": "FREE: qwen/qwen3-coder",
+      "recommendedReason": "Same as Henry monitor — web scraping, free model works",
+      "estimatedCostPerRun": 0.02,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "e062112a",
+      "name": "🦄 Unicorn Factory Scout",
+      "project": "unicorn-factory",
+      "enabled": true,
+      "schedule": "Sundays 11:00 AM",
+      "scheduleCron": "0 11 * * 0",
+      "lastRun": null,
+      "lastStatus": null,
+      "lastDurationMs": null,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-27T15:00:00Z",
+      "model": "anthropic/claude-sonnet-4-6",
+      "recommendedModel": "anthropic/claude-sonnet-4-6",
+      "recommendedReason": "Multi-source analysis and idea scoring needs strong reasoning",
+      "estimatedCostPerRun": 0.10,
+      "deliveryStatus": "pending"
+    },
+    {
+      "id": "bd3c8cb8",
+      "name": "🗑️ Delete Qwen Models",
+      "project": "system",
+      "enabled": true,
+      "schedule": "One-shot: Apr 25",
+      "scheduleCron": "0 12 25 4 *",
+      "lastRun": null,
+      "lastStatus": null,
+      "lastDurationMs": null,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-25T16:00:00Z",
+      "model": "openai/gpt-4.1-mini",
+      "recommendedModel": "FREE: openai/gpt-oss-20b",
+      "recommendedReason": "Simple deletion script — any model works",
+      "estimatedCostPerRun": 0.001,
+      "deliveryStatus": "pending"
+    }
+  ],
+  "agents": [
+    {
+      "id": "main",
+      "name": "Rob Lobster 🦞",
+      "status": "active",
+      "currentTask": "Building Mission Control Dashboard with Joe",
+      "model": "anthropic/claude-opus-4-6",
+      "elapsedMinutes": 45
+    },
+    {
+      "id": "vault",
+      "name": "Red 🔴",
+      "status": "idle",
+      "currentTask": null,
+      "model": "ollama/gemma4:e4b",
+      "elapsedMinutes": null
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes 🟣",
+      "status": "idle",
+      "currentTask": null,
+      "model": "openai/gpt-5.4-mini",
+      "elapsedMinutes": null
+    }
+  ],
+  "modelUsage": {
+    "last7days": {
+      "anthropic/claude-opus-4-6": {
+        "inputTokens": 850000,
+        "outputTokens": 420000,
+        "cost": 44.25
+      },
+      "anthropic/claude-sonnet-4-6": {
+        "inputTokens": 2100000,
+        "outputTokens": 950000,
+        "cost": 20.55
+      },
+      "openai/gpt-5.4-mini": {
+        "inputTokens": 1500000,
+        "outputTokens": 600000,
+        "cost": 1.56
+      },
+      "openai/gpt-5.4-nano": {
+        "inputTokens": 800000,
+        "outputTokens": 300000,
+        "cost": 0.22
+      },
+      "openai/gpt-4.1-mini": {
+        "inputTokens": 200000,
+        "outputTokens": 80000,
+        "cost": 0.11
+      }
+    },
+    "totalCost7days": 66.69,
+    "projectedMonthlyCost": 285.82,
+    "potentialSavings": {
+      "ifFreeModelsUsed": 42.15,
+      "jobsToMove": [
+        "Lobster Press Publisher",
+        "Gmail Token Refresh",
+        "Gmail Check",
+        "World Cup Pool Backup",
+        "Monitor: Henry/Alex Finn",
+        "Monitor: Moonshot People",
+        "Delete Qwen Models"
+      ],
+      "description": "Move 7 grunt-work jobs to free OpenRouter models"
+    }
+  },
+  "alerts": [
+    {
+      "id": "a1",
+      "timestamp": "2026-04-23T11:30:00Z",
+      "severity": "critical",
+      "job": "🦞 Lobster Press Publisher",
+      "message": "62 consecutive delivery failures — missing target chatId. FIXED today: added delivery.to config."
+    },
+    {
+      "id": "a2",
+      "timestamp": "2026-04-23T11:30:00Z",
+      "severity": "critical",
+      "job": "🔑 Gmail Token Refresh",
+      "message": "50 consecutive delivery failures — missing target chatId. FIXED today: added delivery.to config."
+    },
+    {
+      "id": "a3",
+      "timestamp": "2026-04-23T04:00:00Z",
+      "severity": "warning",
+      "job": "🏆 World Cup Pool Backup",
+      "message": "7 consecutive delivery failures — missing target chatId. FIXED today: added delivery.to config."
+    },
+    {
+      "id": "a4",
+      "timestamp": "2026-04-23T07:15:00Z",
+      "severity": "info",
+      "job": "🦄 Unicorn Factory Scout",
+      "message": "New cron job created — wider funnel, 12 sources, 5-dimension scoring. First run triggered manually."
+    },
+    {
+      "id": "a5",
+      "timestamp": "2026-04-23T07:30:00Z",
+      "severity": "info",
+      "job": "System",
+      "message": "Cron job standard established — all jobs now require delivery.to, full file paths, Mission Control watchdog."
+    }
+  ],
+  "projectHealth": {
+    "unicorn-factory": {
+      "label": "Unicorn Factory",
+      "emoji": "🦄",
+      "lastActivity": "2026-04-23T07:15:00Z",
+      "status": "active",
+      "metric": "18 ideas in pipeline",
+      "detail": "Batch 2 generating now — wider funnel"
+    },
+    "lobster-press": {
+      "label": "Lobster Press",
+      "emoji": "🦞",
+      "lastActivity": "2026-04-23T11:30:00Z",
+      "status": "degraded",
+      "metric": "Creator OK, Publisher failing",
+      "detail": "Publisher delivery just fixed — monitoring next run"
+    },
+    "world-cup-pool": {
+      "label": "World Cup Pool",
+      "emoji": "🏆",
+      "lastActivity": "2026-04-23T04:00:00Z",
+      "status": "degraded",
+      "metric": "Backup delivery just fixed",
+      "detail": "Monitoring next midnight run"
+    },
+    "reports": {
+      "label": "Morning Reports",
+      "emoji": "☕",
+      "lastActivity": "2026-04-23T10:00:00Z",
+      "status": "healthy",
+      "metric": "14-day streak",
+      "detail": "TTD + Rundown + Mission Control all delivering"
+    },
+    "gmail": {
+      "label": "Gmail",
+      "emoji": "📧",
+      "lastActivity": "2026-04-23T09:00:00Z",
+      "status": "degraded",
+      "metric": "Check OK, token refresh failing",
+      "detail": "Token refresh delivery just fixed"
+    }
+  }
+}

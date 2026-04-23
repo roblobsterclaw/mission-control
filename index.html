@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🦞 Mission Control — Rob Lobster</title>
+  <style>
+    /* ===================== RESET & BASE ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0D1117;
+      --card:      #161B22;
+      --card2:     #0D1117;
+      --border:    #30363D;
+      --accent:    #FF6B35;
+      --text:      #E6EDF3;
+      --muted:     #8B949E;
+      --green:     #3FB950;
+      --yellow:    #D29922;
+      --red:       #F85149;
+      --blue:      #58A6FF;
+      --purple:    #BC8CFF;
+      --teal:      #39D353;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ===================== HEADER ===================== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-text {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--green);
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .header-meta span {
+      color: var(--text);
+    }
+
+    #refresh-countdown {
+      font-size: 11px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn-refresh {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+
+    .btn-refresh:hover { opacity: 0.88; }
+    .btn-refresh:active { transform: scale(0.97); }
+    .btn-refresh:disabled { opacity: 0.5; cursor: default; }
+
+    /* ===================== LAYOUT ===================== */
+    .main {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 18px 18px 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-count {
+      font-size: 10px;
+      color: var(--muted);
+      background: var(--border);
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .mb-20 { margin-bottom: 20px; }
+    .mb-16 { margin-bottom: 16px; }
+
+    /* ===================== PANEL 1: AGENTS (EKG) ===================== */
+    .agents-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    /* ─── Agent EKG Card ─── */
+    .agent-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      flex: 1;
+      min-width: 260px;
+      max-width: 460px;
+      position: relative;
+      overflow: hidden;
+      /* Top color stripe is set inline via border-top */
+      border-top-width: 3px;
+    }
+
+    /* Remove the ::after pseudo-element bar since we use border-top now */
+    .agent-card::after { display: none; }
+
+    .agent-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .agent-name {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .status-badge.active  { background: rgba(63, 185, 80, 0.12); color: var(--green); border: 1px solid rgba(63,185,80,0.25); }
+    .status-badge.idle    { background: rgba(139,148,158,0.10); color: var(--muted); border: 1px solid rgba(139,148,158,0.2); }
+    .status-badge.queued  { background: rgba(210,153,34,0.12); color: var(--yellow); border: 1px solid rgba(210,153,34,0.25); }
+    .status-badge.failed  { background: rgba(248,81,73,0.12); color: var(--red); border: 1px solid rgba(248,81,73,0.25); }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulseDot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.75); }
+    }
+
+    /* ─── EKG Canvas Container ─── */
+    .ekg-canvas-wrap {
+      margin: 0 0 10px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #080D11;
+      border: 1px solid rgba(255,255,255,0.06);
+      height: 72px;
+      position: relative;
+    }
+
+    .ekg-canvas {
+      display: block;
+      width: 100%;
+      height: 72px;
+    }
+
+    /* ─── Agent info below canvas ─── */
+    .agent-task {
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .agent-task.empty { color: var(--muted); font-style: italic; }
+
+    .agent-meta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .agent-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .agent-meta-item strong { color: var(--text); font-weight: 500; }
+
+    /* ─── Sub-agent bouncing dots ─── */
+    .agent-subagent-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 9px;
+      min-height: 14px;
+    }
+
+    .sub-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: subDotBounce 0.7s ease-in-out infinite;
+    }
+
+    .sub-dot:nth-child(2) { animation-delay: 0.18s; }
+    .sub-dot:nth-child(3) { animation-delay: 0.36s; }
+
+    @keyframes subDotBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.55; }
+      50%       { transform: translateY(-5px); opacity: 1; }
+    }
+
+    .sub-dot-label {
+      font-size: 10px;
+      color: var(--muted);
+      font-style: italic;
+      margin-left: 2px;
+    }
+
+    /* ===================== MIDDLE LAYOUT ===================== */
+    .middle-layout {
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: start;
+    }
+
+    /* ===================== PANEL 2: JOB GRID ===================== */
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+      gap: 11px;
+    }
+
+    .job-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      border-left: 3px solid transparent;
+      padding: 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    }
+
+    .job-card.status-ok       { border-left-color: var(--green); }
+    .job-card.status-warning  { border-left-color: var(--yellow); }
+    .job-card.status-critical { border-left-color: var(--red); }
+    .job-card.status-pending  { border-left-color: var(--blue); }
+
+    .job-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .job-name {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    .error-badge {
+      background: var(--red);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: 0.3px;
+    }
+
+    .job-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 14px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .stat-value {
+      font-size: 12px;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-value.countdown-val {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .stat-value.overdue {
+      color: var(--red);
+    }
+
+    .error-text {
+      font-size: 10px;
+      color: var(--red);
+      background: rgba(248,81,73,0.07);
+      border: 1px solid rgba(248,81,73,0.15);
+      border-radius: 5px;
+      padding: 5px 8px;
+      line-height: 1.4;
+    }
+
+    /* Model dropdown section */
+    .model-section {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .model-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .model-label-text {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .pending-tag {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--yellow);
+      display: none;
+      animation: blinkTag 1.5s ease-in-out infinite;
+    }
+
+    @keyframes blinkTag {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .pending-tag.show { display: inline; }
+
+    .model-select {
+      width: 100%;
+      background: var(--card2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 11px;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238B949E'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      padding-right: 24px;
+    }
+
+    .model-select:focus { border-color: var(--accent); }
+
+    .rec-box {
+      background: rgba(255,107,53,0.06);
+      border: 1px solid rgba(255,107,53,0.18);
+      border-radius: 6px;
+      padding: 7px 9px;
+    }
+
+    .rec-box-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .rec-box-reason {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .job-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 7px;
+      border-top: 1px solid var(--border);
+    }
+
+    .delivery-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .delivery-badge.delivered { background: rgba(63,185,80,0.12); color: var(--green); }
+    .delivery-badge.failed    { background: rgba(248,81,73,0.12); color: var(--red); }
+    .delivery-badge.pending   { background: rgba(88,166,255,0.12); color: var(--blue); }
+
+    .cost-badge {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .cost-badge strong { color: var(--text); }
+
+    /* ===================== PANEL 3: EFFICIENCY ===================== */
+    .efficiency-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: sticky;
+      top: 68px;
+    }
+
+    .panel-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pie-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    #pie-canvas {
+      display: block;
+    }
+
+    .legend-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+    }
+
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .legend-model { flex: 1; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .legend-pct   { color: var(--muted); font-size: 10px; width: 30px; text-align: right; }
+    .legend-cost  { color: var(--text); font-weight: 700; font-size: 11px; width: 42px; text-align: right; }
+
+    .savings-card {
+      background: rgba(63,185,80,0.06);
+      border: 1px solid rgba(63,185,80,0.2);
+      border-radius: 8px;
+      padding: 11px 12px;
+    }
+
+    .savings-tag {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--green);
+      margin-bottom: 4px;
+    }
+
+    .savings-number {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .savings-desc {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .spend-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      padding: 3px 0;
+    }
+
+    .spend-label { color: var(--muted); }
+    .spend-val   { color: var(--text); font-weight: 700; }
+    .spend-val.accent { color: var(--accent); font-size: 13px; }
+
+    .divider { height: 1px; background: var(--border); }
+
+    /* ===================== BOTTOM ROW ===================== */
+    .bottom-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ===================== PANEL 4: ALERTS ===================== */
+    .panel-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .alert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .alert-item {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 11px;
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+
+    .alert-item.dismissed { display: none; }
+
+    .alert-sev {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 7px;
+      border-radius: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .alert-sev.critical { background: rgba(248,81,73,0.15); color: var(--red); }
+    .alert-sev.warning  { background: rgba(210,153,34,0.15); color: var(--yellow); }
+    .alert-sev.info     { background: rgba(88,166,255,0.15); color: var(--blue); }
+
+    .alert-body { flex: 1; min-width: 0; }
+
+    .alert-job {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .alert-msg {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .alert-time {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 4px;
+      opacity: 0.7;
+    }
+
+    .btn-dismiss {
+      flex-shrink: 0;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      margin-top: 1px;
+    }
+
+    .btn-dismiss:hover {
+      background: var(--border);
+      color: var(--text);
+    }
+
+    .no-alerts {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 24px 0;
+    }
+
+    /* ===================== PANEL 5: PROJECTS ===================== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .proj-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      border-left: 3px solid transparent;
+      padding: 10px 11px;
+    }
+
+    .proj-card.healthy  { border-left-color: var(--green); }
+    .proj-card.degraded { border-left-color: var(--yellow); }
+    .proj-card.failed   { border-left-color: var(--red); }
+    .proj-card.active   { border-left-color: var(--accent); }
+
+    .proj-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .proj-emoji { font-size: 15px; }
+
+    .proj-name {
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .proj-status {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+    }
+
+    .proj-status.healthy  { color: var(--green); }
+    .proj-status.degraded { color: var(--yellow); }
+    .proj-status.failed   { color: var(--red); }
+    .proj-status.active   { color: var(--accent); }
+
+    .proj-metric {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .proj-detail {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    /* ===================== SPINNER ===================== */
+    .spinner {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===================== SCROLLBAR ===================== */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1100px) {
+      .middle-layout { grid-template-columns: 1fr; }
+      .efficiency-panel { position: static; }
+    }
+
+    @media (max-width: 800px) {
+      .bottom-row { grid-template-columns: 1fr; }
+      .jobs-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .main { padding: 12px 10px 30px; }
+      .agents-row { flex-direction: column; }
+      .agent-card { max-width: 100%; min-width: 0; }
+      .header { padding: 0 12px; }
+      .logo-text { font-size: 13px; }
+      #refresh-countdown { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">
+      <span style="font-size:22px">🦞</span>
+      <div>
+        <div class="logo-text">Mission Control</div>
+        <div class="logo-sub">Rob Lobster Operations Dashboard</div>
+      </div>
+    </div>
+    <div class="header-divider"></div>
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      LIVE
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-meta">Updated <span id="updated-at">—</span></div>
+    <div id="refresh-countdown">Auto-refresh in <strong id="countdown-secs">60</strong>s</div>
+    <button class="btn-refresh" id="refresh-btn" onclick="triggerRefresh()">
+      <span>⟳</span> Refresh
+    </button>
+  </div>
+</header>
+
+<!-- ===================== MAIN ===================== -->
+<main class="main">
+
+  <!-- PANEL 1: AGENTS (EKG) -->
+  <div class="section-header mb-16">
+    <span class="section-title">🤖 Agent Activity</span>
+    <span class="section-line"></span>
+    <span class="section-count" id="agent-count">—</span>
+  </div>
+  <div class="agents-row mb-20" id="agents-row">
+    <!-- populated by JS -->
+  </div>
+
+  <!-- PANEL 2 + PANEL 3 (middle) -->
+  <div class="section-header mb-16">
+    <span class="section-title">⚙️ Cron Job Health</span>
+    <span class="section-line"></span>
+    <span class="section-count" id="jobs-count">—</span>
+  </div>
+  <div class="middle-layout mb-20">
+    <div class="jobs-grid" id="jobs-grid">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- PANEL 3: MODEL EFFICIENCY -->
+    <div class="efficiency-panel">
+      <div class="panel-title">📊 Model Efficiency</div>
+
+      <div class="pie-wrap">
+        <canvas id="pie-canvas" width="180" height="180"></canvas>
+      </div>
+
+      <div class="legend-list" id="model-legend">
+        <!-- populated by JS -->
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="savings-card">
+        <div class="savings-tag">💰 Potential Monthly Savings</div>
+        <div class="savings-number" id="savings-num">—</div>
+        <div class="savings-desc" id="savings-desc">—</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div>
+        <div class="spend-row">
+          <span class="spend-label">7-day spend</span>
+          <span class="spend-val" id="cost-7d">—</span>
+        </div>
+        <div class="spend-row">
+          <span class="spend-label">Projected / month</span>
+          <span class="spend-val accent" id="cost-monthly">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM: ALERTS + PROJECTS -->
+  <div class="bottom-row">
+
+    <!-- PANEL 4: ALERTS -->
+    <div class="panel-box">
+      <div class="section-header mb-16">
+        <span class="section-title">🚨 Alert Feed</span>
+        <span class="section-line"></span>
+        <span class="section-count" id="alert-count">—</span>
+      </div>
+      <div class="alert-list" id="alert-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- PANEL 5: PROJECTS -->
+    <div class="panel-box">
+      <div class="section-header mb-16">
+        <span class="section-title">🏗️ Project Health</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="projects-grid" id="projects-grid">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+'use strict';
+
+// ─── Config ────────────────────────────────────────────────────────
+const DATA_URL      = 'data/status.json';
+const REFRESH_SECS  = 60;
+
+// ─── Model options (for dropdowns) ─────────────────────────────────
+const MODEL_GROUPS = [
+  { label: '🔴 Premium — Opus', options: [
+    { value: 'anthropic/claude-opus-4-6',   label: 'Opus ($15/$75 per M)' },
+  ]},
+  { label: '🟠 Standard — Sonnet', options: [
+    { value: 'anthropic/claude-sonnet-4-6', label: 'Sonnet ($3/$15 per M)' },
+  ]},
+  { label: '🟡 Budget', options: [
+    { value: 'openai/gpt-5.4-mini',         label: 'GPT-5.4-mini ($0.40/$1.60 per M)' },
+    { value: 'moonshot/kimi-k2',            label: '🟢 Kimi K2 ($0.40/$2.00 per M)' },
+    { value: 'openai/gpt-5.4-nano',         label: 'GPT-5.4-nano' },
+    { value: 'openai/gpt-4.1-mini',         label: 'GPT-4.1-mini' },
+  ]},
+  { label: '⚪ FREE — OpenRouter', options: [
+    { value: 'tencent/hy3-preview',         label: 'FREE: Tencent Hy3' },
+    { value: 'qwen/qwen3-coder',            label: 'FREE: Qwen3 Coder' },
+    { value: 'nvidia/nemotron',             label: 'FREE: NVIDIA Nemotron' },
+    { value: 'openai/gpt-oss-120b',         label: 'FREE: OpenAI gpt-oss-120b' },
+    { value: 'openai/gpt-oss-20b',          label: 'FREE: OpenAI gpt-oss-20b' },
+  ]},
+];
+
+// ─── Pie chart colors ───────────────────────────────────────────────
+const MODEL_COLORS = {
+  'anthropic/claude-opus-4-6':   '#FF6B35',
+  'anthropic/claude-sonnet-4-6': '#F0A500',
+  'openai/gpt-5.4-mini':         '#58A6FF',
+  'openai/gpt-5.4-nano':         '#BC8CFF',
+  'openai/gpt-4.1-mini':         '#3FB950',
+};
+const FALLBACK_COLORS = ['#39D353','#D29922','#F85149','#58A6FF','#BC8CFF'];
+
+// ─── Agent brand colors ─────────────────────────────────────────────
+const AGENT_COLORS = {
+  main:   '#FF6B35',  // Rob — lobster orange
+  hermes: '#9B59B6',  // Hermes — purple
+  vault:  '#E74C3C',  // Red — red
+};
+
+function getAgentColor(agentId) {
+  return AGENT_COLORS[agentId] || '#8B949E';
+}
+
+// ─── State ─────────────────────────────────────────────────────────
+let _data            = null;
+let _tickInterval    = null;
+let _countdown       = REFRESH_SECS;
+
+// ─── Utilities ─────────────────────────────────────────────────────
+function timeAgo(isoStr) {
+  if (!isoStr) return '—';
+  const diff = Date.now() - new Date(isoStr).getTime();
+  const s = Math.floor(diff / 1000);
+  if (s < 60)    return `${s}s ago`;
+  const m = Math.floor(s / 60);
+  if (m < 60)    return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24)    return `${h}h ${m % 60}m ago`;
+  return `${Math.floor(h/24)}d ago`;
+}
+
+function countdownTo(isoStr) {
+  if (!isoStr) return '—';
+  const diff = new Date(isoStr).getTime() - Date.now();
+  if (diff <= 0) return 'overdue';
+  const s = Math.floor(diff / 1000);
+  const m = Math.floor(s / 60);
+  const h = Math.floor(m / 60);
+  if (h > 24) return `${Math.floor(h/24)}d ${h%24}h`;
+  if (h > 0)  return `${h}h ${m % 60}m`;
+  return `${m}m ${s % 60}s`;
+}
+
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── Build model select HTML ────────────────────────────────────────
+function buildSelectHTML(jobId, currentModel) {
+  const groups = MODEL_GROUPS.map(g => {
+    const opts = g.options.map(o => {
+      const sel = o.value === currentModel ? ' selected' : '';
+      return `<option value="${esc(o.value)}"${sel}>${esc(o.label)}</option>`;
+    }).join('');
+    return `<optgroup label="${esc(g.label)}">${opts}</optgroup>`;
+  }).join('');
+  return `<select class="model-select" data-job-id="${esc(jobId)}" onchange="onModelChange(this)">${groups}</select>`;
+}
+
+function onModelChange(selectEl) {
+  const jobId   = selectEl.dataset.jobId;
+  const newVal  = selectEl.value;
+  const overrides = JSON.parse(localStorage.getItem('modelOverrides') || '{}');
+  overrides[jobId] = newVal;
+  localStorage.setItem('modelOverrides', JSON.stringify(overrides));
+  const tag = document.getElementById(`ptag-${jobId}`);
+  if (tag) tag.classList.add('show');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ─── EKG MONITOR ─────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+
+class EKGMonitor {
+  constructor(canvas, color, status) {
+    this.canvas      = canvas;
+    this.ctx         = canvas.getContext('2d');
+    this.color       = color;
+    this.status      = status;
+    this.points      = [];
+    this.phase       = Math.random() * Math.PI * 2; // random start so not all in sync
+    this.beatClock   = Math.floor(Math.random() * 60); // stagger beats
+    this.inBeat      = false;
+    this.beatPos     = 0;
+    this.logicalW    = 0;
+    this.logicalH    = 72;
+    this.dpr         = Math.min(window.devicePixelRatio || 1, 2);
+    this.initialized = false;
+  }
+
+  /* ── Setup canvas resolution ── */
+  _setup() {
+    const w = this.canvas.offsetWidth;
+    if (w <= 0) return false;
+    this.logicalW = w;
+    this.canvas.width  = Math.round(w * this.dpr);
+    this.canvas.height = Math.round(this.logicalH * this.dpr);
+    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    // Pre-fill buffer with center line
+    const cy = this.logicalH / 2;
+    this.points = new Array(w).fill(cy);
+    this.initialized = true;
+    return true;
+  }
+
+  /* ── Handle resize ── */
+  resize() {
+    const w = this.canvas.offsetWidth;
+    if (w <= 0 || w === this.logicalW) return;
+    this.logicalW = w;
+    this.canvas.width  = Math.round(w * this.dpr);
+    this.canvas.height = Math.round(this.logicalH * this.dpr);
+    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    // Trim or pad point buffer
+    const cy = this.logicalH / 2;
+    if (this.points.length > w) {
+      this.points = this.points.slice(this.points.length - w);
+    } else {
+      while (this.points.length < w) this.points.unshift(cy);
+    }
+  }
+
+  /* ── Generate next data point ── */
+  _nextPoint() {
+    const H  = this.logicalH;
+    const cy = H / 2;
+
+    // ── FLATLINE (error) ──────────────────────────────────
+    if (this.status === 'error') {
+      // True flatline with micro-noise
+      return cy + (Math.random() - 0.5) * 0.8;
+    }
+
+    // ── IDLE: gentle slow sine wave ───────────────────────
+    if (this.status === 'idle') {
+      this.phase += 0.02;
+      return cy - Math.sin(this.phase) * (H * 0.24);
+    }
+
+    // ── ACTIVE: realistic ECG pattern ────────────────────
+    // Beat every ~60 frames at 60fps ≈ 1 beat/sec = 60 BPM
+    const BEAT_INTERVAL = 62;
+    this.beatClock++;
+
+    if (!this.inBeat && this.beatClock >= BEAT_INTERVAL) {
+      this.inBeat   = true;
+      this.beatPos  = 0;
+      this.beatClock = 0;
+    }
+
+    if (this.inBeat) {
+      const bp = this.beatPos++;
+
+      //  P wave  (0-10)
+      if (bp < 10)  return cy - Math.sin(bp / 10 * Math.PI) * (H * 0.10);
+      //  PR seg  (10-16)
+      if (bp < 16)  return cy;
+      //  Q dip   (16-19)
+      if (bp < 19)  return cy + H * 0.16;
+      //  R spike (19-24)  ← the tall sharp peak
+      if (bp < 24)  return cy - H * 0.46 * Math.sin((bp - 19) / 5 * Math.PI);
+      //  S wave  (24-28)
+      if (bp < 28)  return cy + H * 0.09 * Math.sin((bp - 24) / 4 * Math.PI);
+      //  ST seg  (28-36)
+      if (bp < 36)  return cy;
+      //  T wave  (36-56)
+      if (bp < 56)  return cy - H * 0.13 * Math.sin((bp - 36) / 20 * Math.PI);
+      //  Baseline return
+      this.inBeat = false;
+      return cy;
+    }
+
+    // Quiet baseline with tiny noise
+    return cy + (Math.random() - 0.5) * 0.4;
+  }
+
+  /* ── Update state (call once per frame) ── */
+  update() {
+    if (!this.initialized) {
+      if (!this._setup()) return;
+    }
+
+    const pt     = this._nextPoint();
+    const margin = 3;
+    const clamped = Math.max(margin, Math.min(this.logicalH - margin, pt));
+    this.points.push(clamped);
+    if (this.points.length > this.logicalW) this.points.shift();
+  }
+
+  /* ── Draw the EKG frame ── */
+  draw() {
+    if (!this.initialized || this.points.length < 2) return;
+
+    const { ctx } = this;
+    const W = this.logicalW;
+    const H = this.logicalH;
+
+    // Background
+    ctx.fillStyle = '#080D11';
+    ctx.fillRect(0, 0, W, H);
+
+    // ── EKG paper grid (batched paths for performance) ──
+    // Minor grid (every 5px)
+    ctx.beginPath();
+    for (let x = 0; x <= W; x += 5) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+    for (let y = 0; y <= H; y += 5) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+    ctx.strokeStyle = 'rgba(255,255,255,0.025)';
+    ctx.lineWidth   = 0.5;
+    ctx.stroke();
+
+    // Major grid (every 20px)
+    ctx.beginPath();
+    for (let x = 0; x <= W; x += 20) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+    for (let y = 0; y <= H; y += 20) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+    ctx.strokeStyle = 'rgba(255,255,255,0.065)';
+    ctx.lineWidth   = 0.5;
+    ctx.stroke();
+
+    // Center baseline (subtle)
+    ctx.beginPath();
+    ctx.moveTo(0, H / 2);
+    ctx.lineTo(W, H / 2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+    ctx.lineWidth   = 1;
+    ctx.stroke();
+
+    // ── Waveform: three-pass fading trail ──
+    const lineColor = this.status === 'error' ? '#F85149' : this.color;
+    const len       = this.points.length;
+    const t1        = Math.floor(len * 0.35);
+    const t2        = Math.floor(len * 0.68);
+
+    ctx.lineJoin = 'round';
+    ctx.lineCap  = 'round';
+
+    // Segment 1: oldest — very faint
+    ctx.globalAlpha = 0.12;
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth   = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(0, this.points[0]);
+    for (let i = 1; i < t1; i++) ctx.lineTo(i, this.points[i]);
+    ctx.stroke();
+
+    // Segment 2: middle — half bright
+    ctx.globalAlpha = 0.42;
+    ctx.lineWidth   = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(t1, this.points[t1]);
+    for (let i = t1 + 1; i < t2; i++) ctx.lineTo(i, this.points[i]);
+    ctx.stroke();
+
+    // Segment 3: recent — full brightness + glow
+    ctx.globalAlpha  = 0.95;
+    ctx.lineWidth    = 1.6;
+    ctx.shadowColor  = lineColor;
+    ctx.shadowBlur   = this.status === 'active' ? 6 : 4;
+    ctx.beginPath();
+    ctx.moveTo(t2, this.points[t2]);
+    for (let i = t2 + 1; i < len; i++) ctx.lineTo(i, this.points[i]);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Error: draw a red glow bar across center
+    if (this.status === 'error') {
+      ctx.globalAlpha = 0.08;
+      ctx.fillStyle = '#F85149';
+      ctx.fillRect(0, H / 2 - 4, W, 8);
+    }
+
+    ctx.globalAlpha = 1;
+
+    // ── Glowing dot at the current write position ──
+    const lastX = len - 1;
+    const lastY = this.points[lastX];
+
+    ctx.shadowColor = lineColor;
+    ctx.shadowBlur  = 14;
+    ctx.fillStyle   = lineColor;
+    ctx.beginPath();
+    ctx.arc(lastX, lastY, 2.8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur  = 0;
+  }
+}
+
+// ─── EKG Animation System ──────────────────────────────────────────
+let _ekgMonitors = {};
+let _rafId       = null;
+
+function _ekgLoop() {
+  const monitors = Object.values(_ekgMonitors);
+  for (let i = 0; i < monitors.length; i++) {
+    const m = monitors[i];
+    m.resize();
+    m.update();
+    m.draw();
+  }
+  _rafId = requestAnimationFrame(_ekgLoop);
+}
+
+function startEKGLoop() {
+  if (_rafId) cancelAnimationFrame(_rafId);
+  _rafId = requestAnimationFrame(_ekgLoop);
+}
+
+function stopEKGLoop() {
+  if (_rafId) { cancelAnimationFrame(_rafId); _rafId = null; }
+  _ekgMonitors = {};
+}
+
+// ─── RENDER: Agents (EKG cards) ────────────────────────────────────
+function renderAgents(agents) {
+  const el = document.getElementById('agents-row');
+  document.getElementById('agent-count').textContent = agents.length;
+
+  // Stop previous animation loop
+  stopEKGLoop();
+
+  el.innerHTML = agents.map(a => {
+    const color = getAgentColor(a.id);
+    const sc    = a.status;
+
+    // Status badge
+    let badgeHTML;
+    if (sc === 'active') {
+      badgeHTML = `<span class="status-badge active"><span class="pulse-dot"></span>Active</span>`;
+    } else if (sc === 'idle') {
+      badgeHTML = `<span class="status-badge idle">⚪ Idle</span>`;
+    } else if (sc === 'queued') {
+      badgeHTML = `<span class="status-badge queued">🟡 Queued</span>`;
+    } else if (sc === 'error' || sc === 'failed') {
+      badgeHTML = `<span class="status-badge failed">🔴 Error</span>`;
+    } else {
+      badgeHTML = `<span class="status-badge idle">⚪ ${esc(sc)}</span>`;
+    }
+
+    const taskText  = a.currentTask || 'No active task';
+    const taskClass = a.currentTask ? '' : 'empty';
+    const elapsed   = a.elapsedMinutes
+      ? `<div class="agent-meta-item">⏱ <strong>${a.elapsedMinutes}m</strong> elapsed</div>`
+      : '';
+
+    // Sub-agent bouncing dots — shown when active
+    let subDotsHTML = '';
+    if (sc === 'active') {
+      subDotsHTML = `
+        <div class="agent-subagent-dots">
+          <span class="sub-dot" style="background:${color}"></span>
+          <span class="sub-dot" style="background:${color}"></span>
+          <span class="sub-dot" style="background:${color};opacity:0.7"></span>
+          <span class="sub-dot-label">sub-agents running</span>
+        </div>`;
+    }
+
+    return `
+      <div class="agent-card ${sc}" style="border-top-color:${color};">
+        <div class="agent-header">
+          <span class="agent-name">${esc(a.name)}</span>
+          ${badgeHTML}
+        </div>
+        <div class="ekg-canvas-wrap">
+          <canvas class="ekg-canvas" id="ekg-${esc(a.id)}"></canvas>
+        </div>
+        <div class="agent-task ${taskClass}" title="${esc(taskText)}">${esc(taskText)}</div>
+        <div class="agent-meta">
+          <div class="agent-meta-item">🤖 <strong>${esc(a.model)}</strong></div>
+          ${elapsed}
+        </div>
+        ${subDotsHTML}
+      </div>`;
+  }).join('');
+
+  // Initialize EKG monitors after DOM paint
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      agents.forEach(a => {
+        const canvas = document.getElementById(`ekg-${a.id}`);
+        if (!canvas) return;
+        // Map agent status to EKG mode
+        let ekgStatus = a.status;
+        if (a.status === 'failed' || a.status === 'error') ekgStatus = 'error';
+        else if (a.status !== 'active') ekgStatus = 'idle';
+        _ekgMonitors[a.id] = new EKGMonitor(canvas, getAgentColor(a.id), ekgStatus);
+      });
+      startEKGLoop();
+    });
+  });
+}
+
+// ─── RENDER: Jobs ───────────────────────────────────────────────────
+function renderJobs(jobs) {
+  const el        = document.getElementById('jobs-grid');
+  const overrides = JSON.parse(localStorage.getItem('modelOverrides') || '{}');
+  document.getElementById('jobs-count').textContent = jobs.length;
+
+  el.innerHTML = jobs.map(job => {
+    const sev          = jobSeverity(job);
+    const currentModel = overrides[job.id] || job.model;
+    const isPending    = overrides[job.id] && overrides[job.id] !== job.model;
+
+    const lastRunIcon = job.lastStatus === 'ok'
+      ? '✅' : job.lastStatus === 'error'
+      ? '❌' : '⏳';
+    const lastRunText = job.lastRun
+      ? `${lastRunIcon} ${timeAgo(job.lastRun)}`
+      : '⏳ Never run';
+
+    const nextCountdownClass = countdownTo(job.nextRun) === 'overdue' ? 'overdue' : '';
+
+    const errorBadge = job.consecutiveErrors > 0
+      ? `<span class="error-badge">${job.consecutiveErrors}× errors</span>`
+      : '';
+
+    const errorBlock = job.lastError
+      ? `<div class="error-text">⚠️ ${esc(job.lastError)}</div>`
+      : '';
+
+    const durText = job.lastDurationMs
+      ? `${(job.lastDurationMs / 1000).toFixed(1)}s`
+      : '—';
+
+    const selectHTML = buildSelectHTML(job.id, currentModel);
+
+    return `
+      <div class="job-card status-${sev}" id="jcard-${job.id}">
+
+        <div class="job-header-row">
+          <span class="job-name">${esc(job.name)}</span>
+          ${errorBadge}
+        </div>
+
+        <div class="job-stats">
+          <div class="stat-item">
+            <span class="stat-label">Schedule</span>
+            <span class="stat-value">${esc(job.schedule)}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Last Run</span>
+            <span class="stat-value">${lastRunText}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Next Run</span>
+            <span class="stat-value countdown-val ${nextCountdownClass}" data-next="${esc(job.nextRun || '')}" id="cd-${job.id}">
+              ${countdownTo(job.nextRun)}
+            </span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Duration</span>
+            <span class="stat-value">${durText}</span>
+          </div>
+        </div>
+
+        ${errorBlock}
+
+        <div class="model-section">
+          <div class="model-section-header">
+            <span class="model-label-text">Model</span>
+            <span class="pending-tag ${isPending ? 'show' : ''}" id="ptag-${job.id}">● PENDING CHANGE</span>
+          </div>
+          ${selectHTML}
+        </div>
+
+        <div class="rec-box">
+          <div class="rec-box-title">🦞 Rob's Pick: ${esc(job.recommendedModel)}</div>
+          <div class="rec-box-reason">${esc(job.recommendedReason)}</div>
+        </div>
+
+        <div class="job-footer">
+          <span class="delivery-badge ${esc(job.deliveryStatus)}">
+            ${deliveryIcon(job)} ${esc(job.deliveryStatus)}
+          </span>
+          <span class="cost-badge">~<strong>$${job.estimatedCostPerRun.toFixed(3)}</strong>/run</span>
+        </div>
+
+      </div>
+    `;
+  }).join('');
+}
+
+// ─── Job helpers ────────────────────────────────────────────────────
+function jobSeverity(job) {
+  if (job.lastStatus === null && job.consecutiveErrors === 0) return 'pending';
+  if (job.consecutiveErrors >= 3)  return 'critical';
+  if (job.consecutiveErrors >= 1)  return 'warning';
+  return 'ok';
+}
+
+function deliveryIcon(job) {
+  const d = job.deliveryStatus;
+  if (d === 'delivered') return '✅';
+  if (d === 'failed')    return '❌';
+  return '⏳';
+}
+
+// ─── RENDER: Pie Chart ─────────────────────────────────────────────
+function renderPieChart(modelUsage) {
+  const canvas  = document.getElementById('pie-canvas');
+  const ctx     = canvas.getContext('2d');
+  const entries = Object.entries(modelUsage.last7days);
+  const total   = entries.reduce((s, [, v]) => s + v.cost, 0);
+
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+  const outerR = Math.min(cx, cy) - 8;
+  const innerR = outerR * 0.52;
+
+  ctx.clearRect(0, 0, W, H);
+
+  let angle = -Math.PI / 2;
+  const colorMap = {};
+
+  entries.forEach(([model, usage], i) => {
+    const slice = (usage.cost / total) * 2 * Math.PI;
+    const color = MODEL_COLORS[model] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
+    colorMap[model] = color;
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, outerR, angle, angle + slice);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+
+    ctx.strokeStyle = '#161B22';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    angle += slice;
+  });
+
+  // Donut hole
+  ctx.beginPath();
+  ctx.arc(cx, cy, innerR, 0, 2 * Math.PI);
+  ctx.fillStyle = '#161B22';
+  ctx.fill();
+
+  // Center text
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#E6EDF3';
+  ctx.font = `bold 17px system-ui`;
+  ctx.fillText(`$${total.toFixed(2)}`, cx, cy - 9);
+  ctx.font = `10px system-ui`;
+  ctx.fillStyle = '#8B949E';
+  ctx.fillText('7-day spend', cx, cy + 9);
+
+  // Legend
+  const legendEl = document.getElementById('model-legend');
+  legendEl.innerHTML = entries.map(([model, usage], i) => {
+    const color = colorMap[model] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
+    const pct   = total > 0 ? ((usage.cost / total) * 100).toFixed(0) : '0';
+    const name  = model.split('/').pop();
+    return `
+      <div class="legend-row">
+        <span class="legend-swatch" style="background:${color}"></span>
+        <span class="legend-model" title="${esc(model)}">${esc(name)}</span>
+        <span class="legend-pct">${pct}%</span>
+        <span class="legend-cost">$${usage.cost.toFixed(2)}</span>
+      </div>
+    `;
+  }).join('');
+
+  // Savings block
+  const savings = modelUsage.potentialSavings;
+  document.getElementById('savings-num').textContent    = `$${savings.ifFreeModelsUsed.toFixed(2)}/mo`;
+  document.getElementById('savings-desc').textContent   = savings.description;
+  document.getElementById('cost-7d').textContent        = `$${modelUsage.totalCost7days.toFixed(2)}`;
+  document.getElementById('cost-monthly').textContent   = `$${modelUsage.projectedMonthlyCost.toFixed(2)}`;
+}
+
+// ─── RENDER: Alerts ────────────────────────────────────────────────
+function renderAlerts(alerts) {
+  const dismissed = JSON.parse(localStorage.getItem('dismissedAlerts') || '[]');
+  const el        = document.getElementById('alert-list');
+
+  const sorted = [...alerts].sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
+
+  const active = sorted.filter(a => !dismissed.includes(a.id));
+  document.getElementById('alert-count').textContent = active.length;
+
+  if (sorted.length === 0) {
+    el.innerHTML = `<div class="no-alerts">No alerts ✓</div>`;
+    return;
+  }
+
+  el.innerHTML = sorted.map(alert => {
+    const isDismissed = dismissed.includes(alert.id);
+    return `
+      <div class="alert-item ${isDismissed ? 'dismissed' : ''}" id="alrt-${esc(alert.id)}">
+        <span class="alert-sev ${esc(alert.severity)}">${esc(alert.severity)}</span>
+        <div class="alert-body">
+          <div class="alert-job">${esc(alert.job)}</div>
+          <div class="alert-msg">${esc(alert.message)}</div>
+          <div class="alert-time">${timeAgo(alert.timestamp)}</div>
+        </div>
+        <button class="btn-dismiss" onclick="dismissAlert('${esc(alert.id)}')" title="Dismiss">✕</button>
+      </div>
+    `;
+  }).join('');
+
+  if (active.length === 0) {
+    el.insertAdjacentHTML('beforeend', `<div class="no-alerts">All alerts dismissed ✓</div>`);
+  }
+}
+
+function dismissAlert(id) {
+  const dismissed = JSON.parse(localStorage.getItem('dismissedAlerts') || '[]');
+  if (!dismissed.includes(id)) {
+    dismissed.push(id);
+    localStorage.setItem('dismissedAlerts', JSON.stringify(dismissed));
+  }
+  const el = document.getElementById(`alrt-${id}`);
+  if (el) el.classList.add('dismissed');
+  if (_data) renderAlerts(_data.alerts);
+}
+
+// ─── RENDER: Projects ──────────────────────────────────────────────
+function renderProjects(projectHealth) {
+  const el = document.getElementById('projects-grid');
+  el.innerHTML = Object.values(projectHealth).map(p => `
+    <div class="proj-card ${esc(p.status)}">
+      <div class="proj-header">
+        <span class="proj-emoji">${p.emoji}</span>
+        <span class="proj-name">${esc(p.label)}</span>
+      </div>
+      <div class="proj-status ${esc(p.status)}">${p.status.toUpperCase()}</div>
+      <div class="proj-metric">${esc(p.metric)}</div>
+      <div class="proj-detail">${esc(p.detail)}</div>
+    </div>
+  `).join('');
+}
+
+// ─── Countdown tick ────────────────────────────────────────────────
+function tick() {
+  _countdown--;
+  const el = document.getElementById('countdown-secs');
+  if (el) el.textContent = Math.max(0, _countdown);
+
+  if (_countdown <= 0) {
+    _countdown = REFRESH_SECS;
+    loadData();
+  }
+
+  // Update all job countdown displays
+  document.querySelectorAll('[data-next]').forEach(el => {
+    const next = el.dataset.next;
+    if (!next) return;
+    const val = countdownTo(next);
+    el.textContent = val;
+    if (val === 'overdue') el.classList.add('overdue');
+    else el.classList.remove('overdue');
+  });
+}
+
+// ─── Load data ─────────────────────────────────────────────────────
+async function loadData() {
+  const btn = document.getElementById('refresh-btn');
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span> Loading`;
+
+  try {
+    const res = await fetch(`${DATA_URL}?_=${Date.now()}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    _data = await res.json();
+
+    renderAgents(_data.agents);
+    renderJobs(_data.jobs);
+    renderPieChart(_data.modelUsage);
+    renderAlerts(_data.alerts);
+    renderProjects(_data.projectHealth);
+
+    document.getElementById('updated-at').textContent = timeAgo(_data.generatedAt);
+  } catch (err) {
+    console.error('Data load error:', err);
+    document.getElementById('updated-at').textContent = '⚠️ Load failed';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<span>⟳</span> Refresh`;
+    _countdown = REFRESH_SECS;
+  }
+}
+
+function triggerRefresh() {
+  _countdown = REFRESH_SECS;
+  loadData();
+}
+
+// ─── Init ──────────────────────────────────────────────────────────
+loadData();
+if (_tickInterval) clearInterval(_tickInterval);
+_tickInterval = setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
