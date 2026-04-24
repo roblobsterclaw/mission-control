@@ -1,106 +1,6 @@
 {
-  "generatedAt": "2026-04-24T00:32:27.189572+00:00",
+  "generatedAt": "2026-04-24T06:20:35.301192+00:00",
   "jobs": [
-    {
-      "id": "9ecaa6d2",
-      "fullId": "9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13",
-      "name": "🦞 Lobster Press Auto-Creator",
-      "project": "lobster-press",
-      "enabled": true,
-      "schedule": "Every 30 min",
-      "scheduleCron": "*/30 * * * *",
-      "lastRun": "2026-04-24T00:30:11.157000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 8586,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T01:00:00+00:00",
-      "model": "anthropic/claude-sonnet-4-6",
-      "recommendedModel": "anthropic/claude-sonnet-4-6",
-      "recommendedReason": "Complex creative/analysis — Sonnet is already optimal ✅",
-      "estimatedCostPerRun": 0.01391,
-      "deliveryStatus": "pending"
-    },
-    {
-      "id": "db7fc6fb",
-      "fullId": "db7fc6fb-928d-4912-8094-58b9a5a0f623",
-      "name": "🔑 Gmail Token Refresh",
-      "project": "system",
-      "enabled": true,
-      "schedule": "Every 30 min",
-      "scheduleCron": "*/30 * * * *",
-      "lastRun": "2026-04-24T00:30:00.011000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 11146,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T01:00:00+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "delivered"
-    },
-    {
-      "id": "fe8093f1",
-      "fullId": "fe8093f1-6c84-499d-b0d2-308acb7d6e72",
-      "name": "🦞 Lobster Press Scheduled Posts",
-      "project": "lobster-press",
-      "enabled": true,
-      "schedule": "Every hour",
-      "scheduleCron": "0 * * * *",
-      "lastRun": "2026-04-24T00:01:56.663000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 13660,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T01:01:56.651000+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "delivered"
-    },
-    {
-      "id": "24d7df27",
-      "fullId": "24d7df27-4f8d-4ba0-b640-b22704252104",
-      "name": "check-rob-gmail",
-      "project": "system",
-      "enabled": true,
-      "schedule": "Every 3h",
-      "scheduleCron": "every:3h",
-      "lastRun": "2026-04-23T22:16:31.819000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 34826,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T01:16:31.819000+00:00",
-      "model": "openrouter/qwen/qwen3-coder:free",
-      "recommendedModel": "openrouter/qwen/qwen3-coder:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "delivered"
-    },
-    {
-      "id": "37d3ee4f",
-      "fullId": "37d3ee4f-2158-4687-a9a5-422a60240c7d",
-      "name": "🦞 World Cup Pool — Nightly Backup",
-      "project": "world-cup-pool",
-      "enabled": true,
-      "schedule": "Daily midnight",
-      "scheduleCron": "0 0 * * *",
-      "lastRun": "2026-04-23T04:00:00.013000+00:00",
-      "lastStatus": "error",
-      "lastDurationMs": 14121,
-      "lastError": "7 consecutive failures — needs investigation",
-      "consecutiveErrors": 7,
-      "nextRun": "2026-04-24T04:00:00+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "failed"
-    },
     {
       "id": "9eb6bcc2",
       "fullId": "9eb6bcc2-66b6-416d-ac19-622db14092bc",
@@ -117,6 +17,86 @@
       "nextRun": "2026-04-24T06:20:21.799000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "9ecaa6d2",
+      "fullId": "9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13",
+      "name": "🦞 Lobster Press Auto-Creator",
+      "project": "lobster-press",
+      "enabled": true,
+      "schedule": "Every 30 min",
+      "scheduleCron": "*/30 * * * *",
+      "lastRun": "2026-04-24T06:00:11.192000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 8243,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-24T06:30:00+00:00",
+      "model": "anthropic/claude-sonnet-4-6",
+      "recommendedModel": "anthropic/claude-sonnet-4-6",
+      "recommendedReason": "Complex creative/analysis — Sonnet is already optimal ✅",
+      "estimatedCostPerRun": 0.01335,
+      "deliveryStatus": "pending"
+    },
+    {
+      "id": "db7fc6fb",
+      "fullId": "db7fc6fb-928d-4912-8094-58b9a5a0f623",
+      "name": "🔑 Gmail Token Refresh",
+      "project": "system",
+      "enabled": true,
+      "schedule": "Every 30 min",
+      "scheduleCron": "*/30 * * * *",
+      "lastRun": "2026-04-24T06:00:00.022000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 11170,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-24T06:30:00+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "fe8093f1",
+      "fullId": "fe8093f1-6c84-499d-b0d2-308acb7d6e72",
+      "name": "🦞 Lobster Press Scheduled Posts",
+      "project": "lobster-press",
+      "enabled": true,
+      "schedule": "Every hour",
+      "scheduleCron": "0 * * * *",
+      "lastRun": "2026-04-24T06:01:56.663000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 14502,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-24T07:01:56.651000+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "24d7df27",
+      "fullId": "24d7df27-4f8d-4ba0-b640-b22704252104",
+      "name": "check-rob-gmail",
+      "project": "system",
+      "enabled": true,
+      "schedule": "Every 3h",
+      "scheduleCron": "every:3h",
+      "lastRun": "2026-04-24T04:16:31.839000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 50138,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-24T07:16:31.839000+00:00",
+      "model": "openrouter/qwen/qwen3-coder:free",
+      "recommendedModel": "openrouter/qwen/qwen3-coder:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
       "deliveryStatus": "delivered"
@@ -179,6 +159,26 @@
       "recommendedModel": "anthropic/claude-sonnet-4-6",
       "recommendedReason": "Complex reasoning tasks need Sonnet-level quality",
       "estimatedCostPerRun": 0.02807,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "37d3ee4f",
+      "fullId": "37d3ee4f-2158-4687-a9a5-422a60240c7d",
+      "name": "🦞 World Cup Pool — Nightly Backup",
+      "project": "world-cup-pool",
+      "enabled": true,
+      "schedule": "Daily midnight",
+      "scheduleCron": "0 0 * * *",
+      "lastRun": "2026-04-24T04:00:00.017000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 17760,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-25T04:00:00+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
       "deliveryStatus": "delivered"
     },
     {
@@ -266,9 +266,9 @@
     {
       "id": "main",
       "name": "Rob Lobster 🦞",
-      "status": "active",
+      "status": "idle",
       "model": "anthropic/claude-opus-4-6",
-      "currentTask": "Active conversation with Joe",
+      "currentTask": null,
       "elapsedMinutes": 0,
       "subagents": []
     },
@@ -277,7 +277,7 @@
       "name": "Hermes",
       "status": "online",
       "model": "moonshotai/kimi-k2-thinking",
-      "currentTask": "Last session: 2026-04-23 17:32 UTC",
+      "currentTask": "Last session: 2026-04-23 21:31 UTC",
       "elapsedMinutes": 0,
       "processAlive": true,
       "subagents": []
@@ -295,24 +295,24 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4919,
-        "outputTokens": 835508,
-        "cost": 1215.4397
+        "inputTokens": 5074,
+        "outputTokens": 852856,
+        "cost": 1226.0847
       },
       "anthropic/claude-sonnet-4-6": {
-        "inputTokens": 1045,
-        "outputTokens": 817013,
-        "cost": 37.875
+        "inputTokens": 1041,
+        "outputTokens": 816899,
+        "cost": 37.8527
       },
       "openai/gpt-5.4-mini": {
-        "inputTokens": 229057,
-        "outputTokens": 27902,
-        "cost": 0.3894
+        "inputTokens": 173472,
+        "outputTokens": 25178,
+        "cost": 0.3195
       },
       "openai/gpt-5.4-nano": {
-        "inputTokens": 395105,
-        "outputTokens": 2956,
-        "cost": 0.0905
+        "inputTokens": 219984,
+        "outputTokens": 1447,
+        "cost": 0.05
       },
       "openai/gpt-4.1-mini": {
         "inputTokens": 27699,
@@ -320,22 +320,14 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1253.8061,
-    "projectedMonthlyCost": 5373.45,
+    "totalCost7days": 1264.3184,
+    "projectedMonthlyCost": 5418.51,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5373.45,
+      "ifFreeModelsUsed": 5418.51,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
-  "alerts": [
-    {
-      "id": "err-37d3ee4f-7",
-      "severity": "critical",
-      "job": "🦞 World Cup Pool — Nightly Backup",
-      "message": "7 consecutive errors — last run failed",
-      "timestamp": "2026-04-23T04:00:00.013000+00:00"
-    }
-  ],
+  "alerts": [],
   "projectHealth": {
     "lobster-press": {
       "label": "Lobster Press",
@@ -347,8 +339,8 @@
     "world-cup-pool": {
       "label": "World Cup Pool",
       "emoji": "⚽",
-      "status": "failed",
-      "metric": "0/1 jobs healthy",
+      "status": "healthy",
+      "metric": "1/1 jobs healthy",
       "detail": "Nightly backup + standings"
     },
     "ttd": {
