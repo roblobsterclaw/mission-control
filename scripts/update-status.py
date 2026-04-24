@@ -225,6 +225,17 @@ def build_agents(sessions: dict) -> list:
     agents = []
 
     # ── Rob / Main ────────────────────────────────────────────────────
+    # Check if Rob's gateway process is alive
+    rob_process_alive = False
+    try:
+        ps_result = subprocess.run(
+            ["pgrep", "-f", "openclaw-gateway"],
+            capture_output=True, text=True, timeout=5
+        )
+        rob_process_alive = ps_result.returncode == 0
+    except:
+        pass
+
     main_keys = [k for k in sessions
                  if k.startswith("agent:main:")
                  and "subagent" not in k
@@ -332,6 +343,30 @@ def build_agents(sessions: dict) -> list:
     # ── Hermes ────────────────────────────────────────────────────────
     hermes_updated = 0
     hermes_task    = None
+    hermes_process_alive = False
+
+    # Check if Hermes process is actually running
+    try:
+        ps_result = subprocess.run(
+            ["pgrep", "-f", "hermes_cli.main"],
+            capture_output=True, text=True, timeout=5
+        )
+        hermes_process_alive = ps_result.returncode == 0
+    except:
+        pass
+
+    # Read Hermes config for current model
+    hermes_model = "moonshotai/kimi-k2-thinking"
+    hermes_config_path = Path.home() / ".hermes/config.yaml"
+    if hermes_config_path.exists():
+        try:
+            with open(hermes_config_path) as f:
+                for line in f:
+                    if line.strip().startswith("default:"):
+                        hermes_model = line.strip().split("default:")[1].strip()
+                        break
+        except:
+            pass
 
     if HERMES_SESS_DIR.exists():
         files = list(HERMES_SESS_DIR.glob("*.jsonl"))
@@ -348,16 +383,31 @@ def build_agents(sessions: dict) -> list:
                     f"{time_str[:2]}:{time_str[2:4]} UTC"
                 )
 
-    hermes_active = (now - hermes_updated) < ACTIVE_THRESHOLD_MS if hermes_updated else False
+    # Hermes is "active" if his process is running AND session was touched recently
+    # OR if his process is running and he has a recent session (within 15 min)
+    hermes_session_recent = (now - hermes_updated) < (15 * 60 * 1000) if hermes_updated else False
+    hermes_active = hermes_process_alive and hermes_session_recent
+
+    # If process is alive but session isn't recent, he's "online" (waiting)
+    if hermes_process_alive and not hermes_active:
+        hermes_status = "online"
+        hermes_task = hermes_task or "Standing by — process running"
+    elif hermes_active:
+        hermes_status = "active"
+    else:
+        hermes_status = "offline"
+        hermes_task = "Process not running" if not hermes_process_alive else hermes_task
+
     hermes_elapsed = int((now - hermes_updated) / 60_000) if hermes_active and hermes_updated else 0
 
     agents.append({
         "id":             "hermes",
         "name":           "Hermes",
-        "status":         "active" if hermes_active else "idle",
-        "model":          "openai/gpt-5.4-mini",
+        "status":         hermes_status,
+        "model":          hermes_model,
         "currentTask":    hermes_task,
         "elapsedMinutes": hermes_elapsed,
+        "processAlive":   hermes_process_alive,
         "subagents":      [],
     })
 
