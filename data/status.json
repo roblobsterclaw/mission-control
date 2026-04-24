@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T00:15:33.037449+00:00",
+  "generatedAt": "2026-04-24T00:20:36.161744+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 5m",
       "scheduleCron": "every:5m",
-      "lastRun": "2026-04-24T00:10:21.774000+00:00",
+      "lastRun": "2026-04-24T00:15:21.787000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 18733,
+      "lastDurationMs": 15994,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T00:15:21.774000+00:00",
+      "nextRun": "2026-04-24T00:20:21.787000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -294,9 +294,9 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 4883,
-        "outputTokens": 830872,
-        "cost": 1209.8049
+        "inputTokens": 4887,
+        "outputTokens": 831078,
+        "cost": 1209.8321
       },
       "anthropic/claude-sonnet-4-6": {
         "inputTokens": 1041,
@@ -309,9 +309,9 @@
         "cost": 0.3894
       },
       "openai/gpt-5.4-nano": {
-        "inputTokens": 409594,
-        "outputTokens": 3056,
-        "cost": 0.0938
+        "inputTokens": 395105,
+        "outputTokens": 2956,
+        "cost": 0.0905
       },
       "openai/gpt-4.1-mini": {
         "inputTokens": 27699,
@@ -319,10 +319,10 @@
         "cost": 0.0115
       }
     },
-    "totalCost7days": 1248.0996,
-    "projectedMonthlyCost": 5349.0,
+    "totalCost7days": 1248.1235,
+    "projectedMonthlyCost": 5349.1,
     "potentialSavings": {
-      "ifFreeModelsUsed": 5349.0,
+      "ifFreeModelsUsed": 5349.1,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
