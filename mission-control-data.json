@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-25T08:32:41.511385",
+    "generated_at": "2026-04-25T08:47:30.904396",
     "generated_by": "refresh-mission-control.py v3.0",
     "workspace": "/Users/joemac/.openclaw/workspace",
     "version": "3.0"
@@ -16,7 +16,7 @@
       "gateway": "active",
       "cronJobs": 12,
       "memoryMB": 148,
-      "last_checked": "2026-04-25T08:32:41.500596"
+      "last_checked": "2026-04-25T08:47:30.895232"
     },
     {
       "name": "Hermes \ud83c\udfdb\ufe0f",
@@ -28,7 +28,7 @@
       "gateway": "active",
       "cronJobs": 4,
       "memoryMB": 62,
-      "last_checked": "2026-04-25T08:32:41.500599"
+      "last_checked": "2026-04-25T08:47:30.895235"
     },
     {
       "name": "Red \ud83d\udd34",
@@ -40,20 +40,20 @@
       "gateway": "inactive",
       "cronJobs": 0,
       "memoryMB": 0,
-      "last_checked": "2026-04-25T08:32:41.500601"
+      "last_checked": "2026-04-25T08:47:30.895237"
     }
   ],
   "rob_health": {
     "gateway_online": true,
     "errors": [
-      "2026-04-25T08:30:26.795-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
-      "2026-04-25T08:30:30.067-04:00 [tools] exec failed: exec denied: allowlist miss raw_params={\"command\":\"python3 /Users/joemac/.openclaw/workspace/projects/lobster-press/auto-creator.py\",\"workdir\":\"/Users/joemac/.openclaw/workspace\",\"yieldMs\":10000,\"timeout\":120,\"security\":\"allowlist\",\"ask\":\"off\"}",
-      "2026-04-25T08:30:38.015-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none",
-      "2026-04-25T08:31:19.220-04:00 [agents/auth-profiles] ignored invalid auth profile entries during store load",
-      "2026-04-25T08:31:19.222-04:00 [reload] config change requires gateway restart (env.OPENROUTER_MGMT_KEY) \u2014 deferring until 4 operation(s), 1 reply(ies), 2 embedded run(s), 1 task run(s) complete"
+      "2026-04-25T08:33:04.676-04:00 [ws] closed before connect conn=312a57e3-04c9-49ff-9f5b-43834f416331 peer=127.0.0.1:65298->127.0.0.1:18789 remote=127.0.0.1 fwd=n/a origin=http://127.0.0.1:18789 host=127.0.0.1:18789 ua=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 code=1008 reason=unauthorized: gateway token mismatch (open the dashboard URL and paste the token in Control UI settings)",
+      "2026-04-25T08:34:32.668-04:00 [agent/embedded] workspace bootstrap file AGENTS.md is 14248 chars (limit 12000); truncating in injected context (sessionKey=agent:main:telegram:direct:8612618386)",
+      "2026-04-25T08:34:32.668-04:00 [agent/embedded] workspace bootstrap file MEMORY.md is 27441 chars (limit 12000); truncating in injected context (sessionKey=agent:main:telegram:direct:8612618386)",
+      "2026-04-25T08:46:59.323-04:00 [diagnostic] stuck session: sessionId=main sessionKey=agent:main:telegram:direct:8612618386 state=processing age=132s queueDepth=1",
+      "2026-04-25T08:47:29.352-04:00 [diagnostic] stuck session: sessionId=main sessionKey=agent:main:telegram:direct:8612618386 state=processing age=162s queueDepth=1"
     ],
     "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
-    "checked_at": "2026-04-25T08:32:41.451428"
+    "checked_at": "2026-04-25T08:47:30.871632"
   },
   "hermes_health": {
     "gateway_online": true,
@@ -104,7 +104,7 @@
       "gateway": "/Users/joemac/.hermes/logs/gateway.log",
       "errors": "/Users/joemac/.hermes/logs/errors.log"
     },
-    "checked_at": "2026-04-25T08:32:41.469810"
+    "checked_at": "2026-04-25T08:47:30.884800"
   },
   "taskboard": {
     "backlog": [],

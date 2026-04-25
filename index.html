@@ -1415,7 +1415,7 @@ async function fetchMissionData(){
 }
 
 // ── AI Cost Screen ──────────────────────────────────────────────
-const MGMT_KEY = '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';
+// Cost data loaded from pre-fetched JSON (key stays server-side)
 let costData = null;
 let costLoading = false;
 
@@ -1437,13 +1437,9 @@ const MODEL_LABELS = {
 async function fetchCostData() {
   costLoading = true;
   try {
-    const [keyRes, actRes] = await Promise.all([
-      fetch('https://openrouter.ai/api/v1/auth/key', { headers: { 'Authorization': 'Bearer ' + MGMT_KEY } }),
-      fetch('https://openrouter.ai/api/v1/activity?offset=0&limit=500', { headers: { 'Authorization': 'Bearer ' + MGMT_KEY } })
-    ]);
-    const keyJson = await keyRes.json();
-    const actJson = await actRes.json();
-    costData = { key: keyJson.data, activity: actJson.data || [] };
+    const res = await fetch('cost-data-live.json?t=' + Date.now());
+    const d = await res.json();
+    costData = { key: d.summary || {}, activity: d.activity || [], updated: d.updated };
   } catch(e) {
     costData = { error: e.message };
   }
@@ -1458,8 +1454,11 @@ function renderCosts() {
 
   const k = costData.key || {};
   const activity = costData.activity || [];
+  const orSummary = costData.openrouter_summary || {};
+  const anthropicData = costData.anthropic || {};
+  const grandTotal = costData.grand_total || {};
 
-  // Aggregate
+  // Aggregate OpenRouter activity
   const byModel = {};
   const byDate = {};
   const today = new Date().toISOString().slice(0,10);
@@ -1477,13 +1476,23 @@ function renderCosts() {
     byDate[d] += cost;
   });
 
+  // Merge Anthropic by-date data
+  const anthropicByDate = anthropicData.by_date || {};
+  Object.entries(anthropicByDate).forEach(([d, c]) => {
+    byDate[d] = (byDate[d] || 0) + c;
+  });
+
   const todaySpend = byDate[today] || 0;
   const yesterdaySpend = byDate[yesterday] || 0;
-  const weeklySpend = k.usage_weekly || 0;
-  const monthlySpend = k.usage_monthly || 0;
-  const credits = 45; // known top-up amount
-  const remaining = credits - monthlySpend;
-  const pct = Math.min(100, (monthlySpend / credits * 100)).toFixed(0);
+  const weeklySpend = (orSummary.usage_weekly || 0) + Object.entries(anthropicByDate)
+    .filter(([d]) => new Date(d) >= new Date(Date.now()-7*86400000))
+    .reduce((s,[,c]) => s+c, 0);
+  const monthlySpend = grandTotal.total || ((orSummary.usage_monthly || 0) + (anthropicData.total_spend || 0));
+  const orMonthly = orSummary.usage_monthly || 0;
+  const antMonthly = anthropicData.total_spend || 0;
+  const credits = orSummary.credits_purchased || 45;
+  const orRemaining = orSummary.credits_remaining || (credits - orMonthly);
+  const pct = Math.min(100, (orMonthly / credits * 100)).toFixed(0);
 
   // Sort models by cost
   const sortedModels = Object.entries(byModel).sort((a,b) => b[1].cost - a[1].cost);
@@ -1504,12 +1513,22 @@ function renderCosts() {
       <div class="screen-title">💰 AI Costs</div>
       <button onclick="costData=null;fetchCostData()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">↻ Refresh</button>
     </div>
-    <div class="screen-subtitle">Live via OpenRouter · All models · Updated just now</div>
+    <div class="screen-subtitle">Live data · OpenRouter + Anthropic · Updated: ${costData.updated ? new Date(costData.updated).toLocaleTimeString() : 'cached'}</div>
+
+    <!-- 🚨 Grand Total Alert -->
+    <div style="background:rgba(248,113,113,0.1);border:1px solid #f87171;border-radius:8px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:12px;color:#f87171;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">⚠️ Total AI Spend — Apr 14–25 (12 days)</div>
+        <div style="font-size:11px;color:var(--text2)">Anthropic direct: <strong style="color:#f87171">$${antMonthly.toFixed(2)}</strong> &nbsp;+&nbsp; OpenRouter: <strong style="color:var(--accent)">$${orMonthly.toFixed(2)}</strong> &nbsp;=&nbsp; <strong style="color:#f87171;font-size:14px">$${monthlySpend.toFixed(2)} total</strong></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">Auto-reload DISABLED ✅ · Anthropic balance: $${(anthropicData.remaining_balance||0).toFixed(2)} remaining · Will switch to OpenRouter-only when depleted</div>
+      </div>
+      <div style="font-size:32px;font-weight:700;color:#f87171">$${monthlySpend.toFixed(0)}</div>
+    </div>
 
     <!-- Summary Cards -->
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px">
       <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Today</div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Today (combined)</div>
         <div style="font-size:28px;font-weight:700;color:var(--text)">$${todaySpend.toFixed(2)}</div>
         <div style="margin-top:4px;font-size:12px">${changeHtml}</div>
       </div>
@@ -1518,21 +1537,22 @@ function renderCosts() {
         <div style="font-size:28px;font-weight:700;color:var(--text)">$${yesterdaySpend.toFixed(2)}</div>
       </div>
       <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">This Week</div>
-        <div style="font-size:28px;font-weight:700;color:var(--text)">$${weeklySpend.toFixed(2)}</div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">OpenRouter Balance</div>
+        <div style="font-size:28px;font-weight:700;color:${orRemaining < 5 ? '#f87171' : 'var(--accent)'}">$${orRemaining.toFixed(2)}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">of $${credits} credits</div>
       </div>
       <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">This Month</div>
-        <div style="font-size:28px;font-weight:700;color:${monthlySpend > credits*0.8 ? '#f87171' : 'var(--text)'}">$${monthlySpend.toFixed(2)}</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:4px">$${remaining.toFixed(2)} remaining of $${credits}</div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">OpenRouter Monthly</div>
+        <div style="font-size:28px;font-weight:700;color:var(--accent)">$${orMonthly.toFixed(2)}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">vs $${antMonthly.toFixed(0)} Anthropic direct</div>
       </div>
     </div>
 
-    <!-- Budget Bar -->
+    <!-- OpenRouter Budget Bar -->
     <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px;margin-bottom:24px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <span style="font-size:13px;font-weight:600">Monthly Budget</span>
-        <span style="font-size:13px;color:var(--text2)">${pct}% used · $${monthlySpend.toFixed(2)} of $${credits}</span>
+        <span style="font-size:13px;font-weight:600">OpenRouter Credits</span>
+        <span style="font-size:13px;color:var(--text2)">${pct}% used · $${orMonthly.toFixed(2)} of $${credits}</span>
       </div>
       <div style="background:var(--bg4);border-radius:4px;height:10px;overflow:hidden">
         <div style="height:100%;width:${pct}%;background:${pct>80?'#f87171':pct>60?'#fbbf24':'var(--accent)'};border-radius:4px;transition:.3s"></div>
