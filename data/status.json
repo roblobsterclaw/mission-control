@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T18:21:04.357693+00:00",
+  "generatedAt": "2026-04-25T00:21:02.155595+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 6h",
       "scheduleCron": "every:6h",
-      "lastRun": "2026-04-24T12:20:21.821000+00:00",
-      "lastStatus": "error",
-      "lastDurationMs": 1841,
+      "lastRun": "2026-04-24T18:20:21.832000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 48662,
       "lastError": null,
-      "consecutiveErrors": 1,
-      "nextRun": "2026-04-24T18:20:21.821000+00:00",
+      "consecutiveErrors": 0,
+      "nextRun": "2026-04-25T00:20:21.832000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -29,12 +29,12 @@
       "enabled": true,
       "schedule": "Every 30 min",
       "scheduleCron": "*/30 * * * *",
-      "lastRun": "2026-04-24T18:00:00.011000+00:00",
+      "lastRun": "2026-04-25T00:00:00.014000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 33491,
+      "lastDurationMs": 33529,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T18:30:00+00:00",
+      "nextRun": "2026-04-25T00:30:00+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -49,16 +49,16 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-04-24T17:31:07.634000+00:00",
+      "lastRun": "2026-04-24T23:31:07.712000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 18875,
+      "lastDurationMs": 16584,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T18:31:07.634000+00:00",
+      "nextRun": "2026-04-25T00:31:07.712000+00:00",
       "model": "unknown",
       "recommendedModel": "unknown",
       "recommendedReason": "Current model appears appropriate for this workload",
-      "estimatedCostPerRun": 0.00708,
+      "estimatedCostPerRun": 0.00622,
       "deliveryStatus": "pending"
     },
     {
@@ -69,12 +69,12 @@
       "enabled": true,
       "schedule": "Every hour",
       "scheduleCron": "0 * * * *",
-      "lastRun": "2026-04-24T18:01:56.661000+00:00",
+      "lastRun": "2026-04-25T00:01:56.664000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 36778,
+      "lastDurationMs": 34792,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T19:01:56.651000+00:00",
+      "nextRun": "2026-04-25T01:01:56.651000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -89,12 +89,12 @@
       "enabled": true,
       "schedule": "Every 3h",
       "scheduleCron": "every:3h",
-      "lastRun": "2026-04-24T16:16:31.889000+00:00",
+      "lastRun": "2026-04-24T22:16:31.925000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 53064,
+      "lastDurationMs": 68607,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-04-24T19:16:31.889000+00:00",
+      "nextRun": "2026-04-25T01:16:31.925000+00:00",
       "model": "openrouter/qwen/qwen3-coder:free",
       "recommendedModel": "openrouter/qwen/qwen3-coder:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -280,6 +280,26 @@
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
       "deliveryStatus": "delivered"
+    },
+    {
+      "id": "7d0f0dd5",
+      "fullId": "7d0f0dd5-8a70-440e-b0e9-0e6fa674397d",
+      "name": "Chase Inc Monthly Statements Reminder",
+      "project": "system",
+      "enabled": true,
+      "schedule": "cron: 0 9 1 * *",
+      "scheduleCron": "0 9 1 * *",
+      "lastRun": null,
+      "lastStatus": "never",
+      "lastDurationMs": null,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-05-01T13:00:00+00:00",
+      "model": "unknown",
+      "recommendedModel": "unknown",
+      "recommendedReason": "Current model appears appropriate for this workload",
+      "estimatedCostPerRun": 0.00375,
+      "deliveryStatus": "pending"
     }
   ],
   "agents": [
@@ -315,14 +335,19 @@
   "modelUsage": {
     "last7days": {
       "anthropic/claude-opus-4-6": {
-        "inputTokens": 8506,
-        "outputTokens": 1522437,
-        "cost": 1714.4207
+        "inputTokens": 11514,
+        "outputTokens": 1504406,
+        "cost": 1712.8968
       },
       "anthropic/claude-sonnet-4-6": {
-        "inputTokens": 6099,
-        "outputTokens": 746736,
-        "cost": 36.9206
+        "inputTokens": 16733,
+        "outputTokens": 739795,
+        "cost": 39.6479
+      },
+      "gpt-5.4": {
+        "inputTokens": 503022,
+        "outputTokens": 13477,
+        "cost": 2.2452
       },
       "openai/gpt-5.4-mini": {
         "inputTokens": 814126,
@@ -330,9 +355,9 @@
         "cost": 1.535
       },
       "moonshot/kimi-k2": {
-        "inputTokens": 167456,
-        "outputTokens": 13844,
-        "cost": 0.2491
+        "inputTokens": 551179,
+        "outputTokens": 27411,
+        "cost": 0.9381
       },
       "openai/gpt-4.1-mini": {
         "inputTokens": 27699,
@@ -345,21 +370,14 @@
         "cost": 0.0033
       }
     },
-    "totalCost7days": 1753.1401,
-    "projectedMonthlyCost": 7513.46,
+    "totalCost7days": 1757.2777,
+    "projectedMonthlyCost": 7531.19,
     "potentialSavings": {
-      "ifFreeModelsUsed": 7513.46,
+      "ifFreeModelsUsed": 7531.19,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
   "alerts": [
-    {
-      "id": "err-9eb6bcc2-1",
-      "severity": "warning",
-      "job": "📊 Mission Control Dashboard Updater",
-      "message": "1 consecutive error — last run failed",
-      "timestamp": "2026-04-24T12:20:21.821000+00:00"
-    },
     {
       "id": "err-329467b7-1",
       "severity": "warning",
@@ -407,8 +425,8 @@
     "system": {
       "label": "System Ops",
       "emoji": "⚙️",
-      "status": "degraded",
-      "metric": "4/5 jobs healthy",
+      "status": "healthy",
+      "metric": "6/6 jobs healthy",
       "detail": "Gmail token refresh + RobGmail inbox check"
     }
   }
