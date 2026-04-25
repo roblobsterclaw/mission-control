@@ -1,0 +1,4723 @@
+{
+  "meta": {
+    "generated_at": "2026-04-25T07:32:52.666796",
+    "generated_by": "refresh-mission-control.py v3.0",
+    "workspace": "/Users/joemac/.openclaw/workspace",
+    "version": "3.0"
+  },
+  "agents": [
+    {
+      "name": "Rob Lobster \ud83e\udd9e",
+      "harness": "OpenClaw",
+      "model": "claude-opus-4-6",
+      "telegram": "@RobLobster_bot",
+      "role": "Main / Chief of Staff",
+      "status": "online",
+      "gateway": "active",
+      "cronJobs": 12,
+      "memoryMB": 148,
+      "last_checked": "2026-04-25T07:32:52.656384"
+    },
+    {
+      "name": "Hermes \ud83c\udfdb\ufe0f",
+      "harness": "Hermes Agent (Nous Research)",
+      "model": "gpt-4o-mini",
+      "telegram": "@HermesJFL_bot",
+      "role": "Assistant / Monitor / Backup",
+      "status": "online",
+      "gateway": "active",
+      "cronJobs": 4,
+      "memoryMB": 62,
+      "last_checked": "2026-04-25T07:32:52.656388"
+    },
+    {
+      "name": "Red \ud83d\udd34",
+      "harness": "OpenClaw (Vault)",
+      "model": "claude-sonnet-4",
+      "telegram": "N/A",
+      "role": "Vault Agent (Joe's email \u2014 exclusive)",
+      "status": "paused",
+      "gateway": "inactive",
+      "cronJobs": 0,
+      "memoryMB": 0,
+      "last_checked": "2026-04-25T07:32:52.656389"
+    }
+  ],
+  "rob_health": {
+    "gateway_online": true,
+    "errors": [
+      "2026-04-25T07:30:25.109-04:00 [agent/embedded] embedded run failover decision: runId=8b0ff02f-4c87-4654-9242-e5bab5d7b676 stage=assistant decision=fallback_model reason=rate_limit from=openrouter/google/gemma-4-31b-it:free profile=sha256:ac092b59b472 rawError=429 Provider returned error google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/in\u2026",
+      "2026-04-25T07:30:25.110-04:00 [diagnostic] lane task error: lane=nested durationMs=24913 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-25T07:30:25.110-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=24913 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-25T07:30:25.111-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
+      "2026-04-25T07:30:38.707-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
+    ],
+    "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
+    "checked_at": "2026-04-25T07:32:52.630202"
+  },
+  "hermes_health": {
+    "gateway_online": true,
+    "agent_log_tail": [
+      "2026-04-25 02:00:54,801 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 02:03:04,886 INFO [cron_3932067351e6_20260425_020054] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 02:07:22,623 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 03:00:28,241 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 03:04:10,308 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 04:00:06,482 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 04:01:14,181 INFO gateway.run: Session expiry: 2 sessions to flush (telegram:2)",
+      "2026-04-25 04:01:14,282 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 04:01:32,004 INFO [20260424_084738_a911f845] gateway.run: Pre-reset memory flush completed for session 20260424_084738_a911f845",
+      "2026-04-25 04:01:32,105 INFO [20260424_084738_a911f845] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 04:04:10,786 INFO [20260424_064112_8aad1a32] gateway.run: Pre-reset memory flush completed for session 20260424_064112_8aad1a32",
+      "2026-04-25 04:04:10,791 INFO gateway.run: Session expiry done: 2 flushed",
+      "2026-04-25 04:05:10,358 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 05:00:16,531 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 05:08:39,800 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 05:47:53,418 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 06:00:01,089 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 07:00:45,225 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 07:01:49,089 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 07:10:57,998 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
+    ],
+    "gateway_log_tail": [
+      "  \u250a \ud83d\udc0d exec      from datetime import datetime  3.3s",
+      "  \u250a \ud83d\udd0e find      2026-04-25.*\\.md  1.0s",
+      "  \u250a \ud83d\udd0e find      *.md  0.7s",
+      "  \u250a \ud83d\udd0d recall    \"Hermes active completed handoff\"  5.4s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/WORKING-CONTEXT.md  1.4s",
+      "  \u250a \ud83d\udc0d exec      from datetime import datetime  3.3s",
+      "  \u250a \u270d\ufe0f  write     /Users/joemac/.openclaw/workspace/workspace-shared/summaries/hermes-status-2026-04-25-0702.txt  0.9s",
+      "  \u250a \ud83d\udcbb $         openclaw gateway status  4.0s",
+      "  \u250a \ud83d\udcbb $         ps aux | grep -v grep | grep openclaw-gateway  0.4s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/config/gmail/token.json  1.4s"
+    ],
+    "errors": [
+      "2026-04-23 16:55:51,286 WARNING agent.auxiliary_client: resolve_provider_client: openrouter requested but OPENROUTER_API_KEY not set",
+      "2026-04-23 17:12:49,689 WARNING agent.auxiliary_client: resolve_provider_client: openrouter requested but OPENROUTER_API_KEY not set",
+      "2026-04-24 07:44:53,537 WARNING gateway.run: Shutdown diagnostic \u2014 other hermes processes running:",
+      "joemac           41198   0.0  0.0 410172320   1952   ??  R     7:44AM   0:00.01 /opt/homebrew/opt/node/bin/node /opt/homebrew/lib/node_modules/openclaw/dist/index.js gateway --port 18789",
+      "joemac           26537   0.0  0.0 410733936    576   ??  SN    8:24PM   0:00.00 /bin/bash -c source /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-snap-98279a4de0bb.sh 2>/dev/null || true\\012cd /Users/joemac/.hermes || exit 126\\012eval 'cd /Users/joemac/.openclaw/workspace/projects/asteroids && python3 -m http.server 8889 > /dev/null 2>&1 & echo '\\''Server started on port 8889'\\'''\\012__hermes_ec=$?\\012export -p > /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-snap-98279a4de0bb.sh 2>/dev/null || true\\012pwd -P > /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-cwd-98279a4de0bb.txt 2>/dev/null || true\\012printf '\\n__HERMES_CWD_98279a4de0bb__%s__HERMES_CWD_98279a4de0bb__\\n' \"$(pwd -P)\"\\012exit $__hermes_ec"
+    ],
+    "last_activity": "2026-04-25 07:10:57,998 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
+    "log_files": {
+      "agent": "/Users/joemac/.hermes/logs/agent.log",
+      "gateway": "/Users/joemac/.hermes/logs/gateway.log",
+      "errors": "/Users/joemac/.hermes/logs/errors.log"
+    },
+    "checked_at": "2026-04-25T07:32:52.645484"
+  },
+  "taskboard": {
+    "backlog": [],
+    "in_progress": [
+      {
+        "id": "1",
+        "title": "Lobster Press Dashboard",
+        "agent": "hermes",
+        "description": "Building social media content management dashboard for Joe's Lobster Press publishing arm",
+        "created": "2026-04-15"
+      },
+      {
+        "id": "2",
+        "title": "MOSE Investor Expansion",
+        "agent": "rob",
+        "description": "Expanding from 5 to 22 super investors in the Margin of Safety Engine",
+        "created": "2026-04-15"
+      }
+    ],
+    "review": [],
+    "done": [
+      {
+        "id": "3",
+        "title": "Mission Control v2",
+        "agent": "rob",
+        "description": "Upgraded with Documents, Projects, Health panels \u2014 deployed to GitHub Pages",
+        "created": "2026-04-15"
+      },
+      {
+        "id": "4",
+        "title": "MOSE Dashboard Deploy",
+        "agent": "rob",
+        "description": "Live at roblobsterclaw.github.io/mose \u2014 full super investor convergence engine",
+        "created": "2026-04-15"
+      },
+      {
+        "id": "5",
+        "title": "World Cup Pool $25 Update",
+        "agent": "rob",
+        "description": "Survivor pool only, $25 entry, deploy protocol finalized",
+        "created": "2026-04-14"
+      },
+      {
+        "id": "6",
+        "title": "Hermes Agent Installation",
+        "agent": "rob",
+        "description": "Installed, configured, Telegram connected via @HermesJFL_bot",
+        "created": "2026-04-15"
+      },
+      {
+        "id": "7",
+        "title": "Performance Diagnosis",
+        "agent": "rob",
+        "description": "Fixed Gemini crons, Ollama/Wispr RAM issues, gateway crashes resolved",
+        "created": "2026-04-14"
+      }
+    ]
+  },
+  "handoffs": [
+    {
+      "file": "mission-control-model-switcher.md",
+      "date": "2026-04-23 17:00",
+      "preview": "# HANDOFF: Mission Control \u2014 Model Switcher\n*From: Rob | To: Hermes | Priority: HIGH | Date: April 23, 2026*\n\n---\n\n## What Joe Wants\n\nA model switching interface on the Mission Control dashboard. Joe ",
+      "size": "3.0 KB"
+    },
+    {
+      "file": "lobster-press-build.md",
+      "date": "2026-04-15 16:21",
+      "preview": "# \ud83e\udd9e HANDOFF: Lobster Press Dashboard \u2014 Build Request\n*From: Rob Lobster (OpenClaw) \u2192 Hermes*\n*Date: April 15, 2026*\n\n## Task\nBuild the Lobster Press social media dashboard. Full spec is at:\n`/Users/jo",
+      "size": "2.4 KB"
+    },
+    {
+      "file": "2026-04-23-mission-control-ekg.md",
+      "date": "2026-04-23 08:32",
+      "preview": "# 2026-04-23 \u2014 Handoff: Mission Control EKG Activity Monitor\n\n## From: Rob (OpenClaw)\n## To: Hermes\n## Priority: HIGH \u2014 Joe approved this, build it\n\n---\n\n## What We're Adding\n\nAn EKG/heartbeat-style a",
+      "size": "5.7 KB"
+    },
+    {
+      "file": "2026-04-23-lobster-press-ownership.md",
+      "date": "2026-04-23 16:08",
+      "preview": "# 2026-04-23 \u2014 Handoff: Lobster Press Ownership\n\n## From: Rob (OpenClaw)\n## To: Hermes\n## Priority: IMMEDIATE \u2014 Joe assigned this to you\n\n---\n\n## What You're Owning\n\n**Lobster Press** \u2014 Rob Lobster's ",
+      "size": "1.6 KB"
+    },
+    {
+      "file": "2026-04-22-ttd-dashboard-spec.md",
+      "date": "2026-04-22 11:25",
+      "preview": "# TTD Dashboard \u2014 Build Spec\n**From:** Rob Lobster \ud83e\udd9e  \n**To:** Hermes \ud83c\udfdb\ufe0f  \n**Date:** April 22, 2026  \n**Priority:** HIGH \u2014 Joe wants this built right  \n\n---\n\n## What We're Building\n\nAn interactive web",
+      "size": "4.8 KB"
+    },
+    {
+      "file": "2026-04-22-take-ttd-dashboard.md",
+      "date": "2026-04-22 09:31",
+      "preview": "# 2026-04-22 \u2014 Handoff request: TTD Dashboard\n\nRob,\n\nJoe wants to offload one project and asked me to check with you first.\n\nRecommendation: I take ownership of TTD Dashboard.\n\nWhy this one:\n- The Dis",
+      "size": "523 B"
+    },
+    {
+      "file": "2026-04-22-discord-server-setup.md",
+      "date": "2026-04-22 14:34",
+      "preview": "# 2026-04-22 \u2014 Handoff: Discord Server Setup\n\n## From: Rob (OpenClaw)\n## To: Hermes\n## Priority: HIGH \u2014 Joe wants this done today\n\n---\n\n## What We're Building\n\nA Discord server called **\"Rob Lobster H",
+      "size": "2.9 KB"
+    }
+  ],
+  "hermes_activities": [
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 02:00:54",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 02:00:54,801 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 02:03:04",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 02:03:04,886 INFO [cron_3932067351e6_20260425_020054] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 02:07:22",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 02:07:22,623 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 03:00:28",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 03:00:28,241 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 03:04:10",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 03:04:10,308 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 04:00:06",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 04:00:06,482 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 04:01:14",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 04:01:14,181 INFO gateway.run: Session expiry: 2 sessions to flush (telegram:2)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 04:01:14",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 04:01:14,282 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 04:01:32",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 04:01:32,004 INFO [20260424_084738_a911f845] gateway.run: Pre-reset memory flush completed for session 20260424_084738_a911f845",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 04:01:32",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 04:01:32,105 INFO [20260424_084738_a911f845] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 04:04:10",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 04:04:10,786 INFO [20260424_064112_8aad1a32] gateway.run: Pre-reset memory flush completed for session 20260424_064112_8aad1a32",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 04:04:10",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 04:04:10,791 INFO gateway.run: Session expiry done: 2 flushed",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 04:05:10",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 04:05:10,358 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 05:00:16",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 05:00:16,531 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 05:08:39",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 05:08:39,800 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 05:47:53",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 05:47:53,418 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 06:00:01",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 06:00:01,089 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 07:00:45",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 07:00:45,225 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 07:01:49",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 07:01:49,089 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 07:10:57",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 07:10:57,998 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    }
+  ],
+  "documents": {
+    "total": 362,
+    "by_category": {
+      "World Cup Pool": 6,
+      "Investing": 19,
+      "Other": 221,
+      "Reports": 72,
+      "TLC": 14,
+      "Lobster Press": 20,
+      "ReBolt": 10
+    },
+    "recent": [
+      {
+        "name": "email-list-latest.txt",
+        "path": "projects/world-cup-pool/backups/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/world-cup-pool/backups/email-list-latest.txt",
+        "date": "2026-04-25",
+        "size": "21 B",
+        "size_bytes": 21,
+        "cat": "World Cup Pool",
+        "ext": "txt"
+      },
+      {
+        "name": "convergence-summary.md",
+        "path": "projects/investing/mose-data/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/mose-data/convergence-summary.md",
+        "date": "2026-04-25",
+        "size": "4.7 KB",
+        "size_bytes": 4795,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "jfl-ttd-v4.4.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.4.docx",
+        "date": "2026-04-25",
+        "size": "37.2 KB",
+        "size_bytes": 38112,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.5.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.5.docx",
+        "date": "2026-04-25",
+        "size": "43.2 KB",
+        "size_bytes": 44213,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-25.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-25.docx",
+        "date": "2026-04-25",
+        "size": "43.2 KB",
+        "size_bytes": 44213,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "dashboard.html",
+        "path": "projects/investing/margin-of-safety-engine/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/margin-of-safety-engine/dashboard.html",
+        "date": "2026-04-25",
+        "size": "116.2 KB",
+        "size_bytes": 118988,
+        "cat": "Investing",
+        "ext": "html"
+      },
+      {
+        "name": "jfl-ttd-v4.4.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.4.pdf",
+        "date": "2026-04-25",
+        "size": "297.2 KB",
+        "size_bytes": 304323,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "README.md",
+        "path": "projects/model-cost-tracker/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/model-cost-tracker/README.md",
+        "date": "2026-04-24",
+        "size": "1.6 KB",
+        "size_bytes": 1687,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "dashboard.html",
+        "path": "projects/model-cost-tracker/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/model-cost-tracker/dashboard.html",
+        "date": "2026-04-24",
+        "size": "13.6 KB",
+        "size_bytes": 13929,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "jfl-ttd-v4.2.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.2.docx",
+        "date": "2026-04-24",
+        "size": "37.2 KB",
+        "size_bytes": 38073,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.3.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.3.docx",
+        "date": "2026-04-24",
+        "size": "37.2 KB",
+        "size_bytes": 38073,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-24.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-24.docx",
+        "date": "2026-04-24",
+        "size": "43.3 KB",
+        "size_bytes": 44337,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "propbot-deep-dive-2026-04-24.html",
+        "path": "projects/unicorn-factory/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/unicorn-factory/deep-dives/propbot-deep-dive-2026-04-24.html",
+        "date": "2026-04-24",
+        "size": "53.1 KB",
+        "size_bytes": 54378,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "agencyos-deep-dive-2026-04-24.html",
+        "path": "projects/unicorn-factory/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/unicorn-factory/deep-dives/agencyos-deep-dive-2026-04-24.html",
+        "date": "2026-04-24",
+        "size": "53.3 KB",
+        "size_bytes": 54569,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "jfl-ttd-v4.0.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.0.pdf",
+        "date": "2026-04-23",
+        "size": "3.4 KB",
+        "size_bytes": 3436,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "mission-control.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/mission-control.md",
+        "date": "2026-04-23",
+        "size": "4.1 KB",
+        "size_bytes": 4202,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "SPEC.md",
+        "path": "projects/mission-control-dashboard/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/mission-control-dashboard/SPEC.md",
+        "date": "2026-04-23",
+        "size": "6.1 KB",
+        "size_bytes": 6226,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/asteroids/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/asteroids/index.html",
+        "date": "2026-04-23",
+        "size": "11.6 KB",
+        "size_bytes": 11912,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "asteroids-game-plan.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/asteroids-game-plan.md",
+        "date": "2026-04-23",
+        "size": "16.6 KB",
+        "size_bytes": 17039,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/ttd-dashboard-v2/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ttd-dashboard-v2/index.html",
+        "date": "2026-04-23",
+        "size": "30.1 KB",
+        "size_bytes": 30847,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "Mission_Control_2026-04-23.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-23.docx",
+        "date": "2026-04-23",
+        "size": "36.9 KB",
+        "size_bytes": 37736,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.0.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.0.docx",
+        "date": "2026-04-23",
+        "size": "37.1 KB",
+        "size_bytes": 38021,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.1.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.1.docx",
+        "date": "2026-04-23",
+        "size": "37.1 KB",
+        "size_bytes": 38021,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-23.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-23.docx",
+        "date": "2026-04-23",
+        "size": "41.2 KB",
+        "size_bytes": 42204,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/mission-control-dashboard/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/mission-control-dashboard/index.html",
+        "date": "2026-04-23",
+        "size": "58.1 KB",
+        "size_bytes": 59491,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "morning-rundown.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/morning-rundown.md",
+        "date": "2026-04-22",
+        "size": "5.7 KB",
+        "size_bytes": 5803,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/ttd-dashboard/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ttd-dashboard/index.html",
+        "date": "2026-04-22",
+        "size": "5.9 KB",
+        "size_bytes": 6062,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "Mission_Control_2026-04-22.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-22.docx",
+        "date": "2026-04-22",
+        "size": "36.5 KB",
+        "size_bytes": 37391,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.9.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.9.docx",
+        "date": "2026-04-22",
+        "size": "36.8 KB",
+        "size_bytes": 37719,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.7.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.7.docx",
+        "date": "2026-04-22",
+        "size": "37.6 KB",
+        "size_bytes": 38457,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-22.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-22.docx",
+        "date": "2026-04-22",
+        "size": "45.3 KB",
+        "size_bytes": 46427,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "alexfinn-workflows-clean.txt",
+        "path": "projects/research/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/research/alexfinn-workflows-clean.txt",
+        "date": "2026-04-22",
+        "size": "49.8 KB",
+        "size_bytes": 50980,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "dashboard.html",
+        "path": "projects/unicorn-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/unicorn-factory/dashboard.html",
+        "date": "2026-04-22",
+        "size": "75.7 KB",
+        "size_bytes": 77532,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "Zoning_20-21_page1.pdf",
+        "path": "projects/tlc/zoning/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/zoning/Zoning_20-21_page1.pdf",
+        "date": "2026-04-22",
+        "size": "260.1 KB",
+        "size_bytes": 266330,
+        "cat": "TLC",
+        "ext": "pdf"
+      },
+      {
+        "name": "Zoning_20-21_page2.pdf",
+        "path": "projects/tlc/zoning/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/zoning/Zoning_20-21_page2.pdf",
+        "date": "2026-04-22",
+        "size": "281.7 KB",
+        "size_bytes": 288442,
+        "cat": "TLC",
+        "ext": "pdf"
+      },
+      {
+        "name": "jfl-ttd-v3.7.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.7.pdf",
+        "date": "2026-04-22",
+        "size": "286.7 KB",
+        "size_bytes": 293532,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--Customer-testimonial/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Customer-testimonial/email-body.txt",
+        "date": "2026-04-21",
+        "size": "557 B",
+        "size_bytes": 557,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--Reeb-Finish-Express/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Reeb-Finish-Express/email-body.txt",
+        "date": "2026-04-21",
+        "size": "610 B",
+        "size_bytes": 610,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--Checkout-tear-down/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Checkout-tear-down/email-body.txt",
+        "date": "2026-04-21",
+        "size": "698 B",
+        "size_bytes": 698,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--PIC-&-AI/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--PIC-&-AI/email-body.txt",
+        "date": "2026-04-21",
+        "size": "948 B",
+        "size_bytes": 948,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--AI-cont...../",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--AI-cont...../email-body.txt",
+        "date": "2026-04-21",
+        "size": "1.1 KB",
+        "size_bytes": 1162,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--AI/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--AI/email-body.txt",
+        "date": "2026-04-21",
+        "size": "1.9 KB",
+        "size_bytes": 1902,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--Video/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Video/email-body.txt",
+        "date": "2026-04-21",
+        "size": "3.3 KB",
+        "size_bytes": 3423,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "jfl-ttd-v3.5.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.5.pdf",
+        "date": "2026-04-21",
+        "size": "3.9 KB",
+        "size_bytes": 3958,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Mission_Control_2026-04-21.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-21.docx",
+        "date": "2026-04-21",
+        "size": "36.5 KB",
+        "size_bytes": 37366,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.6.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.6.docx",
+        "date": "2026-04-21",
+        "size": "37.5 KB",
+        "size_bytes": 38380,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.5.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.5.docx",
+        "date": "2026-04-21",
+        "size": "37.6 KB",
+        "size_bytes": 38489,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-21.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-21.docx",
+        "date": "2026-04-21",
+        "size": "42.5 KB",
+        "size_bytes": 43478,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "dashboard.html",
+        "path": "projects/lobster-press/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/dashboard.html",
+        "date": "2026-04-21",
+        "size": "95.7 KB",
+        "size_bytes": 97954,
+        "cat": "Lobster Press",
+        "ext": "html"
+      },
+      {
+        "name": "Reeb Finish Express.pdf",
+        "path": "projects/lobster-press/incoming/FW--Reeb-Finish-Express/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Reeb-Finish-Express/Reeb Finish Express.pdf",
+        "date": "2026-04-21",
+        "size": "1021.1 KB",
+        "size_bytes": 1045606,
+        "cat": "Lobster Press",
+        "ext": "pdf"
+      }
+    ],
+    "all": [
+      {
+        "name": "email-list-latest.txt",
+        "path": "projects/world-cup-pool/backups/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/world-cup-pool/backups/email-list-latest.txt",
+        "date": "2026-04-25",
+        "size": "21 B",
+        "size_bytes": 21,
+        "cat": "World Cup Pool",
+        "ext": "txt"
+      },
+      {
+        "name": "convergence-summary.md",
+        "path": "projects/investing/mose-data/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/mose-data/convergence-summary.md",
+        "date": "2026-04-25",
+        "size": "4.7 KB",
+        "size_bytes": 4795,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "jfl-ttd-v4.4.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.4.docx",
+        "date": "2026-04-25",
+        "size": "37.2 KB",
+        "size_bytes": 38112,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.5.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.5.docx",
+        "date": "2026-04-25",
+        "size": "43.2 KB",
+        "size_bytes": 44213,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-25.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-25.docx",
+        "date": "2026-04-25",
+        "size": "43.2 KB",
+        "size_bytes": 44213,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "dashboard.html",
+        "path": "projects/investing/margin-of-safety-engine/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/margin-of-safety-engine/dashboard.html",
+        "date": "2026-04-25",
+        "size": "116.2 KB",
+        "size_bytes": 118988,
+        "cat": "Investing",
+        "ext": "html"
+      },
+      {
+        "name": "jfl-ttd-v4.4.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.4.pdf",
+        "date": "2026-04-25",
+        "size": "297.2 KB",
+        "size_bytes": 304323,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "README.md",
+        "path": "projects/model-cost-tracker/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/model-cost-tracker/README.md",
+        "date": "2026-04-24",
+        "size": "1.6 KB",
+        "size_bytes": 1687,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "dashboard.html",
+        "path": "projects/model-cost-tracker/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/model-cost-tracker/dashboard.html",
+        "date": "2026-04-24",
+        "size": "13.6 KB",
+        "size_bytes": 13929,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "jfl-ttd-v4.2.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.2.docx",
+        "date": "2026-04-24",
+        "size": "37.2 KB",
+        "size_bytes": 38073,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.3.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.3.docx",
+        "date": "2026-04-24",
+        "size": "37.2 KB",
+        "size_bytes": 38073,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-24.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-24.docx",
+        "date": "2026-04-24",
+        "size": "43.3 KB",
+        "size_bytes": 44337,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "propbot-deep-dive-2026-04-24.html",
+        "path": "projects/unicorn-factory/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/unicorn-factory/deep-dives/propbot-deep-dive-2026-04-24.html",
+        "date": "2026-04-24",
+        "size": "53.1 KB",
+        "size_bytes": 54378,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "agencyos-deep-dive-2026-04-24.html",
+        "path": "projects/unicorn-factory/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/unicorn-factory/deep-dives/agencyos-deep-dive-2026-04-24.html",
+        "date": "2026-04-24",
+        "size": "53.3 KB",
+        "size_bytes": 54569,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "jfl-ttd-v4.0.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.0.pdf",
+        "date": "2026-04-23",
+        "size": "3.4 KB",
+        "size_bytes": 3436,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "mission-control.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/mission-control.md",
+        "date": "2026-04-23",
+        "size": "4.1 KB",
+        "size_bytes": 4202,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "SPEC.md",
+        "path": "projects/mission-control-dashboard/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/mission-control-dashboard/SPEC.md",
+        "date": "2026-04-23",
+        "size": "6.1 KB",
+        "size_bytes": 6226,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/asteroids/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/asteroids/index.html",
+        "date": "2026-04-23",
+        "size": "11.6 KB",
+        "size_bytes": 11912,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "asteroids-game-plan.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/asteroids-game-plan.md",
+        "date": "2026-04-23",
+        "size": "16.6 KB",
+        "size_bytes": 17039,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/ttd-dashboard-v2/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ttd-dashboard-v2/index.html",
+        "date": "2026-04-23",
+        "size": "30.1 KB",
+        "size_bytes": 30847,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "Mission_Control_2026-04-23.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-23.docx",
+        "date": "2026-04-23",
+        "size": "36.9 KB",
+        "size_bytes": 37736,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.0.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.0.docx",
+        "date": "2026-04-23",
+        "size": "37.1 KB",
+        "size_bytes": 38021,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.1.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.1.docx",
+        "date": "2026-04-23",
+        "size": "37.1 KB",
+        "size_bytes": 38021,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-23.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-23.docx",
+        "date": "2026-04-23",
+        "size": "41.2 KB",
+        "size_bytes": 42204,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/mission-control-dashboard/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/mission-control-dashboard/index.html",
+        "date": "2026-04-23",
+        "size": "58.1 KB",
+        "size_bytes": 59491,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "morning-rundown.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/morning-rundown.md",
+        "date": "2026-04-22",
+        "size": "5.7 KB",
+        "size_bytes": 5803,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/ttd-dashboard/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ttd-dashboard/index.html",
+        "date": "2026-04-22",
+        "size": "5.9 KB",
+        "size_bytes": 6062,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "Mission_Control_2026-04-22.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-22.docx",
+        "date": "2026-04-22",
+        "size": "36.5 KB",
+        "size_bytes": 37391,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.9.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.9.docx",
+        "date": "2026-04-22",
+        "size": "36.8 KB",
+        "size_bytes": 37719,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.7.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.7.docx",
+        "date": "2026-04-22",
+        "size": "37.6 KB",
+        "size_bytes": 38457,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-22.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-22.docx",
+        "date": "2026-04-22",
+        "size": "45.3 KB",
+        "size_bytes": 46427,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "alexfinn-workflows-clean.txt",
+        "path": "projects/research/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/research/alexfinn-workflows-clean.txt",
+        "date": "2026-04-22",
+        "size": "49.8 KB",
+        "size_bytes": 50980,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "dashboard.html",
+        "path": "projects/unicorn-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/unicorn-factory/dashboard.html",
+        "date": "2026-04-22",
+        "size": "75.7 KB",
+        "size_bytes": 77532,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "Zoning_20-21_page1.pdf",
+        "path": "projects/tlc/zoning/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/zoning/Zoning_20-21_page1.pdf",
+        "date": "2026-04-22",
+        "size": "260.1 KB",
+        "size_bytes": 266330,
+        "cat": "TLC",
+        "ext": "pdf"
+      },
+      {
+        "name": "Zoning_20-21_page2.pdf",
+        "path": "projects/tlc/zoning/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/zoning/Zoning_20-21_page2.pdf",
+        "date": "2026-04-22",
+        "size": "281.7 KB",
+        "size_bytes": 288442,
+        "cat": "TLC",
+        "ext": "pdf"
+      },
+      {
+        "name": "jfl-ttd-v3.7.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.7.pdf",
+        "date": "2026-04-22",
+        "size": "286.7 KB",
+        "size_bytes": 293532,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--Customer-testimonial/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Customer-testimonial/email-body.txt",
+        "date": "2026-04-21",
+        "size": "557 B",
+        "size_bytes": 557,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--Reeb-Finish-Express/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Reeb-Finish-Express/email-body.txt",
+        "date": "2026-04-21",
+        "size": "610 B",
+        "size_bytes": 610,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--Checkout-tear-down/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Checkout-tear-down/email-body.txt",
+        "date": "2026-04-21",
+        "size": "698 B",
+        "size_bytes": 698,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--PIC-&-AI/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--PIC-&-AI/email-body.txt",
+        "date": "2026-04-21",
+        "size": "948 B",
+        "size_bytes": 948,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--AI-cont...../",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--AI-cont...../email-body.txt",
+        "date": "2026-04-21",
+        "size": "1.1 KB",
+        "size_bytes": 1162,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--AI/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--AI/email-body.txt",
+        "date": "2026-04-21",
+        "size": "1.9 KB",
+        "size_bytes": 1902,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "email-body.txt",
+        "path": "projects/lobster-press/incoming/FW--Video/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Video/email-body.txt",
+        "date": "2026-04-21",
+        "size": "3.3 KB",
+        "size_bytes": 3423,
+        "cat": "Lobster Press",
+        "ext": "txt"
+      },
+      {
+        "name": "jfl-ttd-v3.5.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.5.pdf",
+        "date": "2026-04-21",
+        "size": "3.9 KB",
+        "size_bytes": 3958,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Mission_Control_2026-04-21.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-21.docx",
+        "date": "2026-04-21",
+        "size": "36.5 KB",
+        "size_bytes": 37366,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.6.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.6.docx",
+        "date": "2026-04-21",
+        "size": "37.5 KB",
+        "size_bytes": 38380,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.5.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.5.docx",
+        "date": "2026-04-21",
+        "size": "37.6 KB",
+        "size_bytes": 38489,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-21.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-21.docx",
+        "date": "2026-04-21",
+        "size": "42.5 KB",
+        "size_bytes": 43478,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "dashboard.html",
+        "path": "projects/lobster-press/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/dashboard.html",
+        "date": "2026-04-21",
+        "size": "95.7 KB",
+        "size_bytes": 97954,
+        "cat": "Lobster Press",
+        "ext": "html"
+      },
+      {
+        "name": "Reeb Finish Express.pdf",
+        "path": "projects/lobster-press/incoming/FW--Reeb-Finish-Express/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Reeb-Finish-Express/Reeb Finish Express.pdf",
+        "date": "2026-04-21",
+        "size": "1021.1 KB",
+        "size_bytes": 1045606,
+        "cat": "Lobster Press",
+        "ext": "pdf"
+      },
+      {
+        "name": "Mission_Control_2026-04-20.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-20.docx",
+        "date": "2026-04-20",
+        "size": "36.5 KB",
+        "size_bytes": 37407,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.4.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.4.docx",
+        "date": "2026-04-20",
+        "size": "37.6 KB",
+        "size_bytes": 38504,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Zoning_Application_Package_2026-04-21.docx",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/Zoning_Application_Package_2026-04-21.docx",
+        "date": "2026-04-20",
+        "size": "38.3 KB",
+        "size_bytes": 39179,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "TLC_Meeting_Update_2026-04-21.docx",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/TLC_Meeting_Update_2026-04-21.docx",
+        "date": "2026-04-20",
+        "size": "41.6 KB",
+        "size_bytes": 42601,
+        "cat": "TLC",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-20.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-20.docx",
+        "date": "2026-04-20",
+        "size": "45.1 KB",
+        "size_bytes": 46167,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "nvda-deep-dive-2026-04-20.html",
+        "path": "projects/investing/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/deep-dives/nvda-deep-dive-2026-04-20.html",
+        "date": "2026-04-20",
+        "size": "170.4 KB",
+        "size_bytes": 174493,
+        "cat": "Investing",
+        "ext": "html"
+      },
+      {
+        "name": "brkb-deep-dive-2026-04-20.html",
+        "path": "projects/investing/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/deep-dives/brkb-deep-dive-2026-04-20.html",
+        "date": "2026-04-20",
+        "size": "184.6 KB",
+        "size_bytes": 189066,
+        "cat": "Investing",
+        "ext": "html"
+      },
+      {
+        "name": "googl-deep-dive-2026-04-20.html",
+        "path": "projects/investing/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/deep-dives/googl-deep-dive-2026-04-20.html",
+        "date": "2026-04-20",
+        "size": "190.3 KB",
+        "size_bytes": 194843,
+        "cat": "Investing",
+        "ext": "html"
+      },
+      {
+        "name": "jfl-ttd-v3.4.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.4.pdf",
+        "date": "2026-04-20",
+        "size": "287.2 KB",
+        "size_bytes": 294079,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "jfl-ttd-v3.3.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.3.pdf",
+        "date": "2026-04-19",
+        "size": "3.8 KB",
+        "size_bytes": 3939,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Mission_Control_2026-04-19.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-19.docx",
+        "date": "2026-04-19",
+        "size": "36.6 KB",
+        "size_bytes": 37431,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "Lobster_Press_IT_Setup_Checklist.docx",
+        "path": "projects/lobster-press/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/Lobster_Press_IT_Setup_Checklist.docx",
+        "date": "2026-04-19",
+        "size": "37.4 KB",
+        "size_bytes": 38337,
+        "cat": "Lobster Press",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.3.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.3.docx",
+        "date": "2026-04-19",
+        "size": "37.6 KB",
+        "size_bytes": 38458,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-19.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-19.docx",
+        "date": "2026-04-19",
+        "size": "43.6 KB",
+        "size_bytes": 44691,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "Section_1202_QSBS_Guide.docx",
+        "path": "projects/research/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/research/Section_1202_QSBS_Guide.docx",
+        "date": "2026-04-19",
+        "size": "44.0 KB",
+        "size_bytes": 45010,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "claimpilot-deep-dive-2026-04-19.html",
+        "path": "projects/unicorn-factory/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/unicorn-factory/deep-dives/claimpilot-deep-dive-2026-04-19.html",
+        "date": "2026-04-19",
+        "size": "53.0 KB",
+        "size_bytes": 54293,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "ledgersync-deep-dive-2026-04-19.html",
+        "path": "projects/unicorn-factory/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/unicorn-factory/deep-dives/ledgersync-deep-dive-2026-04-19.html",
+        "date": "2026-04-19",
+        "size": "66.6 KB",
+        "size_bytes": 68172,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/web-clients/lbi-athletic-club/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/web-clients/lbi-athletic-club/index.html",
+        "date": "2026-04-19",
+        "size": "153.1 KB",
+        "size_bytes": 156780,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "day-12-raw.md",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/day-12-raw.md",
+        "date": "2026-04-18",
+        "size": "0 B",
+        "size_bytes": 0,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "jfl-ttd-v3.2.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.2.docx",
+        "date": "2026-04-18",
+        "size": "37.6 KB",
+        "size_bytes": 38476,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-18.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-18.docx",
+        "date": "2026-04-18",
+        "size": "46.0 KB",
+        "size_bytes": 47128,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "AI_Chips_Infrastructure_Brief.docx",
+        "path": "projects/research/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/research/AI_Chips_Infrastructure_Brief.docx",
+        "date": "2026-04-18",
+        "size": "50.3 KB",
+        "size_bytes": 51523,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.2.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.2.pdf",
+        "date": "2026-04-18",
+        "size": "286.5 KB",
+        "size_bytes": 293424,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Mission_Control_2026-04-17.md",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-17.md",
+        "date": "2026-04-17",
+        "size": "1.2 KB",
+        "size_bytes": 1266,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "Mission_Control_2026-04-17.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-17.docx",
+        "date": "2026-04-17",
+        "size": "36.4 KB",
+        "size_bytes": 37250,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.1.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.1.docx",
+        "date": "2026-04-17",
+        "size": "37.5 KB",
+        "size_bytes": 38377,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v3.0.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.0.docx",
+        "date": "2026-04-17",
+        "size": "37.9 KB",
+        "size_bytes": 38792,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Gallagher_MEDVi_Summary.docx",
+        "path": "projects/research/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/research/Gallagher_MEDVi_Summary.docx",
+        "date": "2026-04-17",
+        "size": "38.0 KB",
+        "size_bytes": 38947,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-17.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-17.docx",
+        "date": "2026-04-17",
+        "size": "43.6 KB",
+        "size_bytes": 44640,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "AGI_Investment_Thesis_2026.docx",
+        "path": "projects/research/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/research/AGI_Investment_Thesis_2026.docx",
+        "date": "2026-04-17",
+        "size": "62.6 KB",
+        "size_bytes": 64137,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "moonshot-clean.txt",
+        "path": "projects/research/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/research/moonshot-clean.txt",
+        "date": "2026-04-17",
+        "size": "142.5 KB",
+        "size_bytes": 145869,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "amzn-deep-dive-2026-04-16.html",
+        "path": "projects/investing/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/deep-dives/amzn-deep-dive-2026-04-16.html",
+        "date": "2026-04-17",
+        "size": "165.8 KB",
+        "size_bytes": 169744,
+        "cat": "Investing",
+        "ext": "html"
+      },
+      {
+        "name": "msft-deep-dive-2026-04-16.html",
+        "path": "projects/investing/deep-dives/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/deep-dives/msft-deep-dive-2026-04-16.html",
+        "date": "2026-04-17",
+        "size": "173.6 KB",
+        "size_bytes": 177741,
+        "cat": "Investing",
+        "ext": "html"
+      },
+      {
+        "name": "jfl-ttd-v3.0.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.0.pdf",
+        "date": "2026-04-17",
+        "size": "301.4 KB",
+        "size_bytes": 308672,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Mission_Control_2026-04-16.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-16.docx",
+        "date": "2026-04-16",
+        "size": "36.5 KB",
+        "size_bytes": 37351,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.9.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.9.docx",
+        "date": "2026-04-16",
+        "size": "37.8 KB",
+        "size_bytes": 38758,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-16.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-16.docx",
+        "date": "2026-04-16",
+        "size": "43.3 KB",
+        "size_bytes": 44333,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.9.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.9.pdf",
+        "date": "2026-04-16",
+        "size": "301.7 KB",
+        "size_bytes": 308947,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Reeb Finish Express.pdf",
+        "path": "projects/lobster-press/incoming/reeb-finish-express/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/reeb-finish-express/Reeb Finish Express.pdf",
+        "date": "2026-04-16",
+        "size": "1021.1 KB",
+        "size_bytes": 1045606,
+        "cat": "Lobster Press",
+        "ext": "pdf"
+      },
+      {
+        "name": "idea-factory-day-09-report.docx",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/idea-factory-day-09-report.docx",
+        "date": "2026-04-15",
+        "size": "108 B",
+        "size_bytes": 108,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "mission-control-lumber-and-tlc-2026-04-15.md",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/mission-control-lumber-and-tlc-2026-04-15.md",
+        "date": "2026-04-15",
+        "size": "674 B",
+        "size_bytes": 674,
+        "cat": "TLC",
+        "ext": "md"
+      },
+      {
+        "name": "mission-control-market-snapshot-2026-04-15.md",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/mission-control-market-snapshot-2026-04-15.md",
+        "date": "2026-04-15",
+        "size": "714 B",
+        "size_bytes": 714,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "mission-control-zoning-539-2026-04-15.md",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/mission-control-zoning-539-2026-04-15.md",
+        "date": "2026-04-15",
+        "size": "786 B",
+        "size_bytes": 786,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "day-09-raw.md",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/day-09-raw.md",
+        "date": "2026-04-15",
+        "size": "1.2 KB",
+        "size_bytes": 1244,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "SETUP-GUIDE.md",
+        "path": "projects/hermes-setup/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/hermes-setup/SETUP-GUIDE.md",
+        "date": "2026-04-15",
+        "size": "1.7 KB",
+        "size_bytes": 1698,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "LOBSTER-PRESS-SPEC.md",
+        "path": "projects/lobster-press/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/LOBSTER-PRESS-SPEC.md",
+        "date": "2026-04-15",
+        "size": "1.9 KB",
+        "size_bytes": 1953,
+        "cat": "Lobster Press",
+        "ext": "md"
+      },
+      {
+        "name": "transcript-clean.txt",
+        "path": "projects/mission-control/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/mission-control/transcript-clean.txt",
+        "date": "2026-04-15",
+        "size": "18.5 KB",
+        "size_bytes": 18943,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "transcript-clean.txt",
+        "path": "projects/hermes-setup/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/hermes-setup/transcript-clean.txt",
+        "date": "2026-04-15",
+        "size": "18.8 KB",
+        "size_bytes": 19270,
+        "cat": "Reports",
+        "ext": "txt"
+      },
+      {
+        "name": "jfl-ttd-v2.8.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.8.docx",
+        "date": "2026-04-15",
+        "size": "37.8 KB",
+        "size_bytes": 38711,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-15.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-15.docx",
+        "date": "2026-04-15",
+        "size": "43.7 KB",
+        "size_bytes": 44708,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.8.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.8.pdf",
+        "date": "2026-04-15",
+        "size": "301.0 KB",
+        "size_bytes": 308265,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "robby-easter-eggs.md",
+        "path": "projects/world-cup-pool/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/world-cup-pool/robby-easter-eggs.md",
+        "date": "2026-04-14",
+        "size": "595 B",
+        "size_bytes": 595,
+        "cat": "World Cup Pool",
+        "ext": "md"
+      },
+      {
+        "name": "iran-oil-lumber-brief-apr14.md",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/iran-oil-lumber-brief-apr14.md",
+        "date": "2026-04-14",
+        "size": "811 B",
+        "size_bytes": 811,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "april-30-countdown-apr14.md",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/april-30-countdown-apr14.md",
+        "date": "2026-04-14",
+        "size": "1.3 KB",
+        "size_bytes": 1311,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "DEPLOY-PROTOCOL.md",
+        "path": "projects/world-cup-pool/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/world-cup-pool/DEPLOY-PROTOCOL.md",
+        "date": "2026-04-14",
+        "size": "3.0 KB",
+        "size_bytes": 3067,
+        "cat": "World Cup Pool",
+        "ext": "md"
+      },
+      {
+        "name": "Zoning_App_Lot9_150Railroad.docx",
+        "path": "projects/tlc/zoning/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/zoning/Zoning_App_Lot9_150Railroad.docx",
+        "date": "2026-04-14",
+        "size": "36.8 KB",
+        "size_bytes": 37661,
+        "cat": "TLC",
+        "ext": "docx"
+      },
+      {
+        "name": "Zoning_App_Lot7_138Railroad.docx",
+        "path": "projects/tlc/zoning/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/zoning/Zoning_App_Lot7_138Railroad.docx",
+        "date": "2026-04-14",
+        "size": "36.8 KB",
+        "size_bytes": 37663,
+        "cat": "TLC",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-14.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-14.docx",
+        "date": "2026-04-14",
+        "size": "37.2 KB",
+        "size_bytes": 38075,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.7.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.7.docx",
+        "date": "2026-04-14",
+        "size": "37.8 KB",
+        "size_bytes": 38716,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Mission_Control_2026-04-14.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-14.docx",
+        "date": "2026-04-14",
+        "size": "38.2 KB",
+        "size_bytes": 39073,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.7.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.7.pdf",
+        "date": "2026-04-14",
+        "size": "301.7 KB",
+        "size_bytes": 308946,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_v5.docx",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/Tuckerton_Group_2026_Goals_v5.docx",
+        "date": "2026-04-14",
+        "size": "351.5 KB",
+        "size_bytes": 359889,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_v6.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_v6.docx",
+        "date": "2026-04-14",
+        "size": "351.5 KB",
+        "size_bytes": 359911,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_v6_baseline.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_v6_baseline.docx",
+        "date": "2026-04-14",
+        "size": "351.5 KB",
+        "size_bytes": 359915,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_v7.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_v7.docx",
+        "date": "2026-04-14",
+        "size": "351.8 KB",
+        "size_bytes": 360208,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-14.pdf",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-14.pdf",
+        "date": "2026-04-14",
+        "size": "372.8 KB",
+        "size_bytes": 381798,
+        "cat": "Reports",
+        "ext": "pdf"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_v5_from_joe.docx",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/Tuckerton_Group_2026_Goals_v5_from_joe.docx",
+        "date": "2026-04-14",
+        "size": "384.0 KB",
+        "size_bytes": 393256,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_JoeEdits.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_JoeEdits.docx",
+        "date": "2026-04-14",
+        "size": "384.0 KB",
+        "size_bytes": 393256,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_v6.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_v6.pdf",
+        "date": "2026-04-14",
+        "size": "584.0 KB",
+        "size_bytes": 598017,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_v7.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_v7.pdf",
+        "date": "2026-04-14",
+        "size": "597.3 KB",
+        "size_bytes": 611673,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_Working_April7_v5.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_Working_April7_v5.pdf",
+        "date": "2026-04-14",
+        "size": "1.7 MB",
+        "size_bytes": 1810782,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "lumber-monitor-2026-04-13.md",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/lumber-monitor-2026-04-13.md",
+        "date": "2026-04-13",
+        "size": "411 B",
+        "size_bytes": 411,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "market-scorecard-2026-04-13.md",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/market-scorecard-2026-04-13.md",
+        "date": "2026-04-13",
+        "size": "707 B",
+        "size_bytes": 707,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "april30-readiness-2026-04-13.md",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/april30-readiness-2026-04-13.md",
+        "date": "2026-04-13",
+        "size": "909 B",
+        "size_bytes": 909,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "mose-convergence-2026-04-13.md",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/mose-convergence-2026-04-13.md",
+        "date": "2026-04-13",
+        "size": "2.8 KB",
+        "size_bytes": 2873,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "truist-portfolio-summary.md",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/truist-portfolio-summary.md",
+        "date": "2026-04-13",
+        "size": "4.9 KB",
+        "size_bytes": 4979,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-13.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-13.docx",
+        "date": "2026-04-13",
+        "size": "37.3 KB",
+        "size_bytes": 38229,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "Mission_Control_2026-04-13.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-13.docx",
+        "date": "2026-04-13",
+        "size": "37.6 KB",
+        "size_bytes": 38469,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.6.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.6.docx",
+        "date": "2026-04-13",
+        "size": "37.8 KB",
+        "size_bytes": 38693,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "ReBolt-Patent-Summary-For-Greg.docx",
+        "path": "projects/rebolt/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt/ReBolt-Patent-Summary-For-Greg.docx",
+        "date": "2026-04-13",
+        "size": "38.3 KB",
+        "size_bytes": 39207,
+        "cat": "ReBolt",
+        "ext": "docx"
+      },
+      {
+        "name": "ReBolt-Prior-Art-Search.docx",
+        "path": "projects/rebolt/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt/ReBolt-Prior-Art-Search.docx",
+        "date": "2026-04-13",
+        "size": "40.4 KB",
+        "size_bytes": 41400,
+        "cat": "ReBolt",
+        "ext": "docx"
+      },
+      {
+        "name": "ReBolt-Provisional-Patent-Draft.docx",
+        "path": "projects/rebolt/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt/ReBolt-Provisional-Patent-Draft.docx",
+        "date": "2026-04-13",
+        "size": "42.3 KB",
+        "size_bytes": 43297,
+        "cat": "ReBolt",
+        "ext": "docx"
+      },
+      {
+        "name": "MOSE-Convergence-Report-2026-04-13.docx",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/MOSE-Convergence-Report-2026-04-13.docx",
+        "date": "2026-04-13",
+        "size": "45.5 KB",
+        "size_bytes": 46605,
+        "cat": "Investing",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.6.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.6.pdf",
+        "date": "2026-04-13",
+        "size": "300.7 KB",
+        "size_bytes": 307929,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-13.pdf",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-13.pdf",
+        "date": "2026-04-13",
+        "size": "468.6 KB",
+        "size_bytes": 479811,
+        "cat": "Reports",
+        "ext": "pdf"
+      },
+      {
+        "name": "README.md",
+        "path": "projects/world-cup-pool/app/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/world-cup-pool/app/README.md",
+        "date": "2026-04-12",
+        "size": "1.4 KB",
+        "size_bytes": 1450,
+        "cat": "World Cup Pool",
+        "ext": "md"
+      },
+      {
+        "name": "ttd.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/ttd.md",
+        "date": "2026-04-12",
+        "size": "5.9 KB",
+        "size_bytes": 6018,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "jfl-ttd-v2.2.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.2.docx",
+        "date": "2026-04-12",
+        "size": "37.5 KB",
+        "size_bytes": 38363,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.3.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.3.docx",
+        "date": "2026-04-12",
+        "size": "37.5 KB",
+        "size_bytes": 38420,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.4.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.4.docx",
+        "date": "2026-04-12",
+        "size": "37.5 KB",
+        "size_bytes": 38449,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.5.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.5.docx",
+        "date": "2026-04-12",
+        "size": "37.6 KB",
+        "size_bytes": 38498,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.2.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.2.pdf",
+        "date": "2026-04-12",
+        "size": "280.3 KB",
+        "size_bytes": 286988,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "jfl-ttd-v2.3.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.3.pdf",
+        "date": "2026-04-12",
+        "size": "281.9 KB",
+        "size_bytes": 288640,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "jfl-ttd-v2.4.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.4.pdf",
+        "date": "2026-04-12",
+        "size": "282.2 KB",
+        "size_bytes": 288946,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "jfl-ttd-v2.5.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.5.pdf",
+        "date": "2026-04-12",
+        "size": "292.9 KB",
+        "size_bytes": 299960,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "LOBSTER-PRESS.md",
+        "path": "projects/lobster-press/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/LOBSTER-PRESS.md",
+        "date": "2026-04-11",
+        "size": "1.7 KB",
+        "size_bytes": 1752,
+        "cat": "Lobster Press",
+        "ext": "md"
+      },
+      {
+        "name": "deck-v3-assessment.md",
+        "path": "projects/rebolt/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt/deck-v3-assessment.md",
+        "date": "2026-04-11",
+        "size": "1.7 KB",
+        "size_bytes": 1788,
+        "cat": "ReBolt",
+        "ext": "md"
+      },
+      {
+        "name": "surfbox-april30-readiness.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/surfbox-april30-readiness.md",
+        "date": "2026-04-11",
+        "size": "1.9 KB",
+        "size_bytes": 1899,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "ttd-done-archive.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ttd-done-archive.md",
+        "date": "2026-04-11",
+        "size": "2.0 KB",
+        "size_bytes": 2092,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "BRIEF.md",
+        "path": "projects/lobster-press/clients/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/clients/cassidys-kitchen/BRIEF.md",
+        "date": "2026-04-11",
+        "size": "2.2 KB",
+        "size_bytes": 2250,
+        "cat": "Lobster Press",
+        "ext": "md"
+      },
+      {
+        "name": "april30-countdown-19days.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/april30-countdown-19days.md",
+        "date": "2026-04-11",
+        "size": "2.4 KB",
+        "size_bytes": 2479,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "schwab-api-onboarding.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/schwab-api-onboarding.md",
+        "date": "2026-04-11",
+        "size": "2.7 KB",
+        "size_bytes": 2741,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "joe-compensation-latest-draft.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/joe-compensation-latest-draft.docx",
+        "date": "2026-04-11",
+        "size": "23.4 KB",
+        "size_bytes": 23914,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Mission_Control_2026-04-11.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-11.docx",
+        "date": "2026-04-11",
+        "size": "37.4 KB",
+        "size_bytes": 38265,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "joe-compensation-v2-simple.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/joe-compensation-v2-simple.docx",
+        "date": "2026-04-11",
+        "size": "37.6 KB",
+        "size_bytes": 38523,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.1.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.1.docx",
+        "date": "2026-04-11",
+        "size": "37.9 KB",
+        "size_bytes": 38761,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-11.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-11.docx",
+        "date": "2026-04-11",
+        "size": "41.3 KB",
+        "size_bytes": 42321,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "lunch-menu.pdf",
+        "path": "projects/lobster-press/clients/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/clients/cassidys-kitchen/lunch-menu.pdf",
+        "date": "2026-04-11",
+        "size": "391.7 KB",
+        "size_bytes": 401136,
+        "cat": "Lobster Press",
+        "ext": "pdf"
+      },
+      {
+        "name": "cassidys-brand-guide.pdf",
+        "path": "projects/lobster-press/clients/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/clients/cassidys-kitchen/cassidys-brand-guide.pdf",
+        "date": "2026-04-11",
+        "size": "416.5 KB",
+        "size_bytes": 426543,
+        "cat": "Lobster Press",
+        "ext": "pdf"
+      },
+      {
+        "name": "version-b-no-overlay.html",
+        "path": "projects/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/cassidys-kitchen/version-b-no-overlay.html",
+        "date": "2026-04-11",
+        "size": "1.4 MB",
+        "size_bytes": 1473639,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "version-b-no-overlay.html",
+        "path": "projects/lobster-press/clients/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/clients/cassidys-kitchen/version-b-no-overlay.html",
+        "date": "2026-04-11",
+        "size": "1.4 MB",
+        "size_bytes": 1473639,
+        "cat": "Lobster Press",
+        "ext": "html"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/cassidys-kitchen/index.html",
+        "date": "2026-04-11",
+        "size": "1.7 MB",
+        "size_bytes": 1794116,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "version-a-overlay.html",
+        "path": "projects/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/cassidys-kitchen/version-a-overlay.html",
+        "date": "2026-04-11",
+        "size": "1.7 MB",
+        "size_bytes": 1794116,
+        "cat": "Other",
+        "ext": "html"
+      },
+      {
+        "name": "index.html",
+        "path": "projects/lobster-press/clients/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/clients/cassidys-kitchen/index.html",
+        "date": "2026-04-11",
+        "size": "1.7 MB",
+        "size_bytes": 1794116,
+        "cat": "Lobster Press",
+        "ext": "html"
+      },
+      {
+        "name": "version-a-overlay.html",
+        "path": "projects/lobster-press/clients/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/clients/cassidys-kitchen/version-a-overlay.html",
+        "date": "2026-04-11",
+        "size": "1.7 MB",
+        "size_bytes": 1794116,
+        "cat": "Lobster Press",
+        "ext": "html"
+      },
+      {
+        "name": "schwab-q1-2026.pdf",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/schwab-q1-2026.pdf",
+        "date": "2026-04-11",
+        "size": "4.6 MB",
+        "size_bytes": 4800335,
+        "cat": "Investing",
+        "ext": "pdf"
+      },
+      {
+        "name": "BRIEF.md",
+        "path": "projects/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/cassidys-kitchen/BRIEF.md",
+        "date": "2026-04-10",
+        "size": "2.2 KB",
+        "size_bytes": 2250,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "schwab-vs-fidelity-api-research.md",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/schwab-vs-fidelity-api-research.md",
+        "date": "2026-04-10",
+        "size": "2.5 KB",
+        "size_bytes": 2553,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "MOSE-SPRINT.md",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/MOSE-SPRINT.md",
+        "date": "2026-04-10",
+        "size": "6.2 KB",
+        "size_bytes": 6375,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "REBOLT.md",
+        "path": "projects/rebolt/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt/REBOLT.md",
+        "date": "2026-04-10",
+        "size": "7.2 KB",
+        "size_bytes": 7322,
+        "cat": "ReBolt",
+        "ext": "md"
+      },
+      {
+        "name": "MOSE.md",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/MOSE.md",
+        "date": "2026-04-10",
+        "size": "24.1 KB",
+        "size_bytes": 24703,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "MOSE_Convergence_Report_2026-04-10.docx",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/MOSE_Convergence_Report_2026-04-10.docx",
+        "date": "2026-04-10",
+        "size": "37.4 KB",
+        "size_bytes": 38303,
+        "cat": "Investing",
+        "ext": "docx"
+      },
+      {
+        "name": "Mission_Control_2026-04-10.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Mission_Control_2026-04-10.docx",
+        "date": "2026-04-10",
+        "size": "37.4 KB",
+        "size_bytes": 38347,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v2.0.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v2.0.docx",
+        "date": "2026-04-10",
+        "size": "38.1 KB",
+        "size_bytes": 39005,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.9.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.9.docx",
+        "date": "2026-04-10",
+        "size": "39.4 KB",
+        "size_bytes": 40300,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-10.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-10.docx",
+        "date": "2026-04-10",
+        "size": "40.1 KB",
+        "size_bytes": 41098,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "super-investor-system-proposal.docx",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/super-investor-system-proposal.docx",
+        "date": "2026-04-10",
+        "size": "64.3 KB",
+        "size_bytes": 65868,
+        "cat": "Investing",
+        "ext": "docx"
+      },
+      {
+        "name": "lunch-menu.pdf",
+        "path": "projects/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/cassidys-kitchen/lunch-menu.pdf",
+        "date": "2026-04-10",
+        "size": "391.7 KB",
+        "size_bytes": 401136,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "cassidys-brand-guide.pdf",
+        "path": "projects/cassidys-kitchen/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/cassidys-kitchen/cassidys-brand-guide.pdf",
+        "date": "2026-04-10",
+        "size": "416.5 KB",
+        "size_bytes": 426543,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "all-ideas-master.md",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/all-ideas-master.md",
+        "date": "2026-04-09",
+        "size": "343 B",
+        "size_bytes": 343,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "master-idea-list.md",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/master-idea-list.md",
+        "date": "2026-04-09",
+        "size": "580 B",
+        "size_bytes": 580,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "ttd-completed-tasks.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ttd-completed-tasks.md",
+        "date": "2026-04-09",
+        "size": "755 B",
+        "size_bytes": 755,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "worth-keeping.md",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/worth-keeping.md",
+        "date": "2026-04-09",
+        "size": "819 B",
+        "size_bytes": 819,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "gmail-monitor.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/gmail-monitor.md",
+        "date": "2026-04-09",
+        "size": "2.5 KB",
+        "size_bytes": 2534,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "report-runner.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/report-runner.md",
+        "date": "2026-04-09",
+        "size": "3.7 KB",
+        "size_bytes": 3754,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "telegram-style.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/telegram-style.md",
+        "date": "2026-04-09",
+        "size": "4.3 KB",
+        "size_bytes": 4451,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "idea-factory.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/idea-factory.md",
+        "date": "2026-04-09",
+        "size": "4.8 KB",
+        "size_bytes": 4942,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "idea-factory-spec.md",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/idea-factory-spec.md",
+        "date": "2026-04-09",
+        "size": "5.3 KB",
+        "size_bytes": 5429,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "model-routing.md",
+        "path": "reports/",
+        "full_path": "/Users/joemac/.openclaw/workspace/reports/model-routing.md",
+        "date": "2026-04-09",
+        "size": "5.8 KB",
+        "size_bytes": 5966,
+        "cat": "Reports",
+        "ext": "md"
+      },
+      {
+        "name": "day-02-raw.md",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/day-02-raw.md",
+        "date": "2026-04-09",
+        "size": "21.5 KB",
+        "size_bytes": 22060,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "rebolt-marketing-brief.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt-marketing-brief.docx",
+        "date": "2026-04-09",
+        "size": "38.4 KB",
+        "size_bytes": 39358,
+        "cat": "ReBolt",
+        "ext": "docx"
+      },
+      {
+        "name": "idea-factory-day-02-report.docx",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/idea-factory-day-02-report.docx",
+        "date": "2026-04-09",
+        "size": "44.7 KB",
+        "size_bytes": 45742,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "ReBolt_Sales_Deck_v3.docx",
+        "path": "projects/rebolt/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt/ReBolt_Sales_Deck_v3.docx",
+        "date": "2026-04-09",
+        "size": "2.8 MB",
+        "size_bytes": 2927414,
+        "cat": "ReBolt",
+        "ext": "docx"
+      },
+      {
+        "name": "anthropic-billing-action-plan.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/anthropic-billing-action-plan.md",
+        "date": "2026-04-08",
+        "size": "2.6 KB",
+        "size_bytes": 2660,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "baba-oversold-opportunity-april-2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/baba-oversold-opportunity-april-2026.md",
+        "date": "2026-04-08",
+        "size": "3.4 KB",
+        "size_bytes": 3442,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "tlc-ceasefire-lumber-flash-april-2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc-ceasefire-lumber-flash-april-2026.md",
+        "date": "2026-04-08",
+        "size": "3.5 KB",
+        "size_bytes": 3586,
+        "cat": "TLC",
+        "ext": "md"
+      },
+      {
+        "name": "iran-ceasefire-portfolio-impact-2026-04-08.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/iran-ceasefire-portfolio-impact-2026-04-08.md",
+        "date": "2026-04-08",
+        "size": "4.6 KB",
+        "size_bytes": 4668,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "surfbox-april30-launch-checklist.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/surfbox-april30-launch-checklist.md",
+        "date": "2026-04-08",
+        "size": "4.7 KB",
+        "size_bytes": 4798,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-08.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-08.docx",
+        "date": "2026-04-08",
+        "size": "43.6 KB",
+        "size_bytes": 44616,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_Working_April7_v4.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_Working_April7_v4.docx",
+        "date": "2026-04-08",
+        "size": "803.1 KB",
+        "size_bytes": 822341,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "social-media-sop-v4.docx",
+        "path": "projects/social-media/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/social-media/social-media-sop-v4.docx",
+        "date": "2026-04-08",
+        "size": "820.8 KB",
+        "size_bytes": 840475,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_Working_April7_v5.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_Working_April7_v5.docx",
+        "date": "2026-04-08",
+        "size": "1.2 MB",
+        "size_bytes": 1262234,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "social-media-sop-v5.docx",
+        "path": "projects/social-media/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/social-media/social-media-sop-v5.docx",
+        "date": "2026-04-08",
+        "size": "1.2 MB",
+        "size_bytes": 1280353,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Frank_Capecci_Note.md",
+        "path": "projects/personal/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/personal/Frank_Capecci_Note.md",
+        "date": "2026-04-07",
+        "size": "1.9 KB",
+        "size_bytes": 1975,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "TLC_Lumber_Tariff_Alert_April2026.md",
+        "path": "projects/tlc/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/TLC_Lumber_Tariff_Alert_April2026.md",
+        "date": "2026-04-07",
+        "size": "6.1 KB",
+        "size_bytes": 6226,
+        "cat": "TLC",
+        "ext": "md"
+      },
+      {
+        "name": "Keli_April_June_Social_Pack.md",
+        "path": "projects/keli/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/keli/Keli_April_June_Social_Pack.md",
+        "date": "2026-04-07",
+        "size": "6.9 KB",
+        "size_bytes": 7042,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "April30_Portfolio_PreExecution_Update.md",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/April30_Portfolio_PreExecution_Update.md",
+        "date": "2026-04-07",
+        "size": "6.9 KB",
+        "size_bytes": 7088,
+        "cat": "Investing",
+        "ext": "md"
+      },
+      {
+        "name": "alex-finn-ai-business-prompts.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/alex-finn-ai-business-prompts.docx",
+        "date": "2026-04-07",
+        "size": "11.4 KB",
+        "size_bytes": 11705,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "TLC_Command_Center.html",
+        "path": "projects/tlc/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/TLC_Command_Center.html",
+        "date": "2026-04-07",
+        "size": "25.3 KB",
+        "size_bytes": 25909,
+        "cat": "TLC",
+        "ext": "html"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-07_Updated.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-07_Updated.docx",
+        "date": "2026-04-07",
+        "size": "34.2 KB",
+        "size_bytes": 35028,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "truist-self-directed-request.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/truist-self-directed-request.docx",
+        "date": "2026-04-07",
+        "size": "36.9 KB",
+        "size_bytes": 37834,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "truist-self-directed-request-v3.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/truist-self-directed-request-v3.docx",
+        "date": "2026-04-07",
+        "size": "37.0 KB",
+        "size_bytes": 37871,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "truist-self-directed-request-final.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/truist-self-directed-request-final.docx",
+        "date": "2026-04-07",
+        "size": "37.0 KB",
+        "size_bytes": 37885,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "truist-self-directed-request-v2.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/truist-self-directed-request-v2.docx",
+        "date": "2026-04-07",
+        "size": "37.3 KB",
+        "size_bytes": 38158,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.docx",
+        "date": "2026-04-07",
+        "size": "37.7 KB",
+        "size_bytes": 38611,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.1.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.1.docx",
+        "date": "2026-04-07",
+        "size": "38.2 KB",
+        "size_bytes": 39129,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.2.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.2.docx",
+        "date": "2026-04-07",
+        "size": "38.5 KB",
+        "size_bytes": 39408,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.3.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.3.docx",
+        "date": "2026-04-07",
+        "size": "38.6 KB",
+        "size_bytes": 39522,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.4.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.4.docx",
+        "date": "2026-04-07",
+        "size": "38.6 KB",
+        "size_bytes": 39530,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.8.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.8.docx",
+        "date": "2026-04-07",
+        "size": "38.9 KB",
+        "size_bytes": 39840,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.7.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.7.docx",
+        "date": "2026-04-07",
+        "size": "38.9 KB",
+        "size_bytes": 39841,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.5.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.5.docx",
+        "date": "2026-04-07",
+        "size": "39.0 KB",
+        "size_bytes": 39889,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v1.6.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v1.6.docx",
+        "date": "2026-04-07",
+        "size": "39.1 KB",
+        "size_bytes": 40004,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "firehouse-historic-tax-credit-memo.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse-historic-tax-credit-memo.docx",
+        "date": "2026-04-07",
+        "size": "39.5 KB",
+        "size_bytes": 40490,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "danielle-company-comparison.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/danielle-company-comparison.docx",
+        "date": "2026-04-07",
+        "size": "40.3 KB",
+        "size_bytes": 41223,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-07.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-07.docx",
+        "date": "2026-04-07",
+        "size": "43.3 KB",
+        "size_bytes": 44375,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "day-01-raw.md",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/day-01-raw.md",
+        "date": "2026-04-07",
+        "size": "48.6 KB",
+        "size_bytes": 49783,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "idea-factory-day-01-report.docx",
+        "path": "projects/idea-factory/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/idea-factory/idea-factory-day-01-report.docx",
+        "date": "2026-04-07",
+        "size": "53.8 KB",
+        "size_bytes": 55091,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_Working_April7.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_Working_April7.docx",
+        "date": "2026-04-07",
+        "size": "591.8 KB",
+        "size_bytes": 605965,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "social-media-sop.docx",
+        "path": "projects/social-media/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/social-media/social-media-sop.docx",
+        "date": "2026-04-07",
+        "size": "610.0 KB",
+        "size_bytes": 624646,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_Working_April7_v3.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_Working_April7_v3.docx",
+        "date": "2026-04-07",
+        "size": "802.5 KB",
+        "size_bytes": 821713,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "social-media-sop-v3.docx",
+        "path": "projects/social-media/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/social-media/social-media-sop-v3.docx",
+        "date": "2026-04-07",
+        "size": "820.7 KB",
+        "size_bytes": 840421,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "Tuckerton_Group_2026_Goals_Working_April7_v2.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Tuckerton_Group_2026_Goals_Working_April7_v2.docx",
+        "date": "2026-04-07",
+        "size": "828.6 KB",
+        "size_bytes": 848473,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "social-media-sop-v2.docx",
+        "path": "projects/social-media/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/social-media/social-media-sop-v2.docx",
+        "date": "2026-04-07",
+        "size": "846.9 KB",
+        "size_bytes": 867181,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "joe-compensation-justification.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/joe-compensation-justification.docx",
+        "date": "2026-04-06",
+        "size": "39.5 KB",
+        "size_bytes": 40475,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-rundown-2026-04-06.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-rundown-2026-04-06.docx",
+        "date": "2026-04-06",
+        "size": "43.4 KB",
+        "size_bytes": 44476,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "Morning_Joes_Rundown_2026-04-05.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/Morning_Joes_Rundown_2026-04-05.docx",
+        "date": "2026-04-05",
+        "size": "42.8 KB",
+        "size_bytes": 43829,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "keli-lbi-spring-2026-market-intel.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/keli-lbi-spring-2026-market-intel.md",
+        "date": "2026-04-04",
+        "size": "5.6 KB",
+        "size_bytes": 5752,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "rebolt-patent-ip-strategy.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt-patent-ip-strategy.md",
+        "date": "2026-04-04",
+        "size": "5.8 KB",
+        "size_bytes": 5928,
+        "cat": "ReBolt",
+        "ext": "md"
+      },
+      {
+        "name": "tlc-539-marine-store-concept.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc-539-marine-store-concept.md",
+        "date": "2026-04-04",
+        "size": "6.8 KB",
+        "size_bytes": 6940,
+        "cat": "TLC",
+        "ext": "md"
+      },
+      {
+        "name": "surfbox-digital-marketing-strategy.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/surfbox-digital-marketing-strategy.md",
+        "date": "2026-04-04",
+        "size": "7.3 KB",
+        "size_bytes": 7468,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "morning-package-2026-04-04.txt",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-04.txt",
+        "date": "2026-04-04",
+        "size": "7.3 KB",
+        "size_bytes": 7525,
+        "cat": "Reports",
+        "ext": "txt"
+      },
+      {
+        "name": "glp1-t2d-market-opportunity-t1d-app.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/glp1-t2d-market-opportunity-t1d-app.md",
+        "date": "2026-04-04",
+        "size": "7.9 KB",
+        "size_bytes": 8049,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "morning-package-2026-04-04.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-04.docx",
+        "date": "2026-04-04",
+        "size": "38.8 KB",
+        "size_bytes": 39736,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-joes-rundown-2026-04-04.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-joes-rundown-2026-04-04.docx",
+        "date": "2026-04-04",
+        "size": "39.8 KB",
+        "size_bytes": 40800,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "shoe-dermatitis-research.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/shoe-dermatitis-research.docx",
+        "date": "2026-04-04",
+        "size": "55.6 KB",
+        "size_bytes": 56904,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "ceremony-v7-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-v7-list.txt",
+        "date": "2026-04-03",
+        "size": "70 B",
+        "size_bytes": 70,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-final2-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-final2-list.txt",
+        "date": "2026-04-03",
+        "size": "73 B",
+        "size_bytes": 73,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-v6-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-v6-list.txt",
+        "date": "2026-04-03",
+        "size": "74 B",
+        "size_bytes": 74,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-final4-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-final4-list.txt",
+        "date": "2026-04-03",
+        "size": "74 B",
+        "size_bytes": 74,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-final-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-final-list.txt",
+        "date": "2026-04-03",
+        "size": "74 B",
+        "size_bytes": 74,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-final3-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-final3-list.txt",
+        "date": "2026-04-03",
+        "size": "76 B",
+        "size_bytes": 76,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-v8-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-v8-list.txt",
+        "date": "2026-04-03",
+        "size": "76 B",
+        "size_bytes": 76,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-final5-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-final5-list.txt",
+        "date": "2026-04-03",
+        "size": "77 B",
+        "size_bytes": 77,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-v3-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-v3-list.txt",
+        "date": "2026-04-03",
+        "size": "85 B",
+        "size_bytes": 85,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-v5-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-v5-list.txt",
+        "date": "2026-04-03",
+        "size": "86 B",
+        "size_bytes": 86,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-v4-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-v4-list.txt",
+        "date": "2026-04-03",
+        "size": "88 B",
+        "size_bytes": 88,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "ceremony-v2-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-v2-list.txt",
+        "date": "2026-04-03",
+        "size": "88 B",
+        "size_bytes": 88,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "joe-keli-anniversary-tribute.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/joe-keli-anniversary-tribute.md",
+        "date": "2026-04-03",
+        "size": "2.1 KB",
+        "size_bytes": 2110,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "morning-package-2026-04-03.txt",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-03.txt",
+        "date": "2026-04-03",
+        "size": "5.5 KB",
+        "size_bytes": 5649,
+        "cat": "Reports",
+        "ext": "txt"
+      },
+      {
+        "name": "t1d-app-mvp-development-roadmap.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/t1d-app-mvp-development-roadmap.md",
+        "date": "2026-04-03",
+        "size": "7.6 KB",
+        "size_bytes": 7745,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "tlc-seasonal-pricing-strategy-spring-2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc-seasonal-pricing-strategy-spring-2026.md",
+        "date": "2026-04-03",
+        "size": "8.1 KB",
+        "size_bytes": 8322,
+        "cat": "TLC",
+        "ext": "md"
+      },
+      {
+        "name": "april-30-strike-list-stock-deep-dives.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/april-30-strike-list-stock-deep-dives.md",
+        "date": "2026-04-03",
+        "size": "9.1 KB",
+        "size_bytes": 9296,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "surfbox-tlc-cross-sell-program.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/surfbox-tlc-cross-sell-program.md",
+        "date": "2026-04-03",
+        "size": "10.1 KB",
+        "size_bytes": 10370,
+        "cat": "TLC",
+        "ext": "md"
+      },
+      {
+        "name": "morning-package-2026-04-03.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-03.docx",
+        "date": "2026-04-03",
+        "size": "38.9 KB",
+        "size_bytes": 39857,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-package-2026-04-02.txt",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-02.txt",
+        "date": "2026-04-02",
+        "size": "4.8 KB",
+        "size_bytes": 4874,
+        "cat": "Reports",
+        "ext": "txt"
+      },
+      {
+        "name": "corner-market-deal-analysis.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/corner-market-deal-analysis.md",
+        "date": "2026-04-02",
+        "size": "7.0 KB",
+        "size_bytes": 7168,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "tlc-declining-account-recovery-playbook.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc-declining-account-recovery-playbook.md",
+        "date": "2026-04-02",
+        "size": "8.1 KB",
+        "size_bytes": 8275,
+        "cat": "TLC",
+        "ext": "md"
+      },
+      {
+        "name": "liberation-day-anniversary-portfolio-analysis.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/liberation-day-anniversary-portfolio-analysis.md",
+        "date": "2026-04-02",
+        "size": "8.3 KB",
+        "size_bytes": 8548,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "surfbox-competitive-positioning-digital-audit.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/surfbox-competitive-positioning-digital-audit.md",
+        "date": "2026-04-02",
+        "size": "9.0 KB",
+        "size_bytes": 9241,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "colorant-india-china-supplier-deep-dive.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/colorant-india-china-supplier-deep-dive.md",
+        "date": "2026-04-02",
+        "size": "10.2 KB",
+        "size_bytes": 10472,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "morning-package-2026-04-02.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-02.docx",
+        "date": "2026-04-02",
+        "size": "39.0 KB",
+        "size_bytes": 39948,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "bella-ai-education-package.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/bella-ai-education-package.md",
+        "date": "2026-04-01",
+        "size": "5.7 KB",
+        "size_bytes": 5847,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "rebolt-manufacturer-pitch-prep.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt-manufacturer-pitch-prep.md",
+        "date": "2026-04-01",
+        "size": "7.7 KB",
+        "size_bytes": 7926,
+        "cat": "ReBolt",
+        "ext": "md"
+      },
+      {
+        "name": "juliana-confidence-summer-plan.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/juliana-confidence-summer-plan.md",
+        "date": "2026-04-01",
+        "size": "8.5 KB",
+        "size_bytes": 8655,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "tlc-epicor-minmax-inventory-guide.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc-epicor-minmax-inventory-guide.md",
+        "date": "2026-04-01",
+        "size": "8.5 KB",
+        "size_bytes": 8706,
+        "cat": "TLC",
+        "ext": "md"
+      },
+      {
+        "name": "meli-investment-deep-dive-apr2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/meli-investment-deep-dive-apr2026.md",
+        "date": "2026-04-01",
+        "size": "8.8 KB",
+        "size_bytes": 8986,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "2025-annual-shareholder-letter-v3.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/2025-annual-shareholder-letter-v3.docx",
+        "date": "2026-04-01",
+        "size": "26.0 KB",
+        "size_bytes": 26653,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "2025-annual-shareholder-letter-vrm.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/2025-annual-shareholder-letter-vrm.docx",
+        "date": "2026-04-01",
+        "size": "34.2 KB",
+        "size_bytes": 34995,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-package-2026-04-01.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-01.docx",
+        "date": "2026-04-01",
+        "size": "41.1 KB",
+        "size_bytes": 42130,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-package-2026-04-01-PRINT.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-01-PRINT.docx",
+        "date": "2026-04-01",
+        "size": "42.2 KB",
+        "size_bytes": 43255,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-package-2026-04-01-formatted.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-01-formatted.docx",
+        "date": "2026-04-01",
+        "size": "42.5 KB",
+        "size_bytes": 43525,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-package-2026-04-01-PRINT.pdf",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-04-01-PRINT.pdf",
+        "date": "2026-04-01",
+        "size": "137.1 KB",
+        "size_bytes": 140438,
+        "cat": "Reports",
+        "ext": "pdf"
+      },
+      {
+        "name": "haastrotters-boatyard-research.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/haastrotters-boatyard-research.md",
+        "date": "2026-03-31",
+        "size": "1.9 KB",
+        "size_bytes": 1962,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "lobster-press-boom-truck-post.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press-boom-truck-post.md",
+        "date": "2026-03-31",
+        "size": "2.7 KB",
+        "size_bytes": 2717,
+        "cat": "Lobster Press",
+        "ext": "md"
+      },
+      {
+        "name": "psi-physics-ai-danielle-package.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/psi-physics-ai-danielle-package.md",
+        "date": "2026-03-31",
+        "size": "6.0 KB",
+        "size_bytes": 6156,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "surfbox-social-media-program.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/surfbox-social-media-program.md",
+        "date": "2026-03-31",
+        "size": "6.1 KB",
+        "size_bytes": 6276,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "serial-acquirers-research-mar2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/serial-acquirers-research-mar2026.md",
+        "date": "2026-03-31",
+        "size": "11.9 KB",
+        "size_bytes": 12179,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "morning-package-2026-03-31.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-03-31.docx",
+        "date": "2026-03-31",
+        "size": "41.2 KB",
+        "size_bytes": 42144,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "dcf-ai-adjusted-analysis.docx",
+        "path": "projects/investing/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/investing/dcf-ai-adjusted-analysis.docx",
+        "date": "2026-03-31",
+        "size": "41.8 KB",
+        "size_bytes": 42774,
+        "cat": "Investing",
+        "ext": "docx"
+      },
+      {
+        "name": "firehouse-2nd-floor-v19.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v19.pdf",
+        "date": "2026-03-31",
+        "size": "53.3 KB",
+        "size_bytes": 54606,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v23.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v23.pdf",
+        "date": "2026-03-31",
+        "size": "53.3 KB",
+        "size_bytes": 54623,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v22.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v22.pdf",
+        "date": "2026-03-31",
+        "size": "53.4 KB",
+        "size_bytes": 54662,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v21.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v21.pdf",
+        "date": "2026-03-31",
+        "size": "53.6 KB",
+        "size_bytes": 54880,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v20.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v20.pdf",
+        "date": "2026-03-31",
+        "size": "53.6 KB",
+        "size_bytes": 54887,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "ceremony-combo-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-combo-list.txt",
+        "date": "2026-03-30",
+        "size": "90 B",
+        "size_bytes": 90,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "diana-loop-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/diana-loop-list.txt",
+        "date": "2026-03-30",
+        "size": "216 B",
+        "size_bytes": 216,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "loop-list.txt",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/loop-list.txt",
+        "date": "2026-03-30",
+        "size": "264 B",
+        "size_bytes": 264,
+        "cat": "Other",
+        "ext": "txt"
+      },
+      {
+        "name": "firehouse-marketing-brief.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse-marketing-brief.md",
+        "date": "2026-03-30",
+        "size": "5.9 KB",
+        "size_bytes": 6077,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "nj-construction-trends-mar2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/nj-construction-trends-mar2026.md",
+        "date": "2026-03-30",
+        "size": "6.8 KB",
+        "size_bytes": 6990,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "harbor-freight-model-study.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/harbor-freight-model-study.md",
+        "date": "2026-03-30",
+        "size": "7.8 KB",
+        "size_bytes": 7988,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "april-30-portfolio-execution-plan.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/april-30-portfolio-execution-plan.md",
+        "date": "2026-03-30",
+        "size": "9.0 KB",
+        "size_bytes": 9227,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "morning-package-2026-03-30.pdf",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-03-30.pdf",
+        "date": "2026-03-30",
+        "size": "11.8 KB",
+        "size_bytes": 12077,
+        "cat": "Reports",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-existing.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-existing.pdf",
+        "date": "2026-03-30",
+        "size": "28.5 KB",
+        "size_bytes": 29163,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-measurement-worksheet.docx",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-measurement-worksheet.docx",
+        "date": "2026-03-30",
+        "size": "37.4 KB",
+        "size_bytes": 38269,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "ceremony-plan.docx",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-plan.docx",
+        "date": "2026-03-30",
+        "size": "38.5 KB",
+        "size_bytes": 39459,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "ceremony-plan-v2.docx",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-plan-v2.docx",
+        "date": "2026-03-30",
+        "size": "38.9 KB",
+        "size_bytes": 39844,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "ceremony-plan-v3.docx",
+        "path": "projects/ceremony/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ceremony/ceremony-plan-v3.docx",
+        "date": "2026-03-30",
+        "size": "39.3 KB",
+        "size_bytes": 40275,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-package-2026-03-30.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-03-30.docx",
+        "date": "2026-03-30",
+        "size": "41.5 KB",
+        "size_bytes": 42530,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-package-2026-03-30-checkboxes.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-03-30-checkboxes.docx",
+        "date": "2026-03-30",
+        "size": "41.5 KB",
+        "size_bytes": 42536,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "firehouse-2nd-floor-v15.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v15.pdf",
+        "date": "2026-03-30",
+        "size": "49.0 KB",
+        "size_bytes": 50183,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v16.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v16.pdf",
+        "date": "2026-03-30",
+        "size": "49.6 KB",
+        "size_bytes": 50740,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v17.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v17.pdf",
+        "date": "2026-03-30",
+        "size": "51.0 KB",
+        "size_bytes": 52217,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v14-flipped.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v14-flipped.pdf",
+        "date": "2026-03-30",
+        "size": "51.8 KB",
+        "size_bytes": 53051,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v18.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v18.pdf",
+        "date": "2026-03-30",
+        "size": "52.4 KB",
+        "size_bytes": 53695,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "moonshot-framework.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/moonshot-framework.md",
+        "date": "2026-03-29",
+        "size": "1.1 KB",
+        "size_bytes": 1103,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "lobster-pool-email-for-joe.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-pool-email-for-joe.md",
+        "date": "2026-03-29",
+        "size": "4.5 KB",
+        "size_bytes": 4602,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "california-closets-partnership-analysis.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/california-closets-partnership-analysis.md",
+        "date": "2026-03-29",
+        "size": "6.6 KB",
+        "size_bytes": 6726,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "t1d-app-competitor-landscape-mar2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/t1d-app-competitor-landscape-mar2026.md",
+        "date": "2026-03-29",
+        "size": "6.6 KB",
+        "size_bytes": 6726,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "csu-investment-deep-dive.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/csu-investment-deep-dive.md",
+        "date": "2026-03-29",
+        "size": "6.8 KB",
+        "size_bytes": 6995,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "keli-social-media-spring-content.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/keli-social-media-spring-content.md",
+        "date": "2026-03-29",
+        "size": "7.5 KB",
+        "size_bytes": 7690,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "lobster-world-cup-pool-vision.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-world-cup-pool-vision.md",
+        "date": "2026-03-29",
+        "size": "8.3 KB",
+        "size_bytes": 8501,
+        "cat": "World Cup Pool",
+        "ext": "md"
+      },
+      {
+        "name": "moonshot-results.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/moonshot-results.md",
+        "date": "2026-03-29",
+        "size": "16.8 KB",
+        "size_bytes": 17227,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "morning-pkg.html",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-pkg.html",
+        "date": "2026-03-29",
+        "size": "20.7 KB",
+        "size_bytes": 21223,
+        "cat": "Reports",
+        "ext": "html"
+      },
+      {
+        "name": "lobster-survivor-pool-vision.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-survivor-pool-vision.docx",
+        "date": "2026-03-29",
+        "size": "38.9 KB",
+        "size_bytes": 39860,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-package-2026-03-29.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-03-29.docx",
+        "date": "2026-03-29",
+        "size": "40.1 KB",
+        "size_bytes": 41040,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "lobster-takeover-pool-vision.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-takeover-pool-vision.docx",
+        "date": "2026-03-29",
+        "size": "40.6 KB",
+        "size_bytes": 41604,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "firehouse-1st-floor-v1.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-1st-floor-v1.pdf",
+        "date": "2026-03-29",
+        "size": "42.4 KB",
+        "size_bytes": 43420,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-1st-floor-v5.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-1st-floor-v5.pdf",
+        "date": "2026-03-29",
+        "size": "42.9 KB",
+        "size_bytes": 43891,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-1st-floor-v2.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-1st-floor-v2.pdf",
+        "date": "2026-03-29",
+        "size": "42.9 KB",
+        "size_bytes": 43939,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-1st-floor-v4.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-1st-floor-v4.pdf",
+        "date": "2026-03-29",
+        "size": "43.0 KB",
+        "size_bytes": 43990,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-1st-floor-v3.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-1st-floor-v3.pdf",
+        "date": "2026-03-29",
+        "size": "43.2 KB",
+        "size_bytes": 44262,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v12.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v12.pdf",
+        "date": "2026-03-29",
+        "size": "56.4 KB",
+        "size_bytes": 57741,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v13.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v13.pdf",
+        "date": "2026-03-29",
+        "size": "56.4 KB",
+        "size_bytes": 57781,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v11-professional.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v11-professional.pdf",
+        "date": "2026-03-29",
+        "size": "56.4 KB",
+        "size_bytes": 57796,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v10-final.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v10-final.pdf",
+        "date": "2026-03-29",
+        "size": "120.7 KB",
+        "size_bytes": 123599,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "+FireHouse Set_2024-6-7_Client Review.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/+FireHouse Set_2024-6-7_Client Review.pdf",
+        "date": "2026-03-29",
+        "size": "2.6 MB",
+        "size_bytes": 2764883,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "FireHouse_Set_Client_Review.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/FireHouse_Set_Client_Review.pdf",
+        "date": "2026-03-29",
+        "size": "2.6 MB",
+        "size_bytes": 2764883,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "charleston-officiant-options.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/charleston-officiant-options.md",
+        "date": "2026-03-28",
+        "size": "2.7 KB",
+        "size_bytes": 2813,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "lbi-market-brief-spring-2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lbi-market-brief-spring-2026.md",
+        "date": "2026-03-28",
+        "size": "4.8 KB",
+        "size_bytes": 4904,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "colorant-industry-intel-mar2026.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/colorant-industry-intel-mar2026.md",
+        "date": "2026-03-28",
+        "size": "7.6 KB",
+        "size_bytes": 7830,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "rebolt-competitive-landscape.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/rebolt-competitive-landscape.md",
+        "date": "2026-03-28",
+        "size": "7.7 KB",
+        "size_bytes": 7837,
+        "cat": "ReBolt",
+        "ext": "md"
+      },
+      {
+        "name": "Joe_Action_Card_2026-03-28.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Joe_Action_Card_2026-03-28.docx",
+        "date": "2026-03-28",
+        "size": "37.4 KB",
+        "size_bytes": 38346,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "firehouse-2nd-floor-v2.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v2.pdf",
+        "date": "2026-03-28",
+        "size": "37.8 KB",
+        "size_bytes": 38751,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "lobster-world-cup-pool.html",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-world-cup-pool.html",
+        "date": "2026-03-28",
+        "size": "37.9 KB",
+        "size_bytes": 38829,
+        "cat": "World Cup Pool",
+        "ext": "html"
+      },
+      {
+        "name": "morning-package-2026-03-28.docx",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-package-2026-03-28.docx",
+        "date": "2026-03-28",
+        "size": "40.2 KB",
+        "size_bytes": 41211,
+        "cat": "Reports",
+        "ext": "docx"
+      },
+      {
+        "name": "morning-brief-2026-03-28.pdf",
+        "path": "projects/daily/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/daily/morning-brief-2026-03-28.pdf",
+        "date": "2026-03-28",
+        "size": "40.6 KB",
+        "size_bytes": 41589,
+        "cat": "Reports",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v6.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v6.pdf",
+        "date": "2026-03-28",
+        "size": "43.8 KB",
+        "size_bytes": 44873,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v4.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v4.pdf",
+        "date": "2026-03-28",
+        "size": "44.9 KB",
+        "size_bytes": 45963,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v5.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v5.pdf",
+        "date": "2026-03-28",
+        "size": "45.5 KB",
+        "size_bytes": 46619,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v7.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v7.pdf",
+        "date": "2026-03-28",
+        "size": "45.8 KB",
+        "size_bytes": 46943,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v3.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v3.pdf",
+        "date": "2026-03-28",
+        "size": "47.6 KB",
+        "size_bytes": 48789,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v8.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v8.pdf",
+        "date": "2026-03-28",
+        "size": "49.3 KB",
+        "size_bytes": 50482,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-v9.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-v9.pdf",
+        "date": "2026-03-28",
+        "size": "49.5 KB",
+        "size_bytes": 50637,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "firehouse-2nd-floor-proposed.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/firehouse-2nd-floor-proposed.pdf",
+        "date": "2026-03-27",
+        "size": "31.9 KB",
+        "size_bytes": 32671,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "SECOND_FLOOR_PLAN.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/SECOND_FLOOR_PLAN.pdf",
+        "date": "2026-03-27",
+        "size": "83.8 KB",
+        "size_bytes": 85791,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "Existing_Plans_Studio513.pdf",
+        "path": "projects/firehouse/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/firehouse/Existing_Plans_Studio513.pdf",
+        "date": "2026-03-27",
+        "size": "325.0 KB",
+        "size_bytes": 332793,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "property-projects-tracker.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/property-projects-tracker.md",
+        "date": "2026-03-26",
+        "size": "806 B",
+        "size_bytes": 806,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "Ethan_Edwin_Meeting_Email_032526.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Ethan_Edwin_Meeting_Email_032526.docx",
+        "date": "2026-03-26",
+        "size": "37.5 KB",
+        "size_bytes": 38357,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "ethan-paint-meeting-summary-032526.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/ethan-paint-meeting-summary-032526.md",
+        "date": "2026-03-25",
+        "size": "2.4 KB",
+        "size_bytes": 2463,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "surfbox-marketing-plan.md",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/surfbox-marketing-plan.md",
+        "date": "2026-03-25",
+        "size": "29.6 KB",
+        "size_bytes": 30324,
+        "cat": "Other",
+        "ext": "md"
+      },
+      {
+        "name": "Paint_Department_Meeting_Summary_032526.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/Paint_Department_Meeting_Summary_032526.docx",
+        "date": "2026-03-25",
+        "size": "37.3 KB",
+        "size_bytes": 38196,
+        "cat": "Other",
+        "ext": "docx"
+      }
+    ]
+  },
+  "memory": {
+    "daily_logs": [
+      {
+        "name": "rob-gmail-summary-2026-04-22.md",
+        "date": "2026-04-22",
+        "size": "1.0 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-09-1356.md",
+        "date": "2026-04-09",
+        "size": "1.3 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-09-1249.md",
+        "date": "2026-04-09",
+        "size": "2.0 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-09-1237.md",
+        "date": "2026-04-09",
+        "size": "263 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-09-1227.md",
+        "date": "2026-04-09",
+        "size": "252 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-09-1225.md",
+        "date": "2026-04-09",
+        "size": "366 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-09-1215.md",
+        "date": "2026-04-09",
+        "size": "276 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-09-1213.md",
+        "date": "2026-04-09",
+        "size": "1.3 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-08.md",
+        "date": "2026-04-08",
+        "size": "744 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-08-1615.md",
+        "date": "2026-04-08",
+        "size": "1.0 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-08-1613.md",
+        "date": "2026-04-08",
+        "size": "998 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-08-1549.md",
+        "date": "2026-04-08",
+        "size": "1.2 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-08-1437.md",
+        "date": "2026-04-08",
+        "size": "1.4 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-08-1201.md",
+        "date": "2026-04-08",
+        "size": "396 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-08-1039.md",
+        "date": "2026-04-08",
+        "size": "943 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-07.md",
+        "date": "2026-04-07",
+        "size": "1.9 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-07-night.md",
+        "date": "2026-04-07",
+        "size": "408 B"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-07-evening.md",
+        "date": "2026-04-07",
+        "size": "1.2 KB"
+      },
+      {
+        "name": "rob-gmail-summary-2026-04-06.md",
+        "date": "2026-04-06",
+        "size": "3.0 KB"
+      },
+      {
+        "name": "rob-gmail-2026-03-28.md",
+        "date": "2026-03-28",
+        "size": "1.4 KB"
+      },
+      {
+        "name": "ref-tuckerton-operations.md",
+        "date": "2026-03-24",
+        "size": "3.4 KB"
+      },
+      {
+        "name": "ref-openclaw-subscription-setup.md",
+        "date": "2026-03-29",
+        "size": "2.4 KB"
+      },
+      {
+        "name": "ref-morning-brief-format.md",
+        "date": "2026-04-09",
+        "size": "4.4 KB"
+      },
+      {
+        "name": "ref-investment-portfolio.md",
+        "date": "2026-03-24",
+        "size": "3.6 KB"
+      },
+      {
+        "name": "ref-gemini-insights.md",
+        "date": "2026-03-24",
+        "size": "12.9 KB"
+      },
+      {
+        "name": "ref-claude-history-brain-dump.md",
+        "date": "2026-04-04",
+        "size": "30.2 KB"
+      },
+      {
+        "name": "gmail-scan-2026-04-09.md",
+        "date": "2026-04-09",
+        "size": "350 B"
+      },
+      {
+        "name": "gmail-scan-2026-04-08.md",
+        "date": "2026-04-08",
+        "size": "395 B"
+      },
+      {
+        "name": "gmail-scan-2026-04-07.md",
+        "date": "2026-04-07",
+        "size": "1.2 KB"
+      },
+      {
+        "name": "gmail-rob-actions.md",
+        "date": "2026-04-06",
+        "size": "2.0 KB"
+      }
+    ],
+    "total_logs": 30
+  },
+  "recent_activity": [
+    {
+      "date": "2026-04-25",
+      "file": "2026-04-25.md",
+      "preview": "# Daily Log \u2014 2026-04-25  ## 5:00 AM \u2014 TTD v4.4 Generated  ### Delivery Status - \u2705 DOCX generated: `projects/jfl-ttd-v4.4.docx` - \u2705 PDF exported via Pages AppleScript - \u2705 Print sent to Brother_MFC_L5850DW_series - \u274c Email FAILED \u2014 Gmail OAuth token expired (no token file in ~/.gmail-mcp/)  ### Email Failure Note - mcporter gmail.send_message returned: \"OAuth2 credentials are invalid, please re-authenticate\" - Rob's Gmail (~/.gmail-mcp/) only has gcp-oauth.keys.json, no saved token - Joe needs to",
+      "size": "2.7 KB",
+      "agent": "rob"
+    },
+    {
+      "date": "2026-04-24",
+      "file": "2026-04-24.md",
+      "preview": "# April 24, 2026 \u2014 Morning Rundown Log  ## 6:00 AM \u2014 Morning Joe's Rundown Generated & Delivered  ### Delivery Status - \u2705 DOCX generated: `projects/daily/Morning_Joes_Rundown_2026-04-24.docx` - \u2705 Email sent to jlynch@tlcnj.com \u2014 Message ID: 19dbef32b5201577 - \u2705 Print sent to Brother_MFC_L5850DW_series via Pages AppleScript - \u2705 Telegram notification delivered  ### Key Market Data (close April 23, 2026) - S&P 500: 7,108.40 (-0.41%) \u2014 \u25b2 $516.50 above exit baseline 6,591.90 (+7.84%) - Dow Jones: 49,",
+      "size": "17.4 KB",
+      "agent": "rob"
+    },
+    {
+      "date": "2026-04-23",
+      "file": "2026-04-23.md",
+      "preview": "# Daily Log \u2014 2026-04-23  ## 8:00 AM \u2014 Mission Control (Cron: 329467b7-a821-4905-8771-f6d9ef7f1d7b) - Read mission-control, report-runner, telegram-style, and TTD playbooks. - Reloaded MISSION, MEMORY, MISTAKES, TASKBOARD, and the 4/22 daily log for continuity. - Verified the 4/23 Morning Joe's Rundown already completed successfully earlier this morning. - Audited cron-health context and confirmed the Unicorn Factory watchdog is now part of the daily monitoring standard after recent silent-failu",
+      "size": "4.6 KB",
+      "agent": "rob"
+    }
+  ],
+  "project_file_counts": {
+    "TLC": 14,
+    "Surfbox": 0,
+    "Investing": 19,
+    "ReBolt": 10,
+    "Real Estate": 0,
+    "Colorant": 0,
+    "Personal": 0,
+    "Infrastructure": 319
+  },
+  "stats": {
+    "total_docs": 362,
+    "total_memory_files": 30,
+    "agents_online": 2,
+    "rob_online": true,
+    "hermes_online": true
+  }
+}
