@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-25T08:47:30.904396",
+    "generated_at": "2026-04-25T09:47:52.442810",
     "generated_by": "refresh-mission-control.py v3.0",
     "workspace": "/Users/joemac/.openclaw/workspace",
     "version": "3.0"
@@ -16,7 +16,7 @@
       "gateway": "active",
       "cronJobs": 12,
       "memoryMB": 148,
-      "last_checked": "2026-04-25T08:47:30.895232"
+      "last_checked": "2026-04-25T09:47:52.431768"
     },
     {
       "name": "Hermes \ud83c\udfdb\ufe0f",
@@ -28,7 +28,7 @@
       "gateway": "active",
       "cronJobs": 4,
       "memoryMB": 62,
-      "last_checked": "2026-04-25T08:47:30.895235"
+      "last_checked": "2026-04-25T09:47:52.431771"
     },
     {
       "name": "Red \ud83d\udd34",
@@ -40,31 +40,24 @@
       "gateway": "inactive",
       "cronJobs": 0,
       "memoryMB": 0,
-      "last_checked": "2026-04-25T08:47:30.895237"
+      "last_checked": "2026-04-25T09:47:52.431773"
     }
   ],
   "rob_health": {
     "gateway_online": true,
     "errors": [
-      "2026-04-25T08:33:04.676-04:00 [ws] closed before connect conn=312a57e3-04c9-49ff-9f5b-43834f416331 peer=127.0.0.1:65298->127.0.0.1:18789 remote=127.0.0.1 fwd=n/a origin=http://127.0.0.1:18789 host=127.0.0.1:18789 ua=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 code=1008 reason=unauthorized: gateway token mismatch (open the dashboard URL and paste the token in Control UI settings)",
-      "2026-04-25T08:34:32.668-04:00 [agent/embedded] workspace bootstrap file AGENTS.md is 14248 chars (limit 12000); truncating in injected context (sessionKey=agent:main:telegram:direct:8612618386)",
-      "2026-04-25T08:34:32.668-04:00 [agent/embedded] workspace bootstrap file MEMORY.md is 27441 chars (limit 12000); truncating in injected context (sessionKey=agent:main:telegram:direct:8612618386)",
-      "2026-04-25T08:46:59.323-04:00 [diagnostic] stuck session: sessionId=main sessionKey=agent:main:telegram:direct:8612618386 state=processing age=132s queueDepth=1",
-      "2026-04-25T08:47:29.352-04:00 [diagnostic] stuck session: sessionId=main sessionKey=agent:main:telegram:direct:8612618386 state=processing age=162s queueDepth=1"
+      "2026-04-25T09:30:28.045-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=27826 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-25T09:30:28.046-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
+      "2026-04-25T09:30:46.022-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none",
+      "2026-04-25T09:31:11.106-04:00 [agent/embedded] workspace bootstrap file AGENTS.md is 14248 chars (limit 12000); truncating in injected context (sessionKey=agent:main:cron:fe70eeef-2146-495c-8173-5bbebe4a2fcf)",
+      "2026-04-25T09:47:45.586-04:00 [agent/embedded] workspace bootstrap file AGENTS.md is 14248 chars (limit 12000); truncating in injected context (sessionKey=agent:main:cron:1fda7adb-939c-4c58-a190-bcfdfacde28c)"
     ],
     "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
-    "checked_at": "2026-04-25T08:47:30.871632"
+    "checked_at": "2026-04-25T09:47:52.371432"
   },
   "hermes_health": {
     "gateway_online": true,
     "agent_log_tail": [
-      "2026-04-25 02:07:22,623 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 03:00:28,241 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 03:04:10,308 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 04:00:06,482 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 04:01:14,181 INFO gateway.run: Session expiry: 2 sessions to flush (telegram:2)",
-      "2026-04-25 04:01:14,282 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 04:01:32,004 INFO [20260424_084738_a911f845] gateway.run: Pre-reset memory flush completed for session 20260424_084738_a911f845",
       "2026-04-25 04:01:32,105 INFO [20260424_084738_a911f845] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 04:04:10,786 INFO [20260424_064112_8aad1a32] gateway.run: Pre-reset memory flush completed for session 20260424_064112_8aad1a32",
       "2026-04-25 04:04:10,791 INFO gateway.run: Session expiry done: 2 flushed",
@@ -77,7 +70,14 @@
       "2026-04-25 07:01:49,089 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 07:10:57,998 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 08:00:49,774 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 08:08:19,520 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
+      "2026-04-25 08:08:19,520 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 08:48:26,694 INFO gateway.platforms.telegram: [Telegram] Flushing text batch agent:main:telegram:dm:8612618386 (148 chars)",
+      "2026-04-25 08:48:27,111 INFO gateway.run: inbound message: platform=telegram user=Joseph Lynch chat=8612618386 msg='Hermes, what models are you okayed to use? I shut down the API key from Anthropi'",
+      "2026-04-25 08:48:27,251 INFO [20260424_084738_a911f845] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 08:51:08,307 INFO agent.auxiliary_client: Auxiliary title_generation: using auto (google/gemini-3-flash-preview)",
+      "2026-04-25 08:51:08,307 INFO gateway.run: response ready: platform=telegram chat=8612618386 time=161.2s api_calls=10 response=1529 chars",
+      "2026-04-25 09:00:24,816 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 09:12:26,612 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
     ],
     "gateway_log_tail": [
       "  \u250a \ud83d\udc0d exec      from datetime import datetime  3.3s",
@@ -98,13 +98,13 @@
       "joemac           41198   0.0  0.0 410172320   1952   ??  R     7:44AM   0:00.01 /opt/homebrew/opt/node/bin/node /opt/homebrew/lib/node_modules/openclaw/dist/index.js gateway --port 18789",
       "joemac           26537   0.0  0.0 410733936    576   ??  SN    8:24PM   0:00.00 /bin/bash -c source /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-snap-98279a4de0bb.sh 2>/dev/null || true\\012cd /Users/joemac/.hermes || exit 126\\012eval 'cd /Users/joemac/.openclaw/workspace/projects/asteroids && python3 -m http.server 8889 > /dev/null 2>&1 & echo '\\''Server started on port 8889'\\'''\\012__hermes_ec=$?\\012export -p > /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-snap-98279a4de0bb.sh 2>/dev/null || true\\012pwd -P > /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-cwd-98279a4de0bb.txt 2>/dev/null || true\\012printf '\\n__HERMES_CWD_98279a4de0bb__%s__HERMES_CWD_98279a4de0bb__\\n' \"$(pwd -P)\"\\012exit $__hermes_ec"
     ],
-    "last_activity": "2026-04-25 08:08:19,520 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
+    "last_activity": "2026-04-25 09:12:26,612 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
     "log_files": {
       "agent": "/Users/joemac/.hermes/logs/agent.log",
       "gateway": "/Users/joemac/.hermes/logs/gateway.log",
       "errors": "/Users/joemac/.hermes/logs/errors.log"
     },
-    "checked_at": "2026-04-25T08:47:30.884800"
+    "checked_at": "2026-04-25T09:47:52.383898"
   },
   "taskboard": {
     "backlog": [],
@@ -208,69 +208,6 @@
     }
   ],
   "hermes_activities": [
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 02:07:22",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 02:07:22,623 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 03:00:28",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 03:00:28,241 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 03:04:10",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 03:04:10,308 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 04:00:06",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 04:00:06,482 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 04:01:14",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 04:01:14,181 INFO gateway.run: Session expiry: 2 sessions to flush (telegram:2)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 04:01:14",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 04:01:14,282 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 04:01:32",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 04:01:32,004 INFO [20260424_084738_a911f845] gateway.run: Pre-reset memory flush completed for session 20260424_084738_a911f845",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
     {
       "agent": "hermes",
       "time": "2026-04-25 04:01:32",
@@ -385,6 +322,69 @@
       "type": "\ud83d\udce1",
       "typeLabel": "Hermes",
       "desc": "2026-04-25 08:08:19,520 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 08:48:26",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 08:48:26,694 INFO gateway.platforms.telegram: [Telegram] Flushing text batch agent:main:telegram:dm:8612618386 (148 chars)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 08:48:27",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 08:48:27,111 INFO gateway.run: inbound message: platform=telegram user=Joseph Lynch chat=8612618386 msg='Hermes, what models are you okayed to use? I shut down the API key from Anthropi'",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 08:48:27",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 08:48:27,251 INFO [20260424_084738_a911f845] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 08:51:08",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 08:51:08,307 INFO agent.auxiliary_client: Auxiliary title_generation: using auto (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 08:51:08",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 08:51:08,307 INFO gateway.run: response ready: platform=telegram chat=8612618386 time=161.2s api_calls=10 response=1529 chars",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 09:00:24",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 09:00:24,816 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 09:12:26",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 09:12:26,612 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "status": "success",
       "vertical": "Infrastructure"
     }
@@ -4705,7 +4705,7 @@
       "date": "2026-04-25",
       "file": "2026-04-25.md",
       "preview": "# Daily Log \u2014 2026-04-25  ## 5:00 AM \u2014 TTD v4.4 Generated  ### Delivery Status - \u2705 DOCX generated: `projects/jfl-ttd-v4.4.docx` - \u2705 PDF exported via Pages AppleScript - \u2705 Print sent to Brother_MFC_L5850DW_series - \u274c Email FAILED \u2014 Gmail OAuth token expired (no token file in ~/.gmail-mcp/)  ### Email Failure Note - mcporter gmail.send_message returned: \"OAuth2 credentials are invalid, please re-authenticate\" - Rob's Gmail (~/.gmail-mcp/) only has gcp-oauth.keys.json, no saved token - Joe needs to",
-      "size": "4.5 KB",
+      "size": "4.9 KB",
       "agent": "rob"
     },
     {
