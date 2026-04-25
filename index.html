@@ -355,6 +355,7 @@ function checkPw(){
       <div class="nav-item" data-screen="taskboard"><span class="icon">📋</span>Task Board</div>
       <div class="nav-item" data-screen="memory"><span class="icon">🧠</span>Memory</div>
       <div class="nav-item" data-screen="team"><span class="icon">👥</span>Team</div>
+      <div class="nav-item" data-screen="costs"><span class="icon">💰</span>AI Costs</div>
     </div>
     <div class="sidebar-footer">Autonomous Intelligence System<br>&copy; 2026 Tuckerton Group</div>
   </nav>
@@ -1387,7 +1388,8 @@ const SCREENS={
   search:renderSearch,
   taskboard:renderTaskBoard,
   memory:renderMemory,
-  team:renderTeam
+  team:renderTeam,
+  costs:renderCosts
 };
 
 function renderScreen(){
@@ -1410,6 +1412,195 @@ async function fetchMissionData(){
       if(currentScreen==='activity')renderScreen();
     }
   }catch(e){/* fall back to static data */}
+}
+
+// ── AI Cost Screen ──────────────────────────────────────────────
+const MGMT_KEY = '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';
+let costData = null;
+let costLoading = false;
+
+const MODEL_COLORS = {
+  'anthropic/claude-sonnet-4.6': '#e8562a',
+  'anthropic/claude-opus-4.6': '#c94520',
+  'moonshotai/kimi-k2-thinking': '#7c3aed',
+  'google/gemini-3-flash-preview': '#2563eb',
+  'google/gemma-4-31b-it': '#1d4ed8',
+};
+const MODEL_LABELS = {
+  'anthropic/claude-sonnet-4.6': 'Claude Sonnet 4.6',
+  'anthropic/claude-opus-4.6': 'Claude Opus 4.6',
+  'moonshotai/kimi-k2-thinking': 'Kimi K2 Thinking',
+  'google/gemini-3-flash-preview': 'Gemini Flash',
+  'google/gemma-4-31b-it': 'Gemma 4 31B',
+};
+
+async function fetchCostData() {
+  costLoading = true;
+  try {
+    const [keyRes, actRes] = await Promise.all([
+      fetch('https://openrouter.ai/api/v1/auth/key', { headers: { 'Authorization': 'Bearer ' + MGMT_KEY } }),
+      fetch('https://openrouter.ai/api/v1/activity?offset=0&limit=500', { headers: { 'Authorization': 'Bearer ' + MGMT_KEY } })
+    ]);
+    const keyJson = await keyRes.json();
+    const actJson = await actRes.json();
+    costData = { key: keyJson.data, activity: actJson.data || [] };
+  } catch(e) {
+    costData = { error: e.message };
+  }
+  costLoading = false;
+  if (currentScreen === 'costs') renderScreen();
+}
+
+function renderCosts() {
+  if (!costData && !costLoading) { fetchCostData(); return `<div class="screen"><div class="screen-title">💰 AI Costs</div><div style="color:var(--text2);margin-top:40px;text-align:center">Loading cost data…</div></div>`; }
+  if (costLoading) return `<div class="screen"><div class="screen-title">💰 AI Costs</div><div style="color:var(--text2);margin-top:40px;text-align:center">⏳ Fetching from OpenRouter…</div></div>`;
+  if (costData?.error) return `<div class="screen"><div class="screen-title">💰 AI Costs</div><div style="color:#f87171;margin-top:20px">Error: ${costData.error}</div></div>`;
+
+  const k = costData.key || {};
+  const activity = costData.activity || [];
+
+  // Aggregate
+  const byModel = {};
+  const byDate = {};
+  const today = new Date().toISOString().slice(0,10);
+  const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+
+  activity.forEach(r => {
+    const m = r.model || r.model_permaslug || 'unknown';
+    const d = (r.date || '').slice(0,10);
+    const cost = r.usage || 0;
+    if (!byModel[m]) byModel[m] = { cost:0, requests:0, tokens:0 };
+    byModel[m].cost += cost;
+    byModel[m].requests += r.requests || 0;
+    byModel[m].tokens += (r.prompt_tokens||0) + (r.completion_tokens||0);
+    if (!byDate[d]) byDate[d] = 0;
+    byDate[d] += cost;
+  });
+
+  const todaySpend = byDate[today] || 0;
+  const yesterdaySpend = byDate[yesterday] || 0;
+  const weeklySpend = k.usage_weekly || 0;
+  const monthlySpend = k.usage_monthly || 0;
+  const credits = 45; // known top-up amount
+  const remaining = credits - monthlySpend;
+  const pct = Math.min(100, (monthlySpend / credits * 100)).toFixed(0);
+
+  // Sort models by cost
+  const sortedModels = Object.entries(byModel).sort((a,b) => b[1].cost - a[1].cost);
+
+  // Build bar chart for last 7 days
+  const last7 = [];
+  for (let i=6; i>=0; i--) {
+    const d = new Date(Date.now() - i*86400000).toISOString().slice(0,10);
+    last7.push({ date: d, label: new Date(Date.now()-i*86400000).toLocaleDateString('en-US',{weekday:'short'}), cost: byDate[d]||0 });
+  }
+  const maxDay = Math.max(...last7.map(d=>d.cost), 0.01);
+
+  const dayChange = yesterdaySpend > 0 ? ((todaySpend - yesterdaySpend) / yesterdaySpend * 100).toFixed(0) : null;
+  const changeHtml = dayChange !== null ? `<span style="font-size:12px;color:${dayChange>0?'#f87171':'#4ade80'}">${dayChange>0?'▲':'▼'}${Math.abs(dayChange)}% vs yesterday</span>` : '';
+
+  return `<div class="screen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="screen-title">💰 AI Costs</div>
+      <button onclick="costData=null;fetchCostData()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">↻ Refresh</button>
+    </div>
+    <div class="screen-subtitle">Live via OpenRouter · All models · Updated just now</div>
+
+    <!-- Summary Cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px">
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Today</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text)">$${todaySpend.toFixed(2)}</div>
+        <div style="margin-top:4px;font-size:12px">${changeHtml}</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Yesterday</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text)">$${yesterdaySpend.toFixed(2)}</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">This Week</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text)">$${weeklySpend.toFixed(2)}</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">This Month</div>
+        <div style="font-size:28px;font-weight:700;color:${monthlySpend > credits*0.8 ? '#f87171' : 'var(--text)'}">$${monthlySpend.toFixed(2)}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">$${remaining.toFixed(2)} remaining of $${credits}</div>
+      </div>
+    </div>
+
+    <!-- Budget Bar -->
+    <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px;margin-bottom:24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:13px;font-weight:600">Monthly Budget</span>
+        <span style="font-size:13px;color:var(--text2)">${pct}% used · $${monthlySpend.toFixed(2)} of $${credits}</span>
+      </div>
+      <div style="background:var(--bg4);border-radius:4px;height:10px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:${pct>80?'#f87171':pct>60?'#fbbf24':'var(--accent)'};border-radius:4px;transition:.3s"></div>
+      </div>
+    </div>
+
+    <!-- Two columns: bar chart + model breakdown -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+
+      <!-- 7-day bar chart -->
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:16px">📈 Last 7 Days</div>
+        <div style="display:flex;align-items:flex-end;gap:6px;height:120px">
+          ${last7.map(d => {
+            const h = Math.max(4, (d.cost / maxDay * 100));
+            const isToday = d.date === today;
+            return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="font-size:9px;color:var(--text3)">$${d.cost.toFixed(2)}</div>
+              <div style="width:100%;height:${h}px;background:${isToday?'var(--accent)':'var(--bg4)'};border-radius:3px 3px 0 0;transition:.3s"></div>
+              <div style="font-size:10px;color:${isToday?'var(--accent)':'var(--text3)'}">${d.label}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Model breakdown -->
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:16px">🤖 By Model</div>
+        ${sortedModels.map(([m, v]) => {
+          const label = MODEL_LABELS[m] || m.split('/').pop();
+          const color = MODEL_COLORS[m] || '#6b7280';
+          const pctOfMonth = monthlySpend > 0 ? (v.cost/monthlySpend*100).toFixed(0) : 0;
+          return `<div style="margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+              <span style="font-size:12px;color:var(--text)">${label}</span>
+              <span style="font-size:12px;font-weight:600;color:var(--text)">$${v.cost.toFixed(3)}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="flex:1;background:var(--bg4);border-radius:3px;height:6px">
+                <div style="width:${pctOfMonth}%;height:100%;background:${color};border-radius:3px"></div>
+              </div>
+              <span style="font-size:10px;color:var(--text3);white-space:nowrap">${v.requests} reqs · ${(v.tokens/1000).toFixed(0)}K tok</span>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Per-day table -->
+    <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:12px">📅 Daily History</div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr>
+          <th style="text-align:left;font-size:11px;color:var(--text3);padding:6px 8px;border-bottom:1px solid var(--bg4)">Date</th>
+          <th style="text-align:right;font-size:11px;color:var(--text3);padding:6px 8px;border-bottom:1px solid var(--bg4)">Spend</th>
+        </tr></thead>
+        <tbody>
+          ${Object.entries(byDate).sort((a,b)=>b[0].localeCompare(a[0])).map(([d,c])=>{
+            const isToday = d===today;
+            return `<tr style="border-bottom:1px solid var(--bg4)">
+              <td style="padding:8px;font-size:13px;color:${isToday?'var(--accent)':'var(--text)'}">${d}${isToday?' (today)':''}</td>
+              <td style="padding:8px;font-size:13px;font-weight:${isToday?'700':'400'};color:${isToday?'var(--accent)':'var(--text)'};text-align:right">$${c.toFixed(4)}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
 }
 
 // Init
