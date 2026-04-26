@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-26T02:47:54.850701",
+    "generated_at": "2026-04-26T03:47:52.408473",
     "generated_by": "refresh-mission-control.py v3.0",
     "workspace": "/Users/joemac/.openclaw/workspace",
     "version": "3.0"
@@ -16,7 +16,7 @@
       "gateway": "active",
       "cronJobs": 12,
       "memoryMB": 148,
-      "last_checked": "2026-04-26T02:47:54.841059"
+      "last_checked": "2026-04-26T03:47:52.398666"
     },
     {
       "name": "Hermes \ud83c\udfdb\ufe0f",
@@ -28,7 +28,7 @@
       "gateway": "active",
       "cronJobs": 4,
       "memoryMB": 62,
-      "last_checked": "2026-04-26T02:47:54.841062"
+      "last_checked": "2026-04-26T03:47:52.398669"
     },
     {
       "name": "Red \ud83d\udd34",
@@ -40,27 +40,24 @@
       "gateway": "inactive",
       "cronJobs": 0,
       "memoryMB": 0,
-      "last_checked": "2026-04-26T02:47:54.841063"
+      "last_checked": "2026-04-26T03:47:52.398671"
     }
   ],
   "rob_health": {
     "gateway_online": true,
     "errors": [
-      "2026-04-26T02:30:28.333-04:00 [diagnostic] lane task error: lane=nested durationMs=28129 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
-      "2026-04-26T02:30:28.333-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=28130 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
-      "2026-04-26T02:30:28.334-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
-      "2026-04-26T02:30:33.033-04:00 [tools] read failed: ENOENT: no such file or directory, access '/Users/joemac/.openclaw/workspace/memory/2026-04-26.md' raw_params={\"path\":\"/Users/joemac/.openclaw/workspace/memory/2026-04-26.md\",\"offset\":1,\"limit\":200}",
-      "2026-04-26T02:30:40.385-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
+      "2026-04-26T03:31:06.643-04:00 [tools] exec failed: exec denied: allowlist miss raw_params={\"command\":\"curl -s https://api.github.com/repos/roblobsterclaw/lobster-press/contents/data/posts.json?ref=main | head\",\"workdir\":\"/Users/joemac/.openclaw/workspace\",\"yieldMs\":5000,\"timeout\":30,\"host\":\"auto\",\"security\":\"allowlist\",\"ask\":\"off\"}",
+      "2026-04-26T03:31:39.395-04:00 [tools] sessions_spawn failed: lightContext is only supported for runtime='subagent'. raw_params={\"task\":\"Inspect the Lobster Press project in /Users/joemac/.openclaw/workspace/projects/lobster-press, run the auto-creator workflow, and apply any needed GitHub updates to data/posts.json and data/inbox.json on repo roblobsterclaw/lobster-press branch main using the provided token in the local script/context. If the script reports nothing, return HEARTBEAT_OK. Otherwise create the appropriate pending post(s), update usedInPost / reworked flags, and send the Telegram alert to Joe. Summarize the exact IDs changed.\",\"label\":\"lobster-press-auto-creator\",\"runtime\":\"acp\",\"agentId\":\"codex\",\"resumeS\u2026",
+      "2026-04-26T03:32:03.746-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none",
+      "2026-04-26T03:32:25.823-04:00 [ws] unauthorized conn=01468baa-5f03-4b05-8014-12a0dbd5a48d peer=127.0.0.1:65055->127.0.0.1:18789 remote=127.0.0.1 client=openclaw-control-ui webchat vcontrol-ui role=operator scopes=5 auth=none device=yes platform=MacIntel instance=05734f47-3192-4069-999c-e13a14399226 host=127.0.0.1:18789 origin=http://127.0.0.1:18789 ua=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.7727.15 Safari/537.36 reason=token_missing",
+      "2026-04-26T03:32:25.837-04:00 [ws] closed before connect conn=01468baa-5f03-4b05-8014-12a0dbd5a48d peer=127.0.0.1:65055->127.0.0.1:18789 remote=127.0.0.1 fwd=n/a origin=http://127.0.0.1:18789 host=127.0.0.1:18789 ua=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.7727.15 Safari/537.36 code=1008 reason=unauthorized: gateway token missing (open the dashboard URL and paste the token in Control UI settings)"
     ],
     "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
-    "checked_at": "2026-04-26T02:47:54.794156"
+    "checked_at": "2026-04-26T03:47:52.319524"
   },
   "hermes_health": {
     "gateway_online": true,
     "agent_log_tail": [
-      "2026-04-25 21:25:40,684 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 22:00:29,911 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 23:00:06,681 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 23:00:29,082 INFO [cron_1faad8c15a21_20260425_230006] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 23:01:54,096 ERROR [20260425_230029_2b8f9e] tools.vision_tools: Error analyzing image: Only real image files are supported for vision analysis.",
       "Traceback (most recent call last):",
@@ -77,7 +74,10 @@
       "2026-04-26 01:02:58,282 INFO [cron_3932067351e6_20260426_010015] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 01:04:10,315 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 01:30:12,996 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-26 02:00:42,767 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
+      "2026-04-26 02:00:42,767 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-26 03:00:18,416 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-26 03:30:59,816 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-26 03:36:34,064 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
     ],
     "gateway_log_tail": [
       "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/WORKING-CONTEXT.md  1.3s",
@@ -98,13 +98,13 @@
       "raise ValueError(\"Only real image files are supported for vision analysis.\")",
       "ValueError: Only real image files are supported for vision analysis."
     ],
-    "last_activity": "2026-04-26 02:00:42,767 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
+    "last_activity": "2026-04-26 03:36:34,064 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
     "log_files": {
       "agent": "/Users/joemac/.hermes/logs/agent.log",
       "gateway": "/Users/joemac/.hermes/logs/gateway.log",
       "errors": "/Users/joemac/.hermes/logs/errors.log"
     },
-    "checked_at": "2026-04-26T02:47:54.807250"
+    "checked_at": "2026-04-26T03:47:52.332145"
   },
   "taskboard": {
     "backlog": [],
@@ -208,33 +208,6 @@
     }
   ],
   "hermes_activities": [
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 21:25:40",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 21:25:40,684 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 22:00:29",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 22:00:29,911 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 23:00:06",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 23:00:06,681 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
     {
       "agent": "hermes",
       "time": "2026-04-25 23:00:29",
@@ -385,6 +358,33 @@
       "type": "\ud83d\udce1",
       "typeLabel": "Hermes",
       "desc": "2026-04-26 02:00:42,767 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 03:00:18",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 03:00:18,416 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 03:30:59",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 03:30:59,816 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 03:36:34",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 03:36:34,064 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "status": "success",
       "vertical": "Infrastructure"
     }
