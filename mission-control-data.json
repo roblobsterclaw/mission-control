@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-26T03:47:52.408473",
+    "generated_at": "2026-04-26T04:47:50.312348",
     "generated_by": "refresh-mission-control.py v3.0",
     "workspace": "/Users/joemac/.openclaw/workspace",
     "version": "3.0"
@@ -16,7 +16,7 @@
       "gateway": "active",
       "cronJobs": 12,
       "memoryMB": 148,
-      "last_checked": "2026-04-26T03:47:52.398666"
+      "last_checked": "2026-04-26T04:47:50.303176"
     },
     {
       "name": "Hermes \ud83c\udfdb\ufe0f",
@@ -28,7 +28,7 @@
       "gateway": "active",
       "cronJobs": 4,
       "memoryMB": 62,
-      "last_checked": "2026-04-26T03:47:52.398669"
+      "last_checked": "2026-04-26T04:47:50.303180"
     },
     {
       "name": "Red \ud83d\udd34",
@@ -40,30 +40,24 @@
       "gateway": "inactive",
       "cronJobs": 0,
       "memoryMB": 0,
-      "last_checked": "2026-04-26T03:47:52.398671"
+      "last_checked": "2026-04-26T04:47:50.303181"
     }
   ],
   "rob_health": {
     "gateway_online": true,
     "errors": [
-      "2026-04-26T03:31:06.643-04:00 [tools] exec failed: exec denied: allowlist miss raw_params={\"command\":\"curl -s https://api.github.com/repos/roblobsterclaw/lobster-press/contents/data/posts.json?ref=main | head\",\"workdir\":\"/Users/joemac/.openclaw/workspace\",\"yieldMs\":5000,\"timeout\":30,\"host\":\"auto\",\"security\":\"allowlist\",\"ask\":\"off\"}",
-      "2026-04-26T03:31:39.395-04:00 [tools] sessions_spawn failed: lightContext is only supported for runtime='subagent'. raw_params={\"task\":\"Inspect the Lobster Press project in /Users/joemac/.openclaw/workspace/projects/lobster-press, run the auto-creator workflow, and apply any needed GitHub updates to data/posts.json and data/inbox.json on repo roblobsterclaw/lobster-press branch main using the provided token in the local script/context. If the script reports nothing, return HEARTBEAT_OK. Otherwise create the appropriate pending post(s), update usedInPost / reworked flags, and send the Telegram alert to Joe. Summarize the exact IDs changed.\",\"label\":\"lobster-press-auto-creator\",\"runtime\":\"acp\",\"agentId\":\"codex\",\"resumeS\u2026",
-      "2026-04-26T03:32:03.746-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none",
-      "2026-04-26T03:32:25.823-04:00 [ws] unauthorized conn=01468baa-5f03-4b05-8014-12a0dbd5a48d peer=127.0.0.1:65055->127.0.0.1:18789 remote=127.0.0.1 client=openclaw-control-ui webchat vcontrol-ui role=operator scopes=5 auth=none device=yes platform=MacIntel instance=05734f47-3192-4069-999c-e13a14399226 host=127.0.0.1:18789 origin=http://127.0.0.1:18789 ua=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.7727.15 Safari/537.36 reason=token_missing",
-      "2026-04-26T03:32:25.837-04:00 [ws] closed before connect conn=01468baa-5f03-4b05-8014-12a0dbd5a48d peer=127.0.0.1:65055->127.0.0.1:18789 remote=127.0.0.1 fwd=n/a origin=http://127.0.0.1:18789 host=127.0.0.1:18789 ua=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.7727.15 Safari/537.36 code=1008 reason=unauthorized: gateway token missing (open the dashboard URL and paste the token in Control UI settings)"
+      "2026-04-26T04:30:28.688-04:00 [agent/embedded] embedded run failover decision: runId=30d6178e-aa33-49d1-bd45-7176142b723e stage=assistant decision=fallback_model reason=rate_limit from=openrouter/google/gemma-4-31b-it:free profile=sha256:ac092b59b472 rawError=429 Provider returned error google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/in\u2026",
+      "2026-04-26T04:30:28.689-04:00 [diagnostic] lane task error: lane=nested durationMs=28430 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-26T04:30:28.689-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=28431 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-26T04:30:28.689-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
+      "2026-04-26T04:30:34.227-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
     ],
     "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
-    "checked_at": "2026-04-26T03:47:52.319524"
+    "checked_at": "2026-04-26T04:47:50.280316"
   },
   "hermes_health": {
     "gateway_online": true,
     "agent_log_tail": [
-      "2026-04-25 23:00:29,082 INFO [cron_1faad8c15a21_20260425_230006] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 23:01:54,096 ERROR [20260425_230029_2b8f9e] tools.vision_tools: Error analyzing image: Only real image files are supported for vision analysis.",
-      "Traceback (most recent call last):",
-      "  File \"/Users/joemac/.hermes/hermes-agent/tools/vision_tools.py\", line 502, in vision_analyze_tool",
-      "    raise ValueError(\"Only real image files are supported for vision analysis.\")",
-      "ValueError: Only real image files are supported for vision analysis.",
       "2026-04-25 23:08:32,435 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 23:08:32,622 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 23:28:45,933 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
@@ -77,19 +71,25 @@
       "2026-04-26 02:00:42,767 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 03:00:18,416 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 03:30:59,816 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-26 03:36:34,064 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
+      "2026-04-26 03:36:34,064 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-26 04:00:36,915 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-26 04:02:03,131 INFO gateway.run: Session expiry: 1 sessions to flush (telegram:1)",
+      "2026-04-26 04:02:03,226 INFO [20260424_084738_a911f845] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-26 04:02:37,538 INFO [20260425_084827_b4a58d60] gateway.run: Pre-reset memory flush completed for session 20260425_084827_b4a58d60",
+      "2026-04-26 04:02:37,543 INFO gateway.run: Session expiry done: 1 flushed",
+      "2026-04-26 04:04:26,537 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
     ],
     "gateway_log_tail": [
-      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/WORKING-CONTEXT.md  1.3s",
-      "  \u250a \u270d\ufe0f  write     /Users/joemac/.openclaw/workspace/workspace-shared/context/agent-registry.json  1.1s",
-      "  \u250a \u270d\ufe0f  write     /Users/joemac/.openclaw/workspace/workspace-shared/summaries/2026-04-26-hermes-idle-check.md  1.0s",
-      "  \u250a \ud83d\udc0d exec      # Send Telegram message about idle status  0.6s",
-      "  \u250a \ud83d\udd0d recall    \"telegram-send OR xitter OR send telegram message\"  6.7s",
-      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/context/agent-registry.json  1.3s",
-      "  \u250a \ud83d\udd0e find      telegram-message*.json  0.7s",
-      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/telegram-message-hermes-idle.json  1.3s",
-      "  \u250a \u270d\ufe0f  write     /Users/joemac/.openclaw/workspace/telegram-message-hermes-idle-2026-04-26.json  1.1s",
-      "  \u250a \ud83d\udcbb $         openclaw gateway status  2.4s"
+      "  \u250a \ud83d\udd27 patch     /Users/joemac/.gmail-mcp-refresh/refresh-token.py  1.8s",
+      "  \u250a \ud83d\udcbb $         python3 ~/.gmail-mcp-refresh/refresh-token.py  0.4s [exit 1]",
+      "  \u250a \ud83d\udd27 patch     /Users/joemac/.gmail-mcp-refresh/refresh-token.py  1.6s",
+      "  \u250a \ud83d\udd27 patch     /Users/joemac/.gmail-mcp-refresh/refresh-token.py  0.4s [error]",
+      "  \u250a \ud83d\udcbb $         python3 ~/.gmail-mcp-refresh/refresh-token.py  0.4s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/config/gmail/token.json  1.2s",
+      "  \u250a \ud83d\udcbb $         openclaw gateway status 2>&1 | grep -E \"(Runtime|Connectivity|Listening)\" || echo \"Gateway check failed\"  2.1s",
+      "  \u250a \ud83d\udcbb $         ls -la /Users/joemac/.openclaw/workspace/workspace-shared/handoffs/  0.6s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/context/agent-registry.json  1.4s",
+      "  \u250a \ud83d\udc0d exec      import os  3.5s"
     ],
     "errors": [
       "2026-04-25 23:01:54,096 ERROR [20260425_230029_2b8f9e] tools.vision_tools: Error analyzing image: Only real image files are supported for vision analysis.",
@@ -98,13 +98,13 @@
       "raise ValueError(\"Only real image files are supported for vision analysis.\")",
       "ValueError: Only real image files are supported for vision analysis."
     ],
-    "last_activity": "2026-04-26 03:36:34,064 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
+    "last_activity": "2026-04-26 04:04:26,537 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
     "log_files": {
       "agent": "/Users/joemac/.hermes/logs/agent.log",
       "gateway": "/Users/joemac/.hermes/logs/gateway.log",
       "errors": "/Users/joemac/.hermes/logs/errors.log"
     },
-    "checked_at": "2026-04-26T03:47:52.332145"
+    "checked_at": "2026-04-26T04:47:50.293192"
   },
   "taskboard": {
     "backlog": [],
@@ -208,60 +208,6 @@
     }
   ],
   "hermes_activities": [
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 23:00:29",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 23:00:29,082 INFO [cron_1faad8c15a21_20260425_230006] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 23:01:54",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 23:01:54,096 ERROR [20260425_230029_2b8f9e] tools.vision_tools: Error analyzing image: Only real image files are supported for vision analysis.",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "Traceback (most rec",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "Traceback (most recent call last):",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "  File \"/Users/joem",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "File \"/Users/joemac/.hermes/hermes-agent/tools/vision_tools.py\", line 502, in vision_analyze_tool",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "    raise ValueErro",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "raise ValueError(\"Only real image files are supported for vision analysis.\")",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "ValueError: Only re",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "ValueError: Only real image files are supported for vision analysis.",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
     {
       "agent": "hermes",
       "time": "2026-04-25 23:08:32",
@@ -385,6 +331,60 @@
       "type": "\ud83d\udce1",
       "typeLabel": "Hermes",
       "desc": "2026-04-26 03:36:34,064 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 04:00:36",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 04:00:36,915 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 04:02:03",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 04:02:03,131 INFO gateway.run: Session expiry: 1 sessions to flush (telegram:1)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 04:02:03",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 04:02:03,226 INFO [20260424_084738_a911f845] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 04:02:37",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 04:02:37,538 INFO [20260425_084827_b4a58d60] gateway.run: Pre-reset memory flush completed for session 20260425_084827_b4a58d60",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 04:02:37",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 04:02:37,543 INFO gateway.run: Session expiry done: 1 flushed",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 04:04:26",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 04:04:26,537 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "status": "success",
       "vertical": "Infrastructure"
     }
