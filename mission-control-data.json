@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-25T20:47:51.839014",
+    "generated_at": "2026-04-25T21:47:54.968758",
     "generated_by": "refresh-mission-control.py v3.0",
     "workspace": "/Users/joemac/.openclaw/workspace",
     "version": "3.0"
@@ -16,7 +16,7 @@
       "gateway": "active",
       "cronJobs": 12,
       "memoryMB": 148,
-      "last_checked": "2026-04-25T20:47:51.829592"
+      "last_checked": "2026-04-25T21:47:54.958003"
     },
     {
       "name": "Hermes \ud83c\udfdb\ufe0f",
@@ -28,7 +28,7 @@
       "gateway": "active",
       "cronJobs": 4,
       "memoryMB": 62,
-      "last_checked": "2026-04-25T20:47:51.829595"
+      "last_checked": "2026-04-25T21:47:54.958006"
     },
     {
       "name": "Red \ud83d\udd34",
@@ -40,26 +40,24 @@
       "gateway": "inactive",
       "cronJobs": 0,
       "memoryMB": 0,
-      "last_checked": "2026-04-25T20:47:51.829596"
+      "last_checked": "2026-04-25T21:47:54.958007"
     }
   ],
   "rob_health": {
     "gateway_online": true,
     "errors": [
-      "2026-04-25T20:30:25.739-04:00 [agent/embedded] embedded run failover decision: runId=b2c9c7a3-1232-498b-b0cc-9cb0920865ef stage=assistant decision=fallback_model reason=rate_limit from=openrouter/google/gemma-4-31b-it:free profile=sha256:ac092b59b472 rawError=429 Provider returned error google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/in\u2026",
-      "2026-04-25T20:30:25.739-04:00 [diagnostic] lane task error: lane=nested durationMs=25490 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
-      "2026-04-25T20:30:25.739-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=25490 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
-      "2026-04-25T20:30:25.740-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
-      "2026-04-25T20:30:33.870-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
+      "2026-04-25T21:30:46.284-04:00 [tools] exec failed: exec denied: allowlist miss raw_params={\"command\":\"python3 -V\",\"workdir\":\"/Users/joemac/.openclaw/workspace\",\"yieldMs\":5000,\"timeout\":20,\"host\":\"auto\",\"security\":\"allowlist\",\"ask\":\"off\"}",
+      "2026-04-25T21:30:55.862-04:00 [tools] exec failed: exec host=sandbox requires a sandbox runtime for this session.",
+      "Enable sandbox mode (`agents.defaults.sandbox.mode=\"non-main\"` or `\"all\"`) or use host=auto/gateway/node. raw_params={\"command\":\"pwd\",\"workdir\":\"/Users/joemac/.openclaw/workspace\",\"yieldMs\":2000,\"timeout\":10,\"host\":\"sandbox\",\"security\":\"full\",\"ask\":\"off\"}",
+      "2026-04-25T21:31:15.085-04:00 [diagnostic] lane wait exceeded: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 waitedMs=38416 queueAhead=0",
+      "2026-04-25T21:31:15.087-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
     ],
     "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
-    "checked_at": "2026-04-25T20:47:51.806863"
+    "checked_at": "2026-04-25T21:47:54.911550"
   },
   "hermes_health": {
     "gateway_online": true,
     "agent_log_tail": [
-      "2026-04-25 11:49:48,073 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 12:00:46,396 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 13:00:54,468 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 13:17:47,036 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 14:00:06,969 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
@@ -77,19 +75,21 @@
       "2026-04-25 19:02:33,299 INFO [cron_3932067351e6_20260425_190050] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 19:03:08,049 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-25 19:24:10,025 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-25 20:00:04,610 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
+      "2026-04-25 20:00:04,610 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 21:00:22,700 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-25 21:25:40,684 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
     ],
     "gateway_log_tail": [
-      "- 7 handoff files exist in the directory, but they are specifications awaiting assignment, not active tasks",
-      "- Latest summary from today confirms no active handoffs found and Hermes is idle",
-      "",
-      "**Actions Taken:**",
-      "",
-      "1. **Registry Status**: Hermes is already marked as `idle_waiting_for_handoff` in the agent registry - no update needed",
-      "2. **Telegram Notification**: Sending message to Rob Lobster HQ group",
-      "3. **Summary Note**: Adding timestamped note to summaries directory",
-      "",
-      "Hermes is idle and ready for the next handoff from Rob. The existing handoff files (Mission Control Model Switcher, Mission Control EKG, TTD Dashboard, Lobster Press Build) are specifications that need to be assigned before work can begin."
+      "  \u250a \ud83d\udc0d exec      from datetime import datetime  3.5s",
+      "  \u250a \ud83d\udd0a speak     Hermes is idle and ready for the next handoff. Please drop the task in workspace-shared/handoffs.  0.7s",
+      "  \u250a \ud83d\udc0d exec      from datetime import datetime  3.5s",
+      "  \u250a \ud83d\udd0e grep      telegram  60.7s",
+      "  \u250a \ud83d\udd0e grep      telegram  0.7s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/openclaw.json  1.3s",
+      "  \u250a \ud83d\udcac I'll check the OpenClaw gateway status, process health, and Gmail token validity. Since I'm running as a scheduled cron job, I'll only alert if there are issues.",
+      "  \u250a \ud83d\udcbb $         openclaw gateway status  3.9s",
+      "  \u250a \ud83d\udcbb $         ps aux | grep -E \"openclaw-gateway|openclaw/gateway\" | grep -v grep  0.4s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/config/gmail/token.json  1.3s"
     ],
     "errors": [
       "2026-04-23 16:55:51,286 WARNING agent.auxiliary_client: resolve_provider_client: openrouter requested but OPENROUTER_API_KEY not set",
@@ -98,13 +98,13 @@
       "joemac           41198   0.0  0.0 410172320   1952   ??  R     7:44AM   0:00.01 /opt/homebrew/opt/node/bin/node /opt/homebrew/lib/node_modules/openclaw/dist/index.js gateway --port 18789",
       "joemac           26537   0.0  0.0 410733936    576   ??  SN    8:24PM   0:00.00 /bin/bash -c source /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-snap-98279a4de0bb.sh 2>/dev/null || true\\012cd /Users/joemac/.hermes || exit 126\\012eval 'cd /Users/joemac/.openclaw/workspace/projects/asteroids && python3 -m http.server 8889 > /dev/null 2>&1 & echo '\\''Server started on port 8889'\\'''\\012__hermes_ec=$?\\012export -p > /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-snap-98279a4de0bb.sh 2>/dev/null || true\\012pwd -P > /var/folders/yf/cqw6szrn053_d7svd10z44gh0000gn/T/hermes-cwd-98279a4de0bb.txt 2>/dev/null || true\\012printf '\\n__HERMES_CWD_98279a4de0bb__%s__HERMES_CWD_98279a4de0bb__\\n' \"$(pwd -P)\"\\012exit $__hermes_ec"
     ],
-    "last_activity": "2026-04-25 20:00:04,610 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
+    "last_activity": "2026-04-25 21:25:40,684 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
     "log_files": {
       "agent": "/Users/joemac/.hermes/logs/agent.log",
       "gateway": "/Users/joemac/.hermes/logs/gateway.log",
       "errors": "/Users/joemac/.hermes/logs/errors.log"
     },
-    "checked_at": "2026-04-25T20:47:51.819521"
+    "checked_at": "2026-04-25T21:47:54.924086"
   },
   "taskboard": {
     "backlog": [],
@@ -208,24 +208,6 @@
     }
   ],
   "hermes_activities": [
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 11:49:48",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 11:49:48,073 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
-    {
-      "agent": "hermes",
-      "time": "2026-04-25 12:00:46",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-25 12:00:46,396 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
     {
       "agent": "hermes",
       "time": "2026-04-25 13:00:54",
@@ -385,6 +367,24 @@
       "type": "\ud83d\udce1",
       "typeLabel": "Hermes",
       "desc": "2026-04-25 20:00:04,610 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 21:00:22",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 21:00:22,700 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-25 21:25:40",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-25 21:25:40,684 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "status": "success",
       "vertical": "Infrastructure"
     }
