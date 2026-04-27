@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-26T20:47:53.019358",
+    "generated_at": "2026-04-26T21:47:53.989211",
     "generated_by": "refresh-mission-control.py v3.0",
     "workspace": "/Users/joemac/.openclaw/workspace",
     "version": "3.0"
@@ -16,7 +16,7 @@
       "gateway": "active",
       "cronJobs": 12,
       "memoryMB": 148,
-      "last_checked": "2026-04-26T20:47:53.008342"
+      "last_checked": "2026-04-26T21:47:53.979379"
     },
     {
       "name": "Hermes \ud83c\udfdb\ufe0f",
@@ -28,7 +28,7 @@
       "gateway": "active",
       "cronJobs": 4,
       "memoryMB": 62,
-      "last_checked": "2026-04-26T20:47:53.008345"
+      "last_checked": "2026-04-26T21:47:53.979382"
     },
     {
       "name": "Red \ud83d\udd34",
@@ -40,25 +40,24 @@
       "gateway": "inactive",
       "cronJobs": 0,
       "memoryMB": 0,
-      "last_checked": "2026-04-26T20:47:53.008346"
+      "last_checked": "2026-04-26T21:47:53.979383"
     }
   ],
   "rob_health": {
     "gateway_online": true,
     "errors": [
-      "2026-04-26T20:30:28.102-04:00 [agent/embedded] embedded run failover decision: runId=8e27f00c-709f-4917-b053-25c8a9d9c6a3 stage=assistant decision=fallback_model reason=rate_limit from=openrouter/google/gemma-4-31b-it:free profile=sha256:ac092b59b472 rawError=429 Provider returned error google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/in\u2026",
-      "2026-04-26T20:30:28.103-04:00 [diagnostic] lane task error: lane=nested durationMs=27810 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
-      "2026-04-26T20:30:28.103-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=27811 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
-      "2026-04-26T20:30:28.103-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
-      "2026-04-26T20:30:39.601-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
+      "2026-04-26T21:30:25.832-04:00 [agent/embedded] embedded run failover decision: runId=94702891-f4ff-4432-a199-c5de13c95329 stage=assistant decision=fallback_model reason=rate_limit from=openrouter/google/gemma-4-31b-it:free profile=sha256:ac092b59b472 rawError=429 Provider returned error google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/in\u2026",
+      "2026-04-26T21:30:25.833-04:00 [diagnostic] lane task error: lane=nested durationMs=25635 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-26T21:30:25.833-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=25636 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-26T21:30:25.833-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
+      "2026-04-26T21:30:31.519-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
     ],
     "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
-    "checked_at": "2026-04-26T20:47:52.959964"
+    "checked_at": "2026-04-26T21:47:53.954898"
   },
   "hermes_health": {
     "gateway_online": true,
     "agent_log_tail": [
-      "2026-04-26 16:08:48,951 INFO gateway.run: inbound message: platform=telegram user=Joseph Lynch chat=8612618386 msg='jlynch@tlcnj.com'",
       "2026-04-26 16:09:44,432 INFO gateway.platforms.telegram: Telegram button resolved 1 approval(s) for session agent:main:telegram:dm:8612618386 (choice=once, user=Joseph)",
       "2026-04-26 16:10:11,478 INFO gateway.run: response ready: platform=telegram chat=8612618386 time=82.5s api_calls=11 response=582 chars",
       "2026-04-26 16:10:11,490 INFO gateway.platforms.base: [Telegram] Sending response (582 chars) to 8612618386",
@@ -77,19 +76,20 @@
       "2026-04-26 19:01:25,984 INFO [cron_3932067351e6_20260426_190013] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 19:04:42,450 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 19:52:48,040 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-26 20:00:20,142 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
+      "2026-04-26 20:00:20,142 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-26 21:00:34,470 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
     ],
     "gateway_log_tail": [
-      "  \u250a \ud83d\udd0e find      .*\\.md  0.9s",
-      "  \u250a \ud83d\udcbb $         ls -lt /Users/joemac/.openclaw/workspace/workspace-shared/handoffs/ | head -10  0.4s",
-      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/handoffs/mission-control-model-switcher.md  1.5s",
-      "  \u250a \ud83d\udd0e find      mission-control-model-switcher|model switcher|cron.*model  1.0s",
-      "  \u250a \ud83d\udcbb $         ls -lt /Users/joemac/.openclaw/workspace/workspace-shared/summaries/ | head -5  0.4s",
-      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/summaries/2026-04-26-2000-hermes-status-update.md  1.3s",
-      "  \u250a \ud83d\udd0e grep      Status: completed|completed on|done by|DONE|COMPLETED  0.8s",
-      "  \u250a \ud83d\udcbb $         ls -l /Users/joemac/.openclaw/workspace/workspace-shared/summaries/ | grep -E \"(model|switcher|lobster-press-build)\"  0.4s",
-      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/summaries/lobster-press-build-complete.md  1.4s",
-      "  \u250a \ud83d\udcbb $         ls -l /Users/joemac/.openclaw/workspace/workspace-shared/summaries/ | grep -i \"ekg\\|mission-control\"  0.4s [exit 1]"
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/WORKING-CONTEXT.md  1.4s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclac/workspace/workspace-shared/handoffs/2026-04-23-lobster-press-ownership.md  0.6s [error]",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/handoffs/2026-04-23-lobster-press-ownership.md  1.3s",
+      "  \u250a \ud83d\udcbb $         ls -la /Users/joemac/.openclaw/workspace/workspace-shared/summaries/ && echo \"---\" && find /Users/joemac/.openclaw/workspace/workspace-shared/summaries/ -name \"*lobster*\" -o -name \"*Lobster*\" -o -name \"*2026-04-2*\" | head -10  0.4s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/summaries/2026-04-24-lobster-press-audit.md  1.3s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/handoffs/2026-04-23-mission-control-ekg.md  1.4s",
+      "  \u250a \ud83d\udcbb $         grep -l \"EKG\\|ekg\\|Mission Control.*dashboard\" /Users/joemac/.openclaw/workspace/workspace-shared/summaries/*.md 2>/dev/null | head -5  0.5s",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/summaries/2026-04-27-000505.md  0.7s [error]",
+      "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/workspace-shared/summaries/2026-04-26-2100-hermes-status-correction.md  1.5s",
+      "  \u250a \ud83d\udcac Now I understand the current state. Let me update the agent registry with the correct status and add a summary note."
     ],
     "errors": [
       "2026-04-25 23:01:54,096 ERROR [20260425_230029_2b8f9e] tools.vision_tools: Error analyzing image: Only real image files are supported for vision analysis.",
@@ -98,13 +98,13 @@
       "raise ValueError(\"Only real image files are supported for vision analysis.\")",
       "ValueError: Only real image files are supported for vision analysis."
     ],
-    "last_activity": "2026-04-26 20:00:20,142 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
+    "last_activity": "2026-04-26 21:00:34,470 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
     "log_files": {
       "agent": "/Users/joemac/.hermes/logs/agent.log",
       "gateway": "/Users/joemac/.hermes/logs/gateway.log",
       "errors": "/Users/joemac/.hermes/logs/errors.log"
     },
-    "checked_at": "2026-04-26T20:47:52.975285"
+    "checked_at": "2026-04-26T21:47:53.969331"
   },
   "taskboard": {
     "backlog": [],
@@ -208,15 +208,6 @@
     }
   ],
   "hermes_activities": [
-    {
-      "agent": "hermes",
-      "time": "2026-04-26 16:08:48",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-26 16:08:48,951 INFO gateway.run: inbound message: platform=telegram user=Joseph Lynch chat=8612618386 msg='jlynch@tlcnj.com'",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
     {
       "agent": "hermes",
       "time": "2026-04-26 16:09:44",
@@ -385,6 +376,15 @@
       "type": "\ud83d\udce1",
       "typeLabel": "Hermes",
       "desc": "2026-04-26 20:00:20,142 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-26 21:00:34",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-26 21:00:34,470 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "status": "success",
       "vertical": "Infrastructure"
     }
