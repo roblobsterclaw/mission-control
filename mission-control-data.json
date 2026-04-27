@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-27T04:48:00.642995",
+    "generated_at": "2026-04-27T05:47:55.322659",
     "generated_by": "refresh-mission-control.py v3.0",
     "workspace": "/Users/joemac/.openclaw/workspace",
     "version": "3.0"
@@ -16,7 +16,7 @@
       "gateway": "active",
       "cronJobs": 12,
       "memoryMB": 148,
-      "last_checked": "2026-04-27T04:48:00.632984"
+      "last_checked": "2026-04-27T05:47:55.311522"
     },
     {
       "name": "Hermes \ud83c\udfdb\ufe0f",
@@ -28,7 +28,7 @@
       "gateway": "active",
       "cronJobs": 4,
       "memoryMB": 62,
-      "last_checked": "2026-04-27T04:48:00.632987"
+      "last_checked": "2026-04-27T05:47:55.311525"
     },
     {
       "name": "Red \ud83d\udd34",
@@ -40,25 +40,24 @@
       "gateway": "inactive",
       "cronJobs": 0,
       "memoryMB": 0,
-      "last_checked": "2026-04-27T04:48:00.632988"
+      "last_checked": "2026-04-27T05:47:55.311527"
     }
   ],
   "rob_health": {
     "gateway_online": true,
     "errors": [
-      "2026-04-27T04:30:28.548-04:00 [agent/embedded] embedded run failover decision: runId=81aa886f-95b2-4021-a229-c0516bfe3027 stage=assistant decision=fallback_model reason=rate_limit from=openrouter/google/gemma-4-31b-it:free profile=sha256:ac092b59b472 rawError=429 Provider returned error google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/in\u2026",
-      "2026-04-27T04:30:28.549-04:00 [diagnostic] lane task error: lane=nested durationMs=28237 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
-      "2026-04-27T04:30:28.549-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=28237 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
-      "2026-04-27T04:30:28.550-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
-      "2026-04-27T04:30:37.277-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
+      "2026-04-27T05:30:28.042-04:00 [agent/embedded] embedded run failover decision: runId=defed250-95ac-4fe7-99aa-3ceaacbe1891 stage=assistant decision=fallback_model reason=rate_limit from=openrouter/google/gemma-4-31b-it:free profile=sha256:ac092b59b472 rawError=429 Provider returned error google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/in\u2026",
+      "2026-04-27T05:30:28.043-04:00 [diagnostic] lane task error: lane=nested durationMs=27840 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-27T05:30:28.043-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=27840 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-27T05:30:28.044-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
+      "2026-04-27T05:30:45.502-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
     ],
     "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
-    "checked_at": "2026-04-27T04:48:00.546855"
+    "checked_at": "2026-04-27T05:47:55.266066"
   },
   "hermes_health": {
     "gateway_online": true,
     "agent_log_tail": [
-      "2026-04-26 22:00:34,950 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 22:01:56,044 INFO [cron_3932067351e6_20260426_220034] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 22:03:19,138 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 23:00:25,222 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
@@ -77,7 +76,8 @@
       "2026-04-27 04:00:59,637 INFO [20260426_124740_1b7369d5] gateway.run: Pre-reset memory flush completed for session 20260426_124740_1b7369d5",
       "2026-04-27 04:00:59,640 INFO gateway.run: Session expiry done: 1 flushed",
       "2026-04-27 04:04:09,861 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-27 04:05:09,855 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
+      "2026-04-27 04:05:09,855 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-27 05:00:30,947 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
     ],
     "gateway_log_tail": [
       "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/config/gmail/token.json  1.6s",
@@ -98,13 +98,13 @@
       "raise ValueError(\"Only real image files are supported for vision analysis.\")",
       "ValueError: Only real image files are supported for vision analysis."
     ],
-    "last_activity": "2026-04-27 04:05:09,855 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
+    "last_activity": "2026-04-27 05:00:30,947 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
     "log_files": {
       "agent": "/Users/joemac/.hermes/logs/agent.log",
       "gateway": "/Users/joemac/.hermes/logs/gateway.log",
       "errors": "/Users/joemac/.hermes/logs/errors.log"
     },
-    "checked_at": "2026-04-27T04:48:00.561575"
+    "checked_at": "2026-04-27T05:47:55.282484"
   },
   "taskboard": {
     "backlog": [],
@@ -208,15 +208,6 @@
     }
   ],
   "hermes_activities": [
-    {
-      "agent": "hermes",
-      "time": "2026-04-26 22:00:34",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-26 22:00:34,950 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
     {
       "agent": "hermes",
       "time": "2026-04-26 22:01:56",
@@ -387,13 +378,22 @@
       "desc": "2026-04-27 04:05:09,855 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "status": "success",
       "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-27 05:00:30",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-27 05:00:30,947 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
     }
   ],
   "documents": {
-    "total": 374,
+    "total": 377,
     "by_category": {
       "World Cup Pool": 6,
-      "Other": 225,
+      "Other": 228,
       "ReBolt": 14,
       "Reports": 76,
       "Investing": 19,
@@ -410,6 +410,36 @@
         "size_bytes": 21,
         "cat": "World Cup Pool",
         "ext": "txt"
+      },
+      {
+        "name": "jfl-ttd-v4.9.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.9.pdf",
+        "date": "2026-04-27",
+        "size": "4.2 KB",
+        "size_bytes": 4279,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "jfl-ttd-v4.9-clean.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.9-clean.docx",
+        "date": "2026-04-27",
+        "size": "37.8 KB",
+        "size_bytes": 38668,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.9.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.9.docx",
+        "date": "2026-04-27",
+        "size": "37.8 KB",
+        "size_bytes": 38668,
+        "cat": "Other",
+        "ext": "docx"
       },
       {
         "name": "jfl-ttd-v4.7.pdf",
@@ -870,36 +900,6 @@
         "size_bytes": 266330,
         "cat": "TLC",
         "ext": "pdf"
-      },
-      {
-        "name": "Zoning_20-21_page2.pdf",
-        "path": "projects/tlc/zoning/",
-        "full_path": "/Users/joemac/.openclaw/workspace/projects/tlc/zoning/Zoning_20-21_page2.pdf",
-        "date": "2026-04-22",
-        "size": "281.7 KB",
-        "size_bytes": 288442,
-        "cat": "TLC",
-        "ext": "pdf"
-      },
-      {
-        "name": "jfl-ttd-v3.7.pdf",
-        "path": "projects/",
-        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v3.7.pdf",
-        "date": "2026-04-22",
-        "size": "286.7 KB",
-        "size_bytes": 293532,
-        "cat": "Other",
-        "ext": "pdf"
-      },
-      {
-        "name": "email-body.txt",
-        "path": "projects/lobster-press/incoming/FW--Customer-testimonial/",
-        "full_path": "/Users/joemac/.openclaw/workspace/projects/lobster-press/incoming/FW--Customer-testimonial/email-body.txt",
-        "date": "2026-04-21",
-        "size": "557 B",
-        "size_bytes": 557,
-        "cat": "Lobster Press",
-        "ext": "txt"
       }
     ],
     "all": [
@@ -912,6 +912,36 @@
         "size_bytes": 21,
         "cat": "World Cup Pool",
         "ext": "txt"
+      },
+      {
+        "name": "jfl-ttd-v4.9.pdf",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.9.pdf",
+        "date": "2026-04-27",
+        "size": "4.2 KB",
+        "size_bytes": 4279,
+        "cat": "Other",
+        "ext": "pdf"
+      },
+      {
+        "name": "jfl-ttd-v4.9-clean.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.9-clean.docx",
+        "date": "2026-04-27",
+        "size": "37.8 KB",
+        "size_bytes": 38668,
+        "cat": "Other",
+        "ext": "docx"
+      },
+      {
+        "name": "jfl-ttd-v4.9.docx",
+        "path": "projects/",
+        "full_path": "/Users/joemac/.openclaw/workspace/projects/jfl-ttd-v4.9.docx",
+        "date": "2026-04-27",
+        "size": "37.8 KB",
+        "size_bytes": 38668,
+        "cat": "Other",
+        "ext": "docx"
       },
       {
         "name": "jfl-ttd-v4.7.pdf",
@@ -4802,6 +4832,13 @@
   },
   "recent_activity": [
     {
+      "date": "2026-04-27",
+      "file": "2026-04-27.md",
+      "preview": "# Daily Log \u2014 2026-04-27  ## 5:00 AM \u2014 TTD v4.9 Generated (5AM Cron)  ### Delivery Status - \u2705 DOCX generated: `projects/jfl-ttd-v4.9.docx` - \u2705 PDF generated via ReportLab fallback: `projects/jfl-ttd-v4.9.pdf` - \u2705 Print sent to Brother_MFC_L5850DW_series - \u274c Email FAILED \u2014 Gmail OAuth token expired (rob.lobster.claw@gmail.com needs re-auth)   - Error: \"OAuth2 credentials are invalid, please re-authenticate\"   - Fix: Joe or Rob needs to run `mcporter auth gmail` in terminal and complete OAuth flow",
+      "size": "1.6 KB",
+      "agent": "rob"
+    },
+    {
       "date": "2026-04-26",
       "file": "2026-04-26.md",
       "preview": "# Memory \u2014 April 26, 2026  ## New Standard: Document Delivery via MEDIA Joe confirmed: all files created for his review should be delivered as MEDIA attachments directly in chat (Telegram one-tap download). Logged in AGENTS.md, SOUL.md. Apply to all docs going forward \u2014 Word, PDF, spreadsheets, reports, everything.   ## ReBolt \u2014 Greg Meeting (April 25, 2026)  Big development. Joe had a long call with Greg (patent attorney) yesterday. The meeting went well.  **Key news:** - Greg is very intereste",
@@ -4824,10 +4861,10 @@
     "Real Estate": 0,
     "Colorant": 0,
     "Personal": 0,
-    "Infrastructure": 327
+    "Infrastructure": 330
   },
   "stats": {
-    "total_docs": 374,
+    "total_docs": 377,
     "total_memory_files": 30,
     "agents_online": 2,
     "rob_online": true,
