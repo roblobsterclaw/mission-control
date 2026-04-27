@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-27T02:47:52.325879",
+    "generated_at": "2026-04-27T03:47:56.925249",
     "generated_by": "refresh-mission-control.py v3.0",
     "workspace": "/Users/joemac/.openclaw/workspace",
     "version": "3.0"
@@ -16,7 +16,7 @@
       "gateway": "active",
       "cronJobs": 12,
       "memoryMB": 148,
-      "last_checked": "2026-04-27T02:47:52.314124"
+      "last_checked": "2026-04-27T03:47:56.913831"
     },
     {
       "name": "Hermes \ud83c\udfdb\ufe0f",
@@ -28,7 +28,7 @@
       "gateway": "active",
       "cronJobs": 4,
       "memoryMB": 62,
-      "last_checked": "2026-04-27T02:47:52.314127"
+      "last_checked": "2026-04-27T03:47:56.913834"
     },
     {
       "name": "Red \ud83d\udd34",
@@ -40,25 +40,24 @@
       "gateway": "inactive",
       "cronJobs": 0,
       "memoryMB": 0,
-      "last_checked": "2026-04-27T02:47:52.314128"
+      "last_checked": "2026-04-27T03:47:56.913835"
     }
   ],
   "rob_health": {
     "gateway_online": true,
     "errors": [
-      "2026-04-27T02:30:27.762-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
-      "2026-04-27T02:30:32.764-04:00 [tools] read failed: ENOENT: no such file or directory, access '/Users/joemac/.openclaw/workspace/memory/2026-04-27.md' raw_params={\"path\":\"/Users/joemac/.openclaw/workspace/memory/2026-04-27.md\",\"offset\":1,\"limit\":200}",
-      "2026-04-27T02:30:35.268-04:00 [tools] exec failed: exec denied: allowlist miss raw_params={\"command\":\"python3 /Users/joemac/.openclaw/workspace/projects/lobster-press/auto-creator.py\",\"workdir\":\"/Users/joemac/.openclaw/workspace\",\"yieldMs\":10000,\"timeout\":120,\"host\":\"auto\",\"security\":\"allowlist\",\"ask\":\"off\"}",
-      "2026-04-27T02:30:38.287-04:00 [tools] read failed: ENOENT: no such file or directory, access '/Users/joemac/.openclaw/workspace/projects/lobster-press/README.md' raw_params={\"path\":\"/Users/joemac/.openclaw/workspace/projects/lobster-press/README.md\",\"offset\":1,\"limit\":200}",
-      "2026-04-27T02:31:04.777-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
+      "2026-04-27T03:30:27.853-04:00 [diagnostic] lane task error: lane=session:agent:main:cron:9ecaa6d2-cfb0-44cc-af31-a9fb4657ef13 durationMs=27634 error=\"FailoverError: \u26a0\ufe0f API rate limit reached. Please try again later.\"",
+      "2026-04-27T03:30:27.854-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/google/gemma-4-31b-it:free reason=rate_limit next=openrouter/openai/gpt-5.4-mini detail=429 Provider returned errorgoogle/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations",
+      "2026-04-27T03:30:31.286-04:00 [tools] exec failed: exec denied: allowlist miss raw_params={\"command\":\"python3 /Users/joemac/.openclaw/workspace/projects/lobster-press/auto-creator.py\",\"workdir\":\"/Users/joemac/.openclaw/workspace\",\"yieldMs\":10000,\"timeout\":120,\"host\":\"auto\",\"security\":\"allowlist\",\"ask\":\"off\"}",
+      "2026-04-27T03:30:39.521-04:00 [tools] exec failed: exec denied: allowlist miss raw_params={\"command\":\"python3 projects/lobster-press/auto-creator.py\",\"workdir\":\"/Users/joemac/.openclaw/workspace\",\"yieldMs\":10000,\"timeout\":120,\"host\":\"auto\",\"security\":\"allowlist\",\"ask\":\"off\"}",
+      "2026-04-27T03:31:05.386-04:00 [model-fallback/decision] model fallback decision: decision=candidate_succeeded requested=openrouter/google/gemma-4-31b-it:free candidate=openrouter/openai/gpt-5.4-mini reason=unknown next=none"
     ],
     "log_file": "/Users/joemac/.openclaw/logs/gateway.err.log",
-    "checked_at": "2026-04-27T02:47:52.262249"
+    "checked_at": "2026-04-27T03:47:56.859387"
   },
   "hermes_health": {
     "gateway_online": true,
     "agent_log_tail": [
-      "2026-04-26 18:11:53,815 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 19:00:13,976 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 19:01:25,984 INFO [cron_3932067351e6_20260426_190013] agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-26 19:04:42,450 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
@@ -77,7 +76,8 @@
       "2026-04-27 00:13:21,047 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-27 01:00:40,291 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "2026-04-27 01:57:48,854 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "2026-04-27 02:00:37,371 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
+      "2026-04-27 02:00:37,371 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "2026-04-27 03:00:31,519 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)"
     ],
     "gateway_log_tail": [
       "  \u250a \ud83d\udcd6 read      /Users/joemac/.openclaw/workspace/config/gmail/token.json  1.6s",
@@ -98,13 +98,13 @@
       "raise ValueError(\"Only real image files are supported for vision analysis.\")",
       "ValueError: Only real image files are supported for vision analysis."
     ],
-    "last_activity": "2026-04-27 02:00:37,371 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
+    "last_activity": "2026-04-27 03:00:31,519 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google",
     "log_files": {
       "agent": "/Users/joemac/.hermes/logs/agent.log",
       "gateway": "/Users/joemac/.hermes/logs/gateway.log",
       "errors": "/Users/joemac/.hermes/logs/errors.log"
     },
-    "checked_at": "2026-04-27T02:47:52.277985"
+    "checked_at": "2026-04-27T03:47:56.875229"
   },
   "taskboard": {
     "backlog": [],
@@ -208,15 +208,6 @@
     }
   ],
   "hermes_activities": [
-    {
-      "agent": "hermes",
-      "time": "2026-04-26 18:11:53",
-      "type": "\ud83d\udce1",
-      "typeLabel": "Hermes",
-      "desc": "2026-04-26 18:11:53,815 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
-      "status": "success",
-      "vertical": "Infrastructure"
-    },
     {
       "agent": "hermes",
       "time": "2026-04-26 19:00:13",
@@ -385,6 +376,15 @@
       "type": "\ud83d\udce1",
       "typeLabel": "Hermes",
       "desc": "2026-04-27 02:00:37,371 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
+      "status": "success",
+      "vertical": "Infrastructure"
+    },
+    {
+      "agent": "hermes",
+      "time": "2026-04-27 03:00:31",
+      "type": "\ud83d\udce1",
+      "typeLabel": "Hermes",
+      "desc": "2026-04-27 03:00:31,519 INFO agent.auxiliary_client: Auxiliary auto-detect: using openrouter (google/gemini-3-flash-preview)",
       "status": "success",
       "vertical": "Infrastructure"
     }
