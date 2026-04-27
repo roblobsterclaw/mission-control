@@ -820,6 +820,110 @@
     .proj-metric { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
     .proj-detail { font-size: 10px; color: var(--muted); line-height: 1.35; }
 
+    /* ===================== PANEL 6: AI COSTS ===================== */
+    .cost-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .cost-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 14px;
+    }
+    .cost-card-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+    }
+    .cost-card-value {
+      font-size: 26px;
+      font-weight: 700;
+    }
+    .cost-card-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .cost-green  { color: var(--green); }
+    .cost-yellow { color: var(--yellow); }
+    .cost-red    { color: var(--red); }
+    .cost-strategy {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .cost-strat-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .cost-strat-label {
+      font-size: 9px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 4px;
+    }
+    .cost-strat-model {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .cost-strat-detail {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+    .cost-rule {
+      background: rgba(248,81,73,0.08);
+      border: 1px solid rgba(248,81,73,0.3);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .cost-bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 80px;
+      margin-bottom: 16px;
+    }
+    .cost-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .cost-bar {
+      width: 100%;
+      min-height: 2px;
+      background: var(--accent);
+      border-radius: 3px 3px 0 0;
+    }
+    .cost-bar-label {
+      font-size: 9px;
+      color: var(--muted);
+    }
+    .cost-bar-val {
+      font-size: 9px;
+      color: var(--text);
+      font-weight: 600;
+    }
+    @media (max-width: 768px) {
+      .cost-cards { grid-template-columns: repeat(2, 1fr); }
+      .cost-strategy { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ===================== SPINNER ===================== */
     .spinner {
       display: inline-block;
@@ -975,6 +1079,17 @@
     </div>
 
   </div>
+
+</div>
+
+<!-- ===================== PANEL 6: AI COSTS ===================== -->
+<div class="section-header mb-16" style="margin-top:32px">
+  <span class="section-title">💰 AI Costs — Live Spend Tracker</span>
+  <span class="section-line"></span>
+</div>
+<div id="ai-costs-panel">
+  <div style="color:var(--muted);text-align:center;padding:24px">Loading cost data…</div>
+</div>
 
 </main>
 
@@ -1777,6 +1892,7 @@ async function loadData() {
     renderPieChart(_data.modelUsage || { last7days: {}, totalCost7days: 0, projectedMonthlyCost: 0, potentialSavings: {} });
     renderAlerts(_data.alerts  || []);
     renderProjects(_data.projectHealth || {});
+    renderAICosts();
 
     document.getElementById('updated-at').textContent = timeAgo(_data.generatedAt);
   } catch (err) {
@@ -1790,6 +1906,119 @@ async function loadData() {
 }
 
 function triggerRefresh() { _countdown = REFRESH_SECS; loadData(); }
+
+// ─── AI Costs Panel ───────────────────────────────────────────
+const COST_DATA_URL = 'data/cost-data.json';
+
+async function renderAICosts() {
+  const panel = document.getElementById('ai-costs-panel');
+  if (!panel) return;
+
+  try {
+    const res = await fetch(`${COST_DATA_URL}?_=${Date.now()}`);
+    let costInfo = {};
+    if (res.ok) {
+      costInfo = await res.json();
+    }
+
+    const s = costInfo.summary || {};
+    const daily   = parseFloat(s.usage_daily   || 0);
+    const weekly  = parseFloat(s.usage_weekly  || 0);
+    const monthly = parseFloat(s.usage_monthly || 0);
+    const projected = daily * 30;
+    const updated = costInfo.updated ? new Date(costInfo.updated).toLocaleString() : '—';
+
+    // Color thresholds
+    const dailyColor = daily > 30 ? 'cost-red' : daily > 15 ? 'cost-yellow' : 'cost-green';
+    const monthlyColor = monthly > 500 ? 'cost-red' : monthly > 200 ? 'cost-yellow' : 'cost-green';
+    const projColor = projected > 600 ? 'cost-red' : projected > 300 ? 'cost-yellow' : 'cost-green';
+
+    // Build 7-day bar chart from daily breakdown if available
+    const dailyBreakdown = costInfo.daily_breakdown || {};
+    const last7 = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(Date.now() - i * 86400000);
+      const key = d.toISOString().slice(0, 10);
+      const label = d.toLocaleDateString('en-US', { weekday: 'short' });
+      last7.push({ key, label, cost: dailyBreakdown[key] || (i === 0 ? daily : 0) });
+    }
+    const maxBar = Math.max(...last7.map(d => d.cost), 0.01);
+
+    panel.innerHTML = `
+      <!-- Summary Cards -->
+      <div class="cost-cards">
+        <div class="cost-card">
+          <div class="cost-card-label">Today</div>
+          <div class="cost-card-value ${dailyColor}">$${daily.toFixed(2)}</div>
+          <div class="cost-card-sub">≈ $${(daily * 7).toFixed(0)}/week at this rate</div>
+        </div>
+        <div class="cost-card">
+          <div class="cost-card-label">This Week</div>
+          <div class="cost-card-value">$${weekly.toFixed(2)}</div>
+          <div class="cost-card-sub">${weekly > 0 ? 'Avg $' + (weekly/7).toFixed(2) + '/day' : 'Rolling 7 days'}</div>
+        </div>
+        <div class="cost-card">
+          <div class="cost-card-label">This Month</div>
+          <div class="cost-card-value ${monthlyColor}">$${monthly.toFixed(2)}</div>
+          <div class="cost-card-sub">All-time OpenRouter spend</div>
+        </div>
+        <div class="cost-card">
+          <div class="cost-card-label">Projected /mo</div>
+          <div class="cost-card-value ${projColor}">$${projected.toFixed(0)}</div>
+          <div class="cost-card-sub">At today\'s daily rate</div>
+        </div>
+      </div>
+
+      <!-- 7-Day Spend Chart -->
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:16px">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px;color:var(--text)">7-Day Spend</div>
+        <div class="cost-bar-chart">
+          ${last7.map(d => `
+            <div class="cost-bar-col">
+              <div class="cost-bar-val">${d.cost > 0 ? '$' + d.cost.toFixed(0) : ''}</div>
+              <div class="cost-bar" style="height:${Math.max(2, (d.cost / maxBar) * 60)}px;${d.key === new Date().toISOString().slice(0,10) ? 'background:var(--accent)' : 'background:var(--blue)'}"></div>
+              <div class="cost-bar-label">${d.label}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Model Strategy -->
+      <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:var(--text)">🧠 Model Strategy</div>
+      <div class="cost-strategy">
+        <div class="cost-strat-card">
+          <div class="cost-strat-label">Main Brain</div>
+          <div class="cost-strat-model">Claude Sonnet 4.6</div>
+          <div class="cost-strat-detail">$3/$15 per M tokens<br>Conversations only</div>
+        </div>
+        <div class="cost-strat-card">
+          <div class="cost-strat-label">Cron Jobs (25)</div>
+          <div class="cost-strat-model" style="color:var(--green)">🆓 Free Models</div>
+          <div class="cost-strat-detail">gemma-4-31b-it:free<br>qwen3-coder:free</div>
+        </div>
+        <div class="cost-strat-card">
+          <div class="cost-strat-label">Coding Agent</div>
+          <div class="cost-strat-model" style="color:var(--purple)">Codex CLI (GPT-5.5)</div>
+          <div class="cost-strat-detail">ChatGPT Plus $20/mo<br>Setup pending</div>
+        </div>
+        <div class="cost-strat-card">
+          <div class="cost-strat-label">Fallback</div>
+          <div class="cost-strat-model" style="color:var(--text)">GPT-5.4-mini</div>
+          <div class="cost-strat-detail">$0.40/$1.60 per M<br>Auto-failover only</div>
+        </div>
+      </div>
+
+      <!-- Cost Rule -->
+      <div class="cost-rule">
+        🚨 <strong style="color:var(--red)">Cost Rule (April 27, 2026):</strong> Cron jobs &amp; sub-agents must NEVER use Claude models. Conversations only. Any violation = immediate fix.
+      </div>
+
+      <div style="font-size:10px;color:var(--muted);margin-top:10px;text-align:right">Last updated: ${updated}</div>
+    `;
+  } catch (err) {
+    panel.innerHTML = `<div style="color:var(--red);padding:16px">Error loading cost data: ${err.message}</div>`;
+  }
+}
 
 // ─── Init ──────────────────────────────────────────────────────────
 loadData();
