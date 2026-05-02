@@ -1,2032 +1,1648 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🦞 Mission Control — Rob Lobster</title>
-  <style>
-    /* ===================== RESET & BASE ===================== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:        #0D1117;
-      --card:      #161B22;
-      --card2:     #0D1117;
-      --border:    #30363D;
-      --accent:    #FF6B35;
-      --text:      #E6EDF3;
-      --muted:     #8B949E;
-      --green:     #3FB950;
-      --yellow:    #D29922;
-      --red:       #F85149;
-      --blue:      #58A6FF;
-      --purple:    #BC8CFF;
-      --teal:      #39D353;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 13px;
-      line-height: 1.5;
-      min-height: 100vh;
-    }
-
-    /* ===================== HEADER ===================== */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      padding: 0 20px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo-text {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: var(--accent);
-      text-transform: uppercase;
-    }
-
-    .logo-sub {
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .header-divider {
-      width: 1px;
-      height: 28px;
-      background: var(--border);
-    }
-
-    .live-badge {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--green);
-    }
-
-    .live-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--green);
-      border-radius: 50%;
-      animation: livePulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes livePulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .header-meta {
-      font-size: 11px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .header-meta span { color: var(--text); }
-
-    #refresh-countdown {
-      font-size: 11px;
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .btn-refresh {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 7px 16px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: opacity 0.15s, transform 0.1s;
-    }
-
-    .btn-refresh:hover  { opacity: 0.88; }
-    .btn-refresh:active { transform: scale(0.97); }
-    .btn-refresh:disabled { opacity: 0.5; cursor: default; }
-
-    /* ===================== LAYOUT ===================== */
-    .main {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 18px 18px 40px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .section-count {
-      font-size: 10px;
-      color: var(--muted);
-      background: var(--border);
-      padding: 1px 7px;
-      border-radius: 10px;
-      font-weight: 600;
-    }
-
-    .mb-20 { margin-bottom: 20px; }
-    .mb-16 { margin-bottom: 16px; }
-
-    /* ===================== PANEL 1: AGENTS (EKG) ===================== */
-    .agents-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-
-    .agent-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      flex: 1;
-      min-width: 260px;
-      max-width: 460px;
-      position: relative;
-      overflow: visible;
-      border-top-width: 3px;
-    }
-
-    .agent-card::after { display: none; }
-
-    .agent-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .agent-name {
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 20px;
-    }
-
-    .status-badge.active  { background: rgba(63,185,80,0.12); color: var(--green); border: 1px solid rgba(63,185,80,0.25); }
-    .status-badge.online  { background: rgba(56,132,244,0.12); color: #388AF4; border: 1px solid rgba(56,132,244,0.25); }
-    .status-badge.offline { background: rgba(248,81,73,0.12); color: var(--red); border: 1px solid rgba(248,81,73,0.25); }
-    .status-badge.idle    { background: rgba(139,148,158,0.10); color: var(--muted); border: 1px solid rgba(139,148,158,0.2); }
-    .status-badge.queued  { background: rgba(210,153,34,0.12); color: var(--yellow); border: 1px solid rgba(210,153,34,0.25); }
-    .status-badge.failed  { background: rgba(248,81,73,0.12); color: var(--red); border: 1px solid rgba(248,81,73,0.25); }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulseDot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.75); }
-    }
-
-    /* ─── EKG Canvas ─── */
-    .ekg-canvas-wrap {
-      margin: 0 0 10px;
-      border-radius: 6px;
-      overflow: hidden;
-      background: #080D11;
-      border: 1px solid rgba(255,255,255,0.06);
-      height: 72px;
-    }
-
-    .ekg-canvas {
-      display: block;
-      width: 100%;
-      height: 72px;
-    }
-
-    /* ─── Agent info ─── */
-    .agent-task       { font-size: 12px; color: var(--text); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .agent-task.empty { color: var(--muted); font-style: italic; }
-
-    .agent-meta      { display: flex; gap: 14px; flex-wrap: wrap; }
-    .agent-meta-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
-    .agent-meta-item strong { color: var(--text); font-weight: 500; }
-
-    /* ─── Sub-agent toggle & dropdown ─── */
-    .sa-toggle {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 0 0;
-      margin-top: 8px;
-      border-top: 1px solid var(--border);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .sa-toggle:hover .sa-toggle-label,
-    .sa-toggle:hover .sa-toggle-arrow { color: var(--accent); }
-
-    .sa-toggle-label {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-      flex: 1;
-      transition: color 0.15s;
-    }
-
-    .sa-toggle-count {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--muted);
-      background: var(--border);
-      padding: 1px 7px;
-      border-radius: 10px;
-    }
-
-    .sa-toggle-arrow {
-      font-size: 9px;
-      color: var(--muted);
-      transition: color 0.15s, transform 0.2s;
-    }
-
-    .sa-toggle-arrow.open { transform: rotate(180deg); }
-
-    .sa-dropdown {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-    }
-
-    .sa-dropdown.open {
-      max-height: 500px;
-      transition: max-height 0.4s ease-in;
-    }
-
-    .sa-list {
-      padding-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .sa-empty {
-      font-size: 11px;
-      color: var(--muted);
-      font-style: italic;
-      padding: 4px 0 2px;
-    }
-
-    .sa-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 9px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      transition: opacity 0.15s;
-    }
-
-    .sa-row.sa-done { opacity: 0.5; }
-
-    .sa-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .sa-dot.sa-pulse { animation: pulseDot 2s ease-in-out infinite; }
-
-    .sa-body { flex: 1; min-width: 0; }
-
-    .sa-task {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: block;
-    }
-
-    .sa-meta {
-      font-size: 10px;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sa-status-running   { color: var(--green); font-weight: 700; }
-    .sa-status-completed { color: var(--muted); }
-
-    /* ===================== CRON TABLE LAYOUT ===================== */
-    .cron-layout {
-      display: grid;
-      grid-template-columns: 1fr 290px;
-      gap: 16px;
-      margin-bottom: 20px;
-      align-items: start;
-    }
-
-    /* ─── Job Groups Container ─── */
-    .job-groups {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    /* ─── Group block ─── */
-    .job-group {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .job-group-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .job-group-icon {
-      font-size: 14px;
-    }
-
-    .job-group-title {
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--muted);
-    }
-
-    .job-group-badge {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--muted);
-      background: rgba(255,255,255,0.06);
-      padding: 1px 8px;
-      border-radius: 10px;
-    }
-
-    .job-group-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-      opacity: 0.5;
-    }
-
-    /* ─── Scrollable table wrapper ─── */
-    .table-scroll {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* ─── Job Table ─── */
-    .job-table {
-      width: 100%;
-      min-width: 640px;
-      border-collapse: collapse;
-      font-size: 12px;
-    }
-
-    .job-table thead tr {
-      background: rgba(0,0,0,0.2);
-    }
-
-    .job-table th {
-      text-align: left;
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--muted);
-      padding: 7px 12px;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
-    }
-
-    .job-table td {
-      padding: 9px 12px;
-      border-bottom: 1px solid rgba(48,54,61,0.5);
-      vertical-align: middle;
-    }
-
-    .job-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* Row status via left border using box-shadow hack (no border-left on tr) */
-    .job-table tbody tr {
-      position: relative;
-      transition: background 0.1s;
-    }
-
-    .job-table tbody tr:hover {
-      background: rgba(255,255,255,0.025);
-    }
-
-    /* Left-border stripe via first-cell box-shadow */
-    .col-job {
-      position: relative;
-      padding-left: 16px !important;
-    }
-
-    .col-job::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      border-radius: 0 2px 2px 0;
-    }
-
-    .row-ok   .col-job::before { background: var(--green); }
-    .row-fail .col-job::before { background: var(--red); }
-    .row-warn .col-job::before { background: var(--yellow); }
-    .row-idle .col-job::before { background: var(--border); }
-
-    /* ─── Column-specific styles ─── */
-    .job-name-text {
-      font-weight: 600;
-      color: var(--text);
-      white-space: nowrap;
-    }
-
-    .job-err-badge {
-      display: inline-block;
-      background: var(--red);
-      color: #fff;
-      font-size: 9px;
-      font-weight: 700;
-      padding: 1px 5px;
-      border-radius: 8px;
-      margin-left: 5px;
-      vertical-align: middle;
-      letter-spacing: 0.2px;
-    }
-
-    .col-sched {
-      color: var(--muted);
-      white-space: nowrap;
-      font-size: 11px;
-    }
-
-    /* ─── Model cell ─── */
-    .col-cost {
-      font-size: 11px;
-      white-space: nowrap;
-      text-align: right;
-      font-family: monospace;
-      min-width: 80px;
-    }
-    .cost-free  { color: var(--green); }
-    .cost-low   { color: var(--green); }
-    .cost-med   { color: var(--yellow); }
-    .cost-high  { color: #ff6b6b; font-weight: 700; }
-    .cost-unknown { color: var(--muted); }
-    .cost-mo {
-      display: block;
-      font-size: 9px;
-      color: var(--muted);
-      margin-top: 1px;
-    }
-    .model-cell {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .model-tier-free { color: var(--green); font-size: 11px; }
-    .model-tier-paid { color: var(--yellow); font-size: 11px; }
-
-    .model-name-text {
-      font-size: 11px;
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    /* ─── Last run cell ─── */
-    .col-last {
-      font-size: 11px;
-      white-space: nowrap;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .last-ok   { color: var(--green); }
-    .last-fail { color: var(--red); }
-    .last-wait { color: var(--muted); }
-
-    /* ─── Status pill ─── */
-    .st-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 12px;
-      white-space: nowrap;
-    }
-
-    .st-ok   { background: rgba(63,185,80,0.12);  color: var(--green);  border: 1px solid rgba(63,185,80,0.25); }
-    .st-fail { background: rgba(248,81,73,0.12);  color: var(--red);    border: 1px solid rgba(248,81,73,0.25); }
-    .st-warn { background: rgba(210,153,34,0.12); color: var(--yellow); border: 1px solid rgba(210,153,34,0.25); }
-    .st-wait { background: rgba(88,166,255,0.08); color: var(--blue);   border: 1px solid rgba(88,166,255,0.2); }
-
-    .st-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-    }
-
-    .st-ok   .st-dot { background: var(--green);  animation: pulseDot 2s ease-in-out infinite; }
-    .st-fail .st-dot { background: var(--red); }
-    .st-warn .st-dot { background: var(--yellow); }
-    .st-wait .st-dot { background: var(--blue); opacity: 0.6; }
-
-    /* ─── Next run cell ─── */
-    .col-next {
-      font-size: 11px;
-      color: var(--accent);
-      font-weight: 600;
-      white-space: nowrap;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .col-next.overdue { color: var(--red); }
-
-    /* ─── Empty group ─── */
-    .job-table-empty {
-      text-align: center;
-      padding: 18px;
-      color: var(--muted);
-      font-size: 11px;
-      font-style: italic;
-    }
-
-    /* ===================== PANEL 3: EFFICIENCY ===================== */
-    .efficiency-panel {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: sticky;
-      top: 68px;
-    }
-
-    .panel-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .pie-wrap { display: flex; justify-content: center; }
-    #pie-canvas { display: block; }
-
-    .legend-list { display: flex; flex-direction: column; gap: 5px; }
-
-    .legend-row {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 11px;
-    }
-
-    .legend-swatch {
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-
-    .legend-model { flex: 1; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .legend-pct   { color: var(--muted); font-size: 10px; width: 30px; text-align: right; }
-    .legend-cost  { color: var(--text); font-weight: 700; font-size: 11px; width: 42px; text-align: right; }
-
-    .savings-card {
-      background: rgba(63,185,80,0.06);
-      border: 1px solid rgba(63,185,80,0.2);
-      border-radius: 8px;
-      padding: 11px 12px;
-    }
-
-    .savings-tag    { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--green); margin-bottom: 4px; }
-    .savings-number { font-size: 26px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 5px; }
-    .savings-desc   { font-size: 10px; color: var(--muted); line-height: 1.4; }
-
-    .spend-row    { display: flex; justify-content: space-between; align-items: center; font-size: 11px; padding: 3px 0; }
-    .spend-label  { color: var(--muted); }
-    .spend-val    { color: var(--text); font-weight: 700; }
-    .spend-val.accent { color: var(--accent); font-size: 13px; }
-
-    .divider { height: 1px; background: var(--border); }
-
-    /* ===================== BOTTOM ROW ===================== */
-    .bottom-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    /* ===================== PANEL 4: ALERTS ===================== */
-    .panel-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-    }
-
-    .alert-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-height: 360px;
-      overflow-y: auto;
-      padding-right: 2px;
-    }
-
-    .alert-item {
-      background: var(--card2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 11px;
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-    }
-
-    .alert-item.dismissed { display: none; }
-
-    .alert-sev {
-      font-size: 9px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 3px 7px;
-      border-radius: 5px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .alert-sev.critical { background: rgba(248,81,73,0.15); color: var(--red); }
-    .alert-sev.warning  { background: rgba(210,153,34,0.15); color: var(--yellow); }
-    .alert-sev.info     { background: rgba(88,166,255,0.15); color: var(--blue); }
-
-    .alert-body { flex: 1; min-width: 0; }
-
-    .alert-job  { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .alert-msg  { font-size: 11px; color: var(--muted); line-height: 1.4; }
-    .alert-time { font-size: 10px; color: var(--muted); margin-top: 4px; opacity: 0.7; }
-
-    .btn-dismiss {
-      flex-shrink: 0;
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      width: 22px;
-      height: 22px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-      margin-top: 1px;
-    }
-
-    .btn-dismiss:hover { background: var(--border); color: var(--text); }
-
-    .no-alerts {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      padding: 24px 0;
-    }
-
-    /* ===================== PANEL 5: PROJECTS ===================== */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-    }
-
-    .proj-card {
-      background: var(--card2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      border-left: 3px solid transparent;
-      padding: 10px 11px;
-    }
-
-    .proj-card.healthy  { border-left-color: var(--green); }
-    .proj-card.degraded { border-left-color: var(--yellow); }
-    .proj-card.failed   { border-left-color: var(--red); }
-    .proj-card.active   { border-left-color: var(--accent); }
-
-    .proj-header { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
-    .proj-emoji  { font-size: 15px; }
-    .proj-name   { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    .proj-status           { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
-    .proj-status.healthy   { color: var(--green); }
-    .proj-status.degraded  { color: var(--yellow); }
-    .proj-status.failed    { color: var(--red); }
-    .proj-status.active    { color: var(--accent); }
-
-    .proj-metric { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .proj-detail { font-size: 10px; color: var(--muted); line-height: 1.35; }
-
-    /* ===================== PANEL 6: AI COSTS ===================== */
-    .cost-cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .cost-card {
-      background: var(--card2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 14px;
-    }
-    .cost-card-label {
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 6px;
-    }
-    .cost-card-value {
-      font-size: 26px;
-      font-weight: 700;
-    }
-    .cost-card-sub {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-    .cost-green  { color: var(--green); }
-    .cost-yellow { color: var(--yellow); }
-    .cost-red    { color: var(--red); }
-    .cost-strategy {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .cost-strat-card {
-      background: var(--card2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-    }
-    .cost-strat-label {
-      font-size: 9px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 4px;
-    }
-    .cost-strat-model {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    .cost-strat-detail {
-      font-size: 10px;
-      color: var(--muted);
-      margin-top: 3px;
-      line-height: 1.35;
-    }
-    .cost-rule {
-      background: rgba(248,81,73,0.08);
-      border: 1px solid rgba(248,81,73,0.3);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .cost-bar-chart {
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      height: 80px;
-      margin-bottom: 16px;
-    }
-    .cost-bar-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .cost-bar {
-      width: 100%;
-      min-height: 2px;
-      background: var(--accent);
-      border-radius: 3px 3px 0 0;
-    }
-    .cost-bar-label {
-      font-size: 9px;
-      color: var(--muted);
-    }
-    .cost-bar-val {
-      font-size: 9px;
-      color: var(--text);
-      font-weight: 600;
-    }
-    @media (max-width: 768px) {
-      .cost-cards { grid-template-columns: repeat(2, 1fr); }
-      .cost-strategy { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    /* ===================== SPINNER ===================== */
-    .spinner {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border: 2px solid rgba(255,255,255,0.25);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ===================== SCROLLBAR ===================== */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
-
-    /* ===================== RESPONSIVE ===================== */
-    @media (max-width: 1100px) {
-      .cron-layout { grid-template-columns: 1fr; }
-      .efficiency-panel { position: static; }
-    }
-
-    @media (max-width: 800px) {
-      .bottom-row { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 600px) {
-      .main { padding: 12px 10px 30px; }
-      .agents-row { flex-direction: column; }
-      .agent-card { max-width: 100%; min-width: 0; }
-      .header { padding: 0 12px; }
-      .logo-text { font-size: 13px; }
-      #refresh-countdown { display: none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rob Lobster — Mission Control</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f12;--bg2:#141820;--bg3:#1a1f2a;--bg4:#222838;
+  --text:#e8eaed;--text2:#9aa0b0;--text3:#5a6070;
+  --accent:#FF6B35;--accent2:#ff8f65;
+  --tlc:#4CAF50;--surfbox:#2196F3;--investing:#9C27B0;--rebolt:#FF9800;
+  --realestate:#00BCD4;--colorant:#E91E63;--personal:#607D8B;--infra:#FFC107;
+  --all:#FF6B35;
+  --radius:8px;--radius2:12px;
+  --shadow:0 2px 8px rgba(0,0,0,.4);
+  --transition:all .25s ease;
+}
+html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+.mono{font-family:'SF Mono','Fira Code','Cascadia Code',Menlo,monospace}
+
+/* Layout */
+.app{display:flex;height:100vh;width:100vw}
+.sidebar{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--bg4);display:flex;flex-direction:column;z-index:10}
+.sidebar-logo{padding:20px 16px 16px;border-bottom:1px solid var(--bg4);text-align:center}
+.sidebar-logo h2{font-size:15px;color:var(--accent);font-weight:700;letter-spacing:.5px}
+.sidebar-logo .sub{font-size:11px;color:var(--text3);margin-top:2px}
+.sidebar-nav{flex:1;padding:12px 8px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius);cursor:pointer;transition:var(--transition);font-size:13px;color:var(--text2);font-weight:500;border:1px solid transparent}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:rgba(255,107,53,.12);color:var(--accent);border-color:rgba(255,107,53,.2)}
+.nav-item .icon{font-size:18px;width:24px;text-align:center}
+.sidebar-footer{padding:12px 16px;border-top:1px solid var(--bg4);font-size:10px;color:var(--text3);text-align:center}
+
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.header{height:52px;min-height:52px;background:var(--bg2);border-bottom:1px solid var(--bg4);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.header-title{font-size:15px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.header-title .lobster{font-size:20px}
+.header-right{display:flex;align-items:center;gap:16px}
+.header-time{font-size:12px;color:var(--text2);font-family:'SF Mono',Menlo,monospace}
+.content{flex:1;overflow-y:auto;padding:24px;scroll-behavior:smooth}
+.content::-webkit-scrollbar{width:6px}
+.content::-webkit-scrollbar-track{background:transparent}
+.content::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+
+/* Screen titles */
+.screen-title{font-size:22px;font-weight:700;margin-bottom:4px}
+.screen-subtitle{font-size:13px;color:var(--text2);margin-bottom:20px}
+
+/* Cards */
+.card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius2);padding:16px;transition:var(--transition)}
+.card:hover{border-color:rgba(255,107,53,.15)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-title{font-size:14px;font-weight:600}
+
+/* Tags / Pills */
+.tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.tag-tlc{background:rgba(76,175,80,.15);color:#4CAF50}
+.tag-surfbox{background:rgba(33,150,243,.15);color:#2196F3}
+.tag-investing{background:rgba(156,39,176,.15);color:#9C27B0}
+.tag-rebolt{background:rgba(255,152,0,.15);color:#FF9800}
+.tag-realestate{background:rgba(0,188,212,.15);color:#00BCD4}
+.tag-colorant{background:rgba(233,30,99,.15);color:#E91E63}
+.tag-personal{background:rgba(96,125,139,.15);color:#607D8B}
+.tag-infra{background:rgba(255,193,7,.15);color:#FFC107}
+.tag-all{background:rgba(255,107,53,.15);color:#FF6B35}
+.tag-pool{background:rgba(0,230,118,.15);color:#00E676}
+.tag-lobsterpress{background:rgba(255,64,129,.15);color:#FF4081}
+
+.priority-high{color:#ef5350}.priority-medium{color:#FFC107}.priority-low{color:#66BB6A}
+
+/* Status badges */
+.status{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600}
+.status-success{color:#66BB6A}.status-running{color:#42A5F5}.status-failed{color:#ef5350}.status-pending{color:#FFC107}
+.status::before{content:'';width:6px;height:6px;border-radius:50%;display:inline-block}
+.status-success::before{background:#66BB6A}.status-running::before{background:#42A5F5;animation:pulse 1.5s infinite}
+.status-failed::before{background:#ef5350}.status-pending::before{background:#FFC107}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.filter-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--bg4);background:var(--bg2);color:var(--text2);transition:var(--transition)}
+.filter-pill:hover,.filter-pill.active{background:rgba(255,107,53,.12);color:var(--accent);border-color:rgba(255,107,53,.3)}
+
+/* Input */
+.search-input{width:100%;padding:10px 16px 10px 40px;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--radius);color:var(--text);font-size:14px;outline:none;transition:var(--transition)}
+.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,107,53,.1)}
+.search-wrap{position:relative;margin-bottom:16px}
+.search-wrap::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px}
+
+/* Activity Feed */
+.feed-item{display:grid;grid-template-columns:90px 32px 1fr 100px 80px 80px;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--bg4);transition:var(--transition);font-size:13px}
+.feed-item:hover{background:rgba(255,255,255,.02)}
+.feed-time{font-family:'SF Mono',Menlo,monospace;font-size:11px;color:var(--text2)}
+.feed-icon{font-size:18px;text-align:center}
+.feed-desc{color:var(--text)}
+.feed-tokens{font-family:'SF Mono',Menlo,monospace;font-size:11px;color:var(--text3);text-align:right}
+.feed-header{display:grid;grid-template-columns:90px 32px 1fr 100px 80px 80px;gap:12px;padding:8px 16px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--bg4)}
+
+/* Agent Health Panel */
+.activity-layout{display:grid;grid-template-columns:1fr 260px;gap:20px;align-items:start}
+.health-panel{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius2);padding:16px;position:sticky;top:0}
+.health-panel h4{font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.agent-health-row{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);margin-bottom:6px;font-size:12px}
+.agent-health-row .ah-name{font-weight:600;display:flex;align-items:center;gap:8px}
+.ah-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ah-green{background:#66BB6A;box-shadow:0 0 6px rgba(102,187,106,.5);animation:pulse 2s infinite}
+.ah-red{background:#ef5350;box-shadow:0 0 6px rgba(239,83,80,.5)}
+.ah-grey{background:#5a6070}
+.ah-val{font-size:10px;color:var(--text3);font-family:'SF Mono',Menlo,monospace}
+.health-divider{height:1px;background:var(--bg4);margin:10px 0}
+.health-stat{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:4px}
+.health-stat span:last-child{color:var(--accent);font-family:'SF Mono',Menlo,monospace}
+
+/* Calendar */
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--bg4);border-radius:var(--radius2);overflow:hidden;margin-bottom:20px}
+.cal-header-cell{background:var(--bg3);padding:8px;text-align:center;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
+.cal-cell{background:var(--bg2);min-height:90px;padding:6px;position:relative;cursor:pointer;transition:var(--transition)}
+.cal-cell:hover{background:var(--bg3)}
+.cal-cell.today{box-shadow:inset 0 0 0 2px var(--accent)}
+.cal-cell.other-month{opacity:.3}
+.cal-day{font-size:12px;font-weight:600;margin-bottom:4px;color:var(--text2)}
+.cal-event{font-size:9px;padding:2px 4px;border-radius:3px;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;font-weight:500}
+.cal-nav{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.cal-nav button{background:var(--bg3);border:1px solid var(--bg4);color:var(--text);padding:6px 12px;border-radius:var(--radius);cursor:pointer;font-size:13px;transition:var(--transition)}
+.cal-nav button:hover{background:var(--bg4)}
+.cal-nav h3{font-size:16px;font-weight:600;min-width:180px;text-align:center}
+.cal-sidebar{display:flex;flex-direction:column;gap:8px}
+.cal-sidebar-item{padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border-left:3px solid;font-size:12px}
+.cal-sidebar-item .time{font-family:'SF Mono',Menlo,monospace;font-size:10px;color:var(--text2)}
+.cal-sidebar-item .name{font-weight:600;margin:2px 0}
+.cal-sidebar-item .meta{font-size:10px;color:var(--text3)}
+.cal-layout{display:grid;grid-template-columns:1fr 280px;gap:20px}
+.toggle-wrap{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);margin-bottom:12px}
+.toggle{width:36px;height:20px;background:var(--bg4);border-radius:10px;cursor:pointer;position:relative;transition:var(--transition)}
+.toggle.on{background:var(--accent)}
+.toggle::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:2px;left:2px;transition:var(--transition)}
+.toggle.on::after{left:18px}
+
+/* Kanban */
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
+.kanban-col{background:var(--bg2);border-radius:var(--radius2);padding:12px;border:1px solid var(--bg4)}
+.kanban-col-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bg4)}
+.kanban-col-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.kanban-count{font-size:11px;background:var(--bg4);padding:2px 8px;border-radius:10px;color:var(--text2)}
+.kanban-card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius);padding:12px;margin-bottom:8px;cursor:pointer;transition:var(--transition);border-left:3px solid}
+.kanban-card:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.kanban-card:last-child{margin-bottom:0}
+.kanban-card .title{font-size:12px;font-weight:600;margin-bottom:6px;line-height:1.3}
+.kanban-card .desc{font-size:10px;color:var(--text3);margin-bottom:8px;line-height:1.3}
+.kanban-card .meta{display:flex;justify-content:space-between;align-items:center;font-size:10px}
+.kanban-card .assignee{color:var(--text2)}
+
+/* Memory Screen */
+.memory-section{margin-bottom:20px}
+.memory-entry{padding:14px 16px;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius);margin-bottom:8px;cursor:pointer;transition:var(--transition)}
+.memory-entry:hover{border-color:rgba(255,107,53,.2)}
+.memory-entry .entry-header{display:flex;justify-content:space-between;align-items:center}
+.memory-entry .entry-title{font-size:13px;font-weight:600}
+.memory-entry .entry-meta{font-size:10px;color:var(--text3);display:flex;gap:12px;margin-top:4px}
+.memory-entry .entry-content{margin-top:10px;font-size:12px;color:var(--text2);line-height:1.6;border-top:1px solid var(--bg4);padding-top:10px;display:none}
+.memory-entry.expanded .entry-content{display:block}
+.memory-entry .expand-icon{color:var(--text3);transition:var(--transition);font-size:12px}
+.memory-entry.expanded .expand-icon{transform:rotate(90deg)}
+.memory-grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+.openbrain-box{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius2);padding:16px;height:fit-content}
+.openbrain-box h4{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+
+/* Team */
+.team-tree{display:flex;flex-direction:column;align-items:center;gap:24px}
+.team-level{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;width:100%}
+.team-card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius2);padding:16px;width:220px;text-align:center;transition:var(--transition);position:relative}
+.team-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:rgba(255,107,53,.2)}
+.team-card.boss{border-color:var(--accent);width:260px}
+.team-card.chief{border-color:var(--accent);width:260px;background:rgba(255,107,53,.05)}
+.team-card.hermes{border-color:#9C27B0;width:260px;background:rgba(156,39,176,.05)}
+.team-card.inactive{opacity:.55;border-color:var(--bg4)}
+.team-card .emoji{font-size:32px;margin-bottom:8px}
+.team-card .name{font-size:14px;font-weight:700;margin-bottom:2px}
+.team-card .role{font-size:11px;color:var(--accent);font-weight:600;margin-bottom:6px}
+.team-card.hermes .role{color:#9C27B0}
+.team-card .desc{font-size:11px;color:var(--text2);line-height:1.4}
+.team-card .status-badge{position:absolute;top:8px;right:8px;font-size:9px;padding:2px 6px;border-radius:8px;font-weight:700}
+.team-card .status-active{background:rgba(102,187,106,.15);color:#66BB6A}
+.team-card .status-paused{background:rgba(90,96,112,.2);color:#5a6070}
+.team-card .status-pending{background:rgba(255,193,7,.15);color:#FFC107}
+.team-card .verticals{margin-top:8px;display:flex;gap:4px;justify-content:center;flex-wrap:wrap}
+.team-card .meta-row{margin-top:6px;font-size:10px;color:var(--text3);display:flex;flex-direction:column;gap:2px;text-align:left;padding:6px 8px;background:var(--bg2);border-radius:6px}
+.team-card .meta-row span{display:flex;justify-content:space-between}
+.team-card .meta-row span em{color:var(--text2);font-style:normal}
+.connector{width:2px;height:20px;background:var(--bg4);margin:0 auto}
+.connector-h{display:flex;align-items:center;justify-content:center;width:100%}
+.connector-h::before{content:'';flex:1;height:2px;background:var(--bg4);max-width:200px}
+.team-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:12px;text-align:center}
+
+/* Search */
+.search-big{font-size:18px;padding:14px 20px 14px 48px}
+.search-wrap.big::before{font-size:20px;left:16px}
+.search-results{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.search-result{padding:12px 16px;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius);cursor:pointer;transition:var(--transition)}
+.search-result:hover{border-color:rgba(255,107,53,.2)}
+.search-result .result-head{display:flex;justify-content:space-between;align-items:center}
+.search-result .result-type{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px;display:flex;align-items:center;gap:4px}
+.search-result .result-title{font-size:13px;font-weight:600;margin:4px 0}
+.search-result .result-excerpt{font-size:11px;color:var(--text2);line-height:1.4}
+.search-result .result-score{font-size:10px;color:var(--accent);font-family:'SF Mono',Menlo,monospace}
+.search-result .result-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--bg4);font-size:12px;color:var(--text2);line-height:1.6}
+.search-result.expanded .result-detail{display:block}
+.search-stats{font-size:11px;color:var(--text3);margin-bottom:12px}
+
+/* Documents Screen */
+.doc-table{width:100%;border-collapse:collapse}
+.doc-table th{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:8px 12px;border-bottom:1px solid var(--bg4);text-align:left}
+.doc-row{border-bottom:1px solid var(--bg4);cursor:pointer;transition:var(--transition)}
+.doc-row:hover{background:rgba(255,255,255,.02)}
+.doc-row td{padding:10px 12px;font-size:12px;vertical-align:middle}
+.doc-name{font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.doc-name .ext{font-size:10px;padding:1px 5px;border-radius:4px;font-weight:700;text-transform:uppercase;font-family:'SF Mono',Menlo,monospace}
+.ext-md{background:rgba(255,107,53,.15);color:var(--accent)}
+.ext-docx{background:rgba(33,150,243,.15);color:#2196F3}
+.ext-html{background:rgba(76,175,80,.15);color:#4CAF50}
+.ext-pdf{background:rgba(239,83,80,.15);color:#ef5350}
+.ext-other{background:rgba(90,96,112,.2);color:var(--text3)}
+.doc-date{color:var(--text3);font-family:'SF Mono',Menlo,monospace;font-size:11px}
+.doc-size{color:var(--text3);font-family:'SF Mono',Menlo,monospace;font-size:11px;text-align:right}
+.doc-stats-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+
+/* Projects Screen */
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.project-card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius2);padding:18px;transition:var(--transition);cursor:default}
+.project-card:hover{border-color:rgba(255,107,53,.2);transform:translateY(-1px);box-shadow:var(--shadow)}
+.project-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.project-name{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.project-status-badge{font-size:9px;padding:3px 8px;border-radius:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.ps-active{background:rgba(102,187,106,.15);color:#66BB6A}
+.ps-growing{background:rgba(33,150,243,.15);color:#2196F3}
+.ps-building{background:rgba(255,152,0,.15);color:#FF9800}
+.ps-research{background:rgba(233,30,99,.15);color:#E91E63}
+.ps-planning{background:rgba(156,39,176,.15);color:#9C27B0}
+.ps-monitoring{background:rgba(0,188,212,.15);color:#00BCD4}
+.project-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:12px}
+.progress-bar-wrap{margin-bottom:12px}
+.progress-label{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:4px}
+.progress-bar{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.project-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.proj-stat{text-align:center;padding:6px 4px;background:var(--bg2);border-radius:6px}
+.proj-stat-val{font-size:14px;font-weight:700;font-family:'SF Mono',Menlo,monospace}
+.proj-stat-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px;margin-top:1px}
+.project-recent{margin-bottom:10px}
+.project-recent h5{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:6px}
+.recent-item{font-size:11px;color:var(--text2);padding:3px 0;display:flex;align-items:center;gap:6px}
+.recent-item::before{content:'▸';color:var(--accent);font-size:9px}
+.project-next{background:var(--bg2);border-radius:var(--radius);padding:10px 12px}
+.project-next h5{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:6px}
+.next-item{font-size:11px;color:var(--text2);padding:2px 0;display:flex;align-items:center;gap:6px}
+.next-item::before{content:'→';color:var(--accent);font-size:9px;font-weight:700}
+
+/* Utility */
+.hidden{display:none!important}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mt-20{margin-top:20px}
+.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}
+.text-muted{color:var(--text2)}
+
+/* Animations */
+.screen{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--radius);padding:14px;text-align:center}
+.stat-value{font-size:24px;font-weight:800;font-family:'SF Mono',Menlo,monospace;color:var(--accent)}
+.stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* Gateway pill in header */
+.gw-pills{display:flex;gap:6px;align-items:center}
+.gw-pill{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:10px;font-size:10px;font-weight:700;border:1px solid}
+.gw-pill.on{background:rgba(102,187,106,.1);border-color:rgba(102,187,106,.3);color:#66BB6A}
+.gw-pill.off{background:rgba(239,83,80,.1);border-color:rgba(239,83,80,.3);color:#ef5350}
+.gw-pill .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* Responsive mobile */
+@media(max-width:900px){
+  .sidebar{width:56px;min-width:56px}
+  .sidebar-logo h2{display:none}.sidebar-logo .sub{display:none}
+  .nav-item span:not(.icon){display:none}
+  .nav-item{justify-content:center}
+  .activity-layout{grid-template-columns:1fr}
+  .health-panel{display:none}
+  .projects-grid{grid-template-columns:1fr}
+  .kanban{grid-template-columns:repeat(2,1fr)}
+  .memory-grid{grid-template-columns:1fr}
+  .cal-layout{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .doc-stats-bar{grid-template-columns:repeat(3,1fr)}
+}
+</style>
 </head>
 <body>
-
-<!-- ===================== HEADER ===================== -->
-<header class="header">
-  <div class="header-left">
-    <div class="logo">
-      <span style="font-size:22px">🦞</span>
-      <div>
-        <div class="logo-text">Mission Control</div>
-        <div class="logo-sub">Rob Lobster Operations Dashboard</div>
-      </div>
-    </div>
-    <div class="header-divider"></div>
-    <div class="live-badge">
-      <span class="live-dot"></span>
-      LIVE
-    </div>
+<!-- PASSWORD GATE -->
+<div id="pw-gate" style="position:fixed;inset:0;background:#0d0f12;z-index:99999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif">
+  <div style="background:#141820;border:1px solid #222838;border-radius:12px;padding:40px 48px;width:320px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.6)">
+    <div style="font-size:28px;margin-bottom:8px">🦞</div>
+    <h2 style="color:#FF6B35;font-size:18px;font-weight:700;margin-bottom:4px;letter-spacing:.5px">Mission Control</h2>
+    <p style="color:#5a6070;font-size:12px;margin-bottom:24px">Enter password to continue</p>
+    <input id="pw-input" type="password" placeholder="Password" autocomplete="current-password"
+      style="width:100%;padding:10px 14px;background:#0d0f12;border:1px solid #222838;border-radius:8px;color:#e8eaed;font-size:14px;outline:none;transition:border-color .2s;margin-bottom:8px"
+      onfocus="this.style.borderColor='#FF6B35'" onblur="this.style.borderColor='#222838'"
+      onkeydown="if(event.key==='Enter')checkPw()">
+    <div id="pw-err" style="color:#f85149;font-size:12px;height:16px;margin-bottom:8px"></div>
+    <button onclick="checkPw()" style="width:100%;padding:10px;background:#FF6B35;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s" onmouseover="this.style.background='#ff8f65'" onmouseout="this.style.background='#FF6B35'">Enter</button>
   </div>
-  <div class="header-right">
-    <div class="header-meta">Updated <span id="updated-at">—</span></div>
-    <div id="refresh-countdown">Auto-refresh in <strong id="countdown-secs">60</strong>s</div>
-    <button class="btn-refresh" id="refresh-btn" onclick="triggerRefresh()">
-      <span>⟳</span> Refresh
-    </button>
-  </div>
-</header>
-
-<!-- ===================== MAIN ===================== -->
-<main class="main">
-
-  <!-- PANEL 1: AGENTS (EKG) -->
-  <div class="section-header mb-16">
-    <span class="section-title">🤖 Agent Activity</span>
-    <span class="section-line"></span>
-    <span class="section-count" id="agent-count">—</span>
-  </div>
-  <div class="agents-row mb-20" id="agents-row">
-    <!-- populated by JS -->
-  </div>
-
-  <!-- PANEL 2: CRON JOB TABLES + PANEL 3: EFFICIENCY -->
-  <div class="section-header mb-16">
-    <span class="section-title">⚙️ Cron Job Health</span>
-    <span class="section-line"></span>
-    <span class="section-count" id="jobs-count">—</span>
-  </div>
-  <div class="cron-layout mb-20">
-
-    <!-- Job Groups (tables) -->
-    <div class="job-groups" id="job-groups">
-      <!-- populated by JS -->
-    </div>
-
-    <!-- PANEL 3: MODEL EFFICIENCY (sticky sidebar) -->
-    <div class="efficiency-panel">
-      <div class="panel-title">📊 Model Efficiency</div>
-
-      <div class="pie-wrap">
-        <canvas id="pie-canvas" width="180" height="180"></canvas>
-      </div>
-
-      <div class="legend-list" id="model-legend">
-        <!-- populated by JS -->
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="savings-card">
-        <div class="savings-tag">💰 Potential Monthly Savings</div>
-        <div class="savings-number" id="savings-num">—</div>
-        <div class="savings-desc" id="savings-desc">—</div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div>
-        <div class="spend-row">
-          <span class="spend-label">7-day spend</span>
-          <span class="spend-val" id="cost-7d">—</span>
-        </div>
-        <div class="spend-row">
-          <span class="spend-label">Projected / month</span>
-          <span class="spend-val accent" id="cost-monthly">—</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BOTTOM: ALERTS + PROJECTS -->
-  <div class="bottom-row">
-
-    <!-- PANEL 4: ALERTS -->
-    <div class="panel-box">
-      <div class="section-header mb-16">
-        <span class="section-title">🚨 Alert Feed</span>
-        <span class="section-line"></span>
-        <span class="section-count" id="alert-count">—</span>
-      </div>
-      <div class="alert-list" id="alert-list">
-        <!-- populated by JS -->
-      </div>
-    </div>
-
-    <!-- PANEL 5: PROJECTS -->
-    <div class="panel-box">
-      <div class="section-header mb-16">
-        <span class="section-title">🏗️ Project Health</span>
-        <span class="section-line"></span>
-      </div>
-      <div class="projects-grid" id="projects-grid">
-        <!-- populated by JS -->
-      </div>
-    </div>
-
-  </div>
-
-<!-- ===================== PANEL 6: AI COSTS ===================== -->
-<div class="section-header mb-16" style="margin-top:32px">
-  <span class="section-title">💰 AI Costs — Live Spend Tracker</span>
-  <span class="section-line"></span>
 </div>
-<div id="ai-costs-panel">
-  <div style="color:var(--muted);text-align:center;padding:24px">Loading cost data…</div>
-</div>
-
-</main>
-
-<!-- ===================== JAVASCRIPT ===================== -->
+<style>
+@keyframes pw-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.pw-shake{animation:pw-shake .4s ease}
+</style>
 <script>
-'use strict';
-
-// ─── Config ────────────────────────────────────────────────────────
-const DATA_URL     = 'data/status.json';
-const REFRESH_SECS = 60;
-
-// ─── Pie chart colors ───────────────────────────────────────────────
-const MODEL_COLORS = {
-  'anthropic/claude-opus-4-6':   '#FF6B35',
-  'anthropic/claude-sonnet-4-6': '#F0A500',
-  'openai/gpt-5.4-mini':         '#58A6FF',
-  'openai/gpt-5.4-nano':         '#BC8CFF',
-  'openai/gpt-4.1-mini':         '#3FB950',
-  'google/gemma-4-31b:free':     '#34D399',
-  'qwen/qwen3-coder:free':       '#A78BFA',
-};
-const FALLBACK_COLORS = ['#39D353','#D29922','#F85149','#58A6FF','#BC8CFF','#34D399','#F472B6'];
-
-// ─── Agent brand colors ─────────────────────────────────────────────
-const AGENT_COLORS = {
-  main:   '#FF6B35',
-  hermes: '#9B59B6',
-  vault:  '#E74C3C',
-};
-
-function getAgentColor(id) { return AGENT_COLORS[id] || '#8B949E'; }
-
-// ─── Free model markers ─────────────────────────────────────────────
-const FREE_MARKERS = ['free','gemma','qwen','llama','mistral','nvidia','tencent','openchat'];
-function isFreeModel(m) { return FREE_MARKERS.some(f => m.toLowerCase().includes(f)); }
-
-// ─── State ─────────────────────────────────────────────────────────
-let _data         = null;
-let _tickInterval = null;
-let _countdown    = REFRESH_SECS;
-
-// ══════════════════════════════════════════════════════════════════
-// ─── UTILITIES ───────────────────────────────────────────────────
-// ══════════════════════════════════════════════════════════════════
-
-function esc(str) {
-  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function timeAgo(isoStr) {
-  if (!isoStr) return '—';
-  const diff = Date.now() - new Date(isoStr).getTime();
-  const s = Math.floor(diff / 1000);
-  if (s <    60) return `${s}s ago`;
-  const m = Math.floor(s / 60);
-  if (m <    60) return `${m}m ago`;
-  const h = Math.floor(m / 60);
-  if (h <    24) return `${h}h ${m % 60}m ago`;
-  return `${Math.floor(h / 24)}d ago`;
-}
-
-// ─── Human "next run" label ─────────────────────────────────────────
-function humanNextRun(isoStr) {
-  if (!isoStr) return '—';
-  const diff = new Date(isoStr).getTime() - Date.now();
-  if (diff <= 0) return 'overdue';
-
-  const totalSecs = Math.floor(diff / 1000);
-  const mins      = Math.floor(totalSecs / 60);
-  const hrs       = Math.floor(mins / 60);
-
-  if (mins  <  60) return `in ${mins}m`;
-  if (hrs   <  24) return `in ${hrs}h ${mins % 60}m`;
-
-  // Further out — show day name or "tomorrow"
-  const next     = new Date(isoStr);
-  const now      = new Date();
-  const diffDays = Math.floor((next - now) / 86_400_000);
-  const DAYS     = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const timeStr  = next.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-
-  if (diffDays === 0) return `today ${timeStr}`;
-  if (diffDays === 1) return `tomorrow ${timeStr}`;
-  if (diffDays  <  7) return `${DAYS[next.getDay()]} ${timeStr}`;
-  return `${Math.floor(diffDays / 7)}w away`;
-}
-
-// ─── Human "last run" label ─────────────────────────────────────────
-function humanLastRun(isoStr, lastStatus) {
-  if (!isoStr) return '<span class="last-wait">⏳ Never</span>';
-  const icon = lastStatus === 'ok'    ? '<span class="last-ok">✅</span>'
-             : lastStatus === 'error' ? '<span class="last-fail">❌</span>'
-             :                          '<span class="last-wait">⏳</span>';
-  return `${icon} ${esc(timeAgo(isoStr))}`;
-}
-
-// ─── Cost per run estimate ────────────────────────────────────────
-// Pricing per million tokens (input/output) on OpenRouter
-const MODEL_PRICING = {
-  'claude-opus-4.6':     { input: 5.00,  output: 25.00 },
-  'claude-sonnet-4.6':   { input: 3.00,  output: 15.00 },
-  'claude-sonnet-4.5':   { input: 3.00,  output: 15.00 },
-  'gpt-5.4':             { input: 7.00,  output: 21.00 },
-  'gpt-5.4-mini':        { input: 0.40,  output: 1.60  },
-  'gpt-5.4-nano':        { input: 0.10,  output: 0.40  },
-  'gpt-4.1':             { input: 2.00,  output: 8.00  },
-  'gpt-4.1-mini':        { input: 0.40,  output: 1.60  },
-  'gemini-2.5-pro':      { input: 1.25,  output: 10.00 },
-  'gemini-2.5-flash':    { input: 0.15,  output: 0.60  },
-  'free':                { input: 0,     output: 0     },
-};
-// Avg tokens per cron run (input-heavy because of file reads; small output)
-const AVG_INPUT_TOKENS  = 18000;
-const AVG_OUTPUT_TOKENS = 3000;
-
-function costPerRun(model) {
-  const m = (model || '').toLowerCase();
-  if (isFreeModel(m)) return 0;
-  let pricing = null;
-  if      (m.includes('claude-opus'))       pricing = MODEL_PRICING['claude-opus-4.6'];
-  else if (m.includes('claude-sonnet'))     pricing = MODEL_PRICING['claude-sonnet-4.6'];
-  else if (m.includes('gpt-5.4-nano'))      pricing = MODEL_PRICING['gpt-5.4-nano'];
-  else if (m.includes('gpt-5.4-mini'))      pricing = MODEL_PRICING['gpt-5.4-mini'];
-  else if (m.includes('gpt-5.4'))           pricing = MODEL_PRICING['gpt-5.4'];
-  else if (m.includes('gpt-4.1-mini'))      pricing = MODEL_PRICING['gpt-4.1-mini'];
-  else if (m.includes('gpt-4.1'))           pricing = MODEL_PRICING['gpt-4.1'];
-  else if (m.includes('gemini-2.5-pro'))    pricing = MODEL_PRICING['gemini-2.5-pro'];
-  else if (m.includes('gemini-2.5-flash'))  pricing = MODEL_PRICING['gemini-2.5-flash'];
-  if (!pricing) return null; // unknown paid model
-  const cost = (AVG_INPUT_TOKENS / 1_000_000) * pricing.input
-             + (AVG_OUTPUT_TOKENS / 1_000_000) * pricing.output;
-  return cost;
-}
-
-function runsPerDay(scheduleStr, cronExpr) {
-  const s = (scheduleStr || '').toLowerCase();
-  const c = (cronExpr || '').toLowerCase().trim();
-  // Every N minutes
-  const minMatch = s.match(/(\d+)\s*min/);
-  if (minMatch) return 1440 / parseInt(minMatch[1]);
-  // Every N hours
-  const hrMatch = s.match(/every\s+(\d+)\s*h/);
-  if (hrMatch) return 24 / parseInt(hrMatch[1]);
-  // Hourly
-  if (s.includes('hour')) return 24;
-  // Daily / once per day cron
-  if (s.includes('daily') || s.includes('midnight') || /^0 \d+ \* \* \*$/.test(c)) return 1;
-  // Weekly
-  if (/\b(mon|tue|wed|thu|fri|sat|sun)\b/.test(s) || /^\d+ \d+ \* \* [1-7]$/.test(c) || /^0 \d+ \* \* 0$/.test(c)) return 1/7;
-  // One-shot
-  if (s.startsWith('once:') || /^\d{4}-\d{2}-\d{2}/.test(c)) return 0;
-  return 1; // default daily
-}
-
-function costPerRunCell(job) {
-  const cpr = costPerRun(job.model);
-  const rpd = runsPerDay(job.schedule, job.scheduleCron);
-  if (cpr === 0) {
-    return `<td class="col-cost cost-free" title="Free model — $0/run">🆓 $0</td>`;
+(function(){
+  if(sessionStorage.getItem('mc_auth')==='1'){
+    document.getElementById('pw-gate').style.display='none';
   }
-  if (cpr === null) {
-    return `<td class="col-cost cost-unknown" title="Unknown pricing">—</td>`;
-  }
-  const monthly = cpr * rpd * 30;
-  const costStr = cpr < 0.001 ? '<$0.001' : '$' + cpr.toFixed(4);
-  const moStr   = monthly < 0.01 ? '<$0.01' : '$' + monthly.toFixed(2);
-  const cls     = monthly > 5 ? 'cost-high' : monthly > 1 ? 'cost-med' : 'cost-low';
-  return `<td class="col-cost ${cls}" title="~${costStr}/run · ~${moStr}/mo">${costStr}<span class="cost-mo"> /mo: ${moStr}</span></td>`;
-}
-
-// ─── Short model name with tier badge ──────────────────────────────
-function modelShortName(model) {
-  const m    = model || 'unknown';
-  const free = isFreeModel(m);
-  const tier = free
-    ? '<span class="model-tier-free" title="Free / OpenRouter">🆓</span>'
-    : '<span class="model-tier-paid" title="Paid API">💰</span>';
-
-  const ml   = m.toLowerCase();
-  let name;
-  if      (ml.includes('claude-opus'))          name = 'Opus 4.6';
-  else if (ml.includes('claude-sonnet'))        name = 'Sonnet 4.6';
-  else if (ml.includes('gpt-5.4-mini'))         name = 'GPT-5.4-mini';
-  else if (ml.includes('gpt-5.4-nano'))         name = 'GPT-5.4-nano';
-  else if (ml.includes('gpt-4.1-mini'))         name = 'GPT-4.1-mini';
-  else if (ml.includes('gpt-4.1'))              name = 'GPT-4.1';
-  else if (ml.includes('gemma'))                name = 'Gemma 4';
-  else if (ml.includes('qwen3-coder'))          name = 'Qwen3 Coder';
-  else if (ml.includes('qwen'))                 name = 'Qwen';
-  else if (ml.includes('gemini-2.5-pro'))       name = 'Gemini 2.5 Pro';
-  else if (ml.includes('gemini-2.5-flash'))     name = 'Gemini Flash';
-  else if (ml.includes('kimi'))                 name = 'Kimi K2';
-  else {
-    // Pull the last path segment, strip :free suffix
-    name = m.split('/').pop().replace(':free','').replace(/-it$/,'');
-    if (name.length > 14) name = name.slice(0, 13) + '…';
-  }
-
-  return `<span class="model-cell">${tier}<span class="model-name-text">${esc(name)}</span></span>`;
-}
-
-// ─── Row severity class ─────────────────────────────────────────────
-function rowClass(job) {
-  const n = job.consecutiveErrors || 0;
-  if (job.lastStatus === null && n === 0) return 'row-idle';
-  if (n >= 3) return 'row-fail';
-  if (n >= 1) return 'row-warn';
-  return 'row-ok';
-}
-
-// ─── Status pill HTML ───────────────────────────────────────────────
-function statusPill(job) {
-  const n = job.consecutiveErrors || 0;
-
-  if (!job.lastRun)          return `<span class="st-pill st-wait"><span class="st-dot"></span>WAIT</span>`;
-  if (n >= 3)                return `<span class="st-pill st-fail"><span class="st-dot"></span>FAIL ×${n}</span>`;
-  if (n >= 1)                return `<span class="st-pill st-warn"><span class="st-dot"></span>WARN ×${n}</span>`;
-  if (job.lastStatus === 'ok') return `<span class="st-pill st-ok"><span class="st-dot"></span>OK</span>`;
-  return `<span class="st-pill st-wait"><span class="st-dot"></span>—</span>`;
-}
-
-// ─── Frequency bucket ───────────────────────────────────────────────
-function freqGroup(job) {
-  const s = (job.schedule || '').toLowerCase();
-  const c = (job.scheduleCron || '').toLowerCase();
-
-  // One-shot: runs once at a specific datetime
-  if (s.startsWith('once:') || /^\d{4}-\d{2}-\d{2}/.test(c)) return 'oneshot';
-
-  // Weekly patterns: contains day name, or cron has day-of-week field != *
-  if (/\b(mon|tue|wed|thu|fri|sat|sun)\b/.test(s)) return 'weekly';
-  // cron like "0 10 * * 1" — last field isn't * or ranges
-  if (/^\d+\s+\d+\s+\*\s+\*\s+[1-7]$/.test(c.trim())) return 'weekly';
-  if (/^0 11 \* \* 0$/.test(c.trim())) return 'weekly';
-
-  // Daily: runs once per day (midnight, 5 AM, 6 AM, 8 AM...)
-  if (/daily|midnight/i.test(s)) return 'daily';
-  if (/^0 \d+ \* \* \*$/.test(c.trim())) return 'daily';
-
-  // Frequent: everything else (every 30m, hourly, every Xh)
-  return 'frequent';
-}
-
-// ─── Build one table row ─────────────────────────────────────────────
-function buildJobRow(job) {
-  const rc       = rowClass(job);
-  const isOverdue = humanNextRun(job.nextRun) === 'overdue';
-  const errBadge = (job.consecutiveErrors > 0)
-    ? `<span class="job-err-badge">${job.consecutiveErrors}×</span>`
-    : '';
-
-  return `
-    <tr class="${rc}" id="jrow-${esc(job.id)}">
-      <td class="col-job">
-        <span class="job-name-text">${esc(job.name)}</span>${errBadge}
-      </td>
-      <td class="col-sched">${esc(job.schedule)}</td>
-      <td>${modelShortName(job.model)}</td>
-      ${costPerRunCell(job)}
-      <td class="col-last">${humanLastRun(job.lastRun, job.lastStatus)}</td>
-      <td>${statusPill(job)}</td>
-      <td class="col-next${isOverdue ? ' overdue' : ''}" data-next="${esc(job.nextRun || '')}" id="cd-${esc(job.id)}">
-        ${humanNextRun(job.nextRun)}
-      </td>
-    </tr>`;
-}
-
-// ─── Build one group block ───────────────────────────────────────────
-function buildGroupBlock(icon, title, jobs) {
-  const count = jobs.length;
-  let body;
-  if (count === 0) {
-    body = `<div class="job-table-empty">No jobs in this category</div>`;
+})();
+function checkPw(){
+  var input=document.getElementById('pw-input');
+  var err=document.getElementById('pw-err');
+  if(input.value==='soccer12'){
+    sessionStorage.setItem('mc_auth','1');
+    document.getElementById('pw-gate').style.display='none';
   } else {
-    const rows = jobs.map(buildJobRow).join('');
-    body = `
-      <div class="table-scroll">
-        <table class="job-table">
-          <thead>
-            <tr>
-              <th>Job</th>
-              <th>Schedule</th>
-              <th>Model</th>
-              <th>Est. Cost/Run</th>
-              <th>Last Run</th>
-              <th>Status</th>
-              <th>Next Run</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>`;
+    err.textContent='Wrong password';
+    input.classList.remove('pw-shake');
+    void input.offsetWidth;
+    input.classList.add('pw-shake');
+    input.value='';
+    input.focus();
   }
+}
+</script>
+<div class="app">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <h2>🦞 ROB LOBSTER</h2>
+      <div class="sub">Mission Control v2.0</div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-item active" data-screen="activity"><span class="icon">📡</span>Activity Feed</div>
+      <div class="nav-item" data-screen="calendar"><span class="icon">📅</span>Calendar</div>
+      <div class="nav-item" data-screen="projects"><span class="icon">🎯</span>Projects</div>
+      <div class="nav-item" data-screen="documents"><span class="icon">📄</span>Documents</div>
+      <div class="nav-item" data-screen="search"><span class="icon">🔍</span>Global Search</div>
+      <div class="nav-item" data-screen="taskboard"><span class="icon">📋</span>Task Board</div>
+      <div class="nav-item" data-screen="memory"><span class="icon">🧠</span>Memory</div>
+      <div class="nav-item" data-screen="team"><span class="icon">👥</span>Team</div>
+      <div class="nav-item" data-screen="costs"><span class="icon">💰</span>AI Costs</div>
+    </div>
+    <div class="sidebar-footer">Autonomous Intelligence System<br>&copy; 2026 Tuckerton Group</div>
+  </nav>
 
-  return `
-    <div class="job-group">
-      <div class="job-group-header">
-        <span class="job-group-icon">${icon}</span>
-        <span class="job-group-title">${title}</span>
-        <span class="job-group-badge">${count}</span>
-        <span class="job-group-line"></span>
+  <!-- Main -->
+  <div class="main">
+    <header class="header">
+      <div class="header-title"><span class="lobster">🦞</span> Rob Lobster — Mission Control</div>
+      <div class="header-right">
+        <div class="gw-pills">
+          <div class="gw-pill on"><div class="dot"></div>Rob</div>
+          <div class="gw-pill on"><div class="dot"></div>Hermes</div>
+        </div>
+        <div class="header-time mono" id="headerTime"></div>
+        <button onclick="location.reload(true)" title="Hard Refresh" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:var(--text);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;margin-left:10px" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">&#8635; Refresh</button>
       </div>
-      ${body}
-    </div>`;
+    </header>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<script>
+// ========== DATA ==========
+const VERTICALS = {
+  TLC:{color:'#4CAF50',class:'tag-tlc'},
+  Surfbox:{color:'#2196F3',class:'tag-surfbox'},
+  Investing:{color:'#9C27B0',class:'tag-investing'},
+  ReBolt:{color:'#FF9800',class:'tag-rebolt'},
+  'Real Estate':{color:'#00BCD4',class:'tag-realestate'},
+  Colorant:{color:'#E91E63',class:'tag-colorant'},
+  Personal:{color:'#607D8B',class:'tag-personal'},
+  Infrastructure:{color:'#FFC107',class:'tag-infra'},
+  All:{color:'#FF6B35',class:'tag-all'}
+};
+
+function vc(v){return VERTICALS[v]?VERTICALS[v].class:'tag-all'}
+function vcolor(v){return VERTICALS[v]?VERTICALS[v].color:'#FF6B35'}
+
+const AGENT_STATUS = {
+  lastUpdated: new Date().toISOString(),
+  agents: [
+    {name:'Rob Lobster 🦞', harness:'OpenClaw', model:'claude-sonnet-4-6', status:'online', lastSeen:'just now', gateway:'active', cronJobs:12, memoryMB:148},
+    {name:'Hermes 🏛️', harness:'Hermes Agent', model:'gpt-5.4-mini', status:'online', lastSeen:'2m ago', gateway:'active', cronJobs:4, memoryMB:62},
+    {name:'Red 🔴', harness:'OpenClaw (Vault)', model:'claude-sonnet-4', status:'paused', lastSeen:'3d ago', gateway:'inactive', cronJobs:0, memoryMB:0}
+  ]
+};
+
+const ACTIVITY_DATA = [
+  {time:'09:12',type:'📊',typeLabel:'Analysis',desc:'Read and analyzed TLC financial statements (2024-2025)',tokens:'~45K',status:'success',vertical:'TLC'},
+  {time:'09:38',type:'📊',typeLabel:'Analysis',desc:'Parsed 1,275 customer sales records from Epicor',tokens:'~62K',status:'success',vertical:'TLC'},
+  {time:'10:05',type:'📊',typeLabel:'Analysis',desc:'Read Surfbox 2025 P&L for LBI and OBX entities',tokens:'~38K',status:'success',vertical:'Surfbox'},
+  {time:'10:42',type:'📊',typeLabel:'Analysis',desc:'Analyzed Google Ads performance data (20 weeks)',tokens:'~51K',status:'success',vertical:'Surfbox'},
+  {time:'11:15',type:'📝',typeLabel:'Document',desc:'Created MISSION.md — Command Center mission statement',tokens:'~18K',status:'success',vertical:'All'},
+  {time:'11:48',type:'💻',typeLabel:'Build',desc:'Built initial data pipeline architecture plan',tokens:'~32K',status:'success',vertical:'All'},
+  {time:'12:30',type:'💬',typeLabel:'Conversation',desc:'Strategy session with Joe on vertical priorities',tokens:'~28K',status:'success',vertical:'All'},
+  {time:'13:15',type:'🔍',typeLabel:'Research',desc:'Competitive analysis — portable storage market NJ+NC',tokens:'~41K',status:'success',vertical:'Surfbox'},
+  {time:'14:00',type:'📈',typeLabel:'Market Check',desc:'Reviewed 13F filings for Berkshire Hathaway Q4 2024',tokens:'~22K',status:'success',vertical:'Investing'},
+  {time:'14:30',type:'💻',typeLabel:'Build',desc:'Mission Control v1.0 dashboard — all 6 screens shipped',tokens:'~85K',status:'success',vertical:'Infrastructure'},
+  {time:'14:45',type:'🔔',typeLabel:'Alert',desc:'TLC gross margin alert: Q1 2025 down 2.3pp vs Q4 2024',tokens:'~8K',status:'success',vertical:'TLC'},
+  {time:'15:10',type:'📧',typeLabel:'Email Check',desc:'Scanned inbox for Epicor report attachments (pending setup)',tokens:'~3K',status:'pending',vertical:'Infrastructure'},
+  {time:'15:30',type:'📝',typeLabel:'Document',desc:'Drafted Morning Joe\'s Rundown 2026-04-15',tokens:'~15K',status:'success',vertical:'All'},
+  {time:'16:00',type:'🔍',typeLabel:'Research',desc:'MOSE Convergence Report — Apr 13, 2026 (investing)',tokens:'~35K',status:'success',vertical:'Investing'},
+  {time:'16:10',type:'📊',typeLabel:'Analysis',desc:'April 30 portfolio pre-execution update — 29-stock plan',tokens:'~29K',status:'success',vertical:'Investing'},
+  {time:'16:20',type:'💻',typeLabel:'Build',desc:'Mission Control v2.0 — Documents, Projects, Team updates, Agent Health',tokens:'~90K',status:'running',vertical:'Infrastructure'},
+];
+
+const CALENDAR_EVENTS = [
+  {name:'Heartbeat check',type:'cron',recurring:'daily',time:'06:00',vertical:'Infrastructure',tokens:'~2K'},
+  {name:'Epicor data ingestion',type:'cron',recurring:'weekly',day:1,time:'07:00',vertical:'TLC',tokens:'~15K'},
+  {name:'Dashboard refresh',type:'cron',recurring:'monthly',dayOfMonth:1,time:'08:00',vertical:'Infrastructure',tokens:'~10K'},
+  {name:'Portfolio Restructure Execution Day',type:'task',date:'2026-04-30',time:'09:00',vertical:'Investing',tokens:'~50K',highlight:true},
+  {name:'Surfbox social media go-live',type:'task',date:'2026-04-30',time:'12:00',vertical:'Surfbox',tokens:'~30K',highlight:true},
+  {name:'Weekly strategy sync — Joe & Rob',type:'cron',recurring:'weekly',day:1,time:'09:00',vertical:'All',tokens:'~25K'},
+  {name:'Market scan & portfolio check',type:'cron',recurring:'daily',time:'14:00',vertical:'Investing',tokens:'~12K'},
+  {name:'TLC financial review',type:'cron',recurring:'monthly',dayOfMonth:15,time:'10:00',vertical:'TLC',tokens:'~40K'},
+  {name:'Surfbox Google Ads audit',type:'cron',recurring:'weekly',day:3,time:'11:00',vertical:'Surfbox',tokens:'~18K'},
+  {name:'Morning Rundown (Hermes)',type:'cron',recurring:'daily',time:'07:30',vertical:'All',tokens:'~8K'},
+];
+
+const TASK_BOARD = {
+  backlog:[
+    {title:'Build TLC Command Center Dashboard',assignee:'Rob 🦞',vertical:'TLC',priority:'high',date:'2026-03-24',desc:'Full interactive dashboard for TLC financial metrics, customer analytics, and margin tracking.'},
+    {title:'Build Surfbox Growth Tracker Dashboard',assignee:'Rob 🦞',vertical:'Surfbox',priority:'high',date:'2026-03-24',desc:'Revenue, ad spend, lesson bookings, and camp registrations tracker for both LBI and OBX locations.'},
+    {title:'Build Value Investor Dashboard',assignee:'Rob 🦞',vertical:'Investing',priority:'medium',date:'2026-03-24',desc:'Portfolio tracker with 13F analysis, watchlist, and position sizing tools.'},
+    {title:'Set up Gmail API read-only pipeline',assignee:'Joe 👤',vertical:'Infrastructure',priority:'high',date:'2026-03-24',desc:'OAuth2 service account for reading inbox. Required for automated report ingestion.'},
+    {title:'ReBolt manufacturer research',assignee:'Rob 🦞',vertical:'ReBolt',priority:'medium',date:'2026-03-25',desc:'Deep research into EV charging manufacturers, pricing models, and partnership opportunities.'},
+    {title:'Colorant industry market scan',assignee:'Rob 🦞',vertical:'Colorant',priority:'low',date:'2026-03-25',desc:'Industry landscape scan — competitors, M&A activity, market sizing for potential re-entry.'},
+    {title:'Surfbox social media program (April 30 go-live)',assignee:'Rob 🦞',vertical:'Surfbox',priority:'high',date:'2026-03-25',desc:'Full social media strategy, content calendar, and initial posts for Surfbox season launch.'},
+    {title:'T1D blood sugar prediction app (Keli)',assignee:'Rob 🦞',vertical:'Personal',priority:'medium',date:'2026-04-01',desc:'CGM + Oura Ring integration for Keli. Pair Dexcom data with stress signals. Love project.'},
+    {title:'Corner Market deal analysis (275 W 9th)',assignee:'Rob 🦞',vertical:'Real Estate',priority:'medium',date:'2026-04-07',desc:'Full analysis of Corner Market opportunity in Ship Bottom. Financial modeling + feasibility.'},
+  ],
+  inProgress:[
+    {title:'Lobster Press Dashboard',assignee:'Hermes 🏛️',vertical:'Infrastructure',priority:'high',date:'2026-04-15',desc:'Building social media content management dashboard for Joe\'s Lobster Press publishing arm.'},
+    {title:'Mission Control v2.0 Dashboard',assignee:'Rob 🦞',vertical:'Infrastructure',priority:'high',date:'2026-04-15',desc:'Upgrade: Documents screen, Projects screen, Agent Health panel, Team update, GitHub Pages deploy.'},
+    {title:'MOSE — Margin of Safety Engine',assignee:'Rob 🦞',vertical:'Investing',priority:'high',date:'2026-04-10',desc:'AI-powered stock valuation system. Convergence reports tracking super-investor positioning.'},
+    {title:'April 30 Portfolio Execution Plan',assignee:'Rob 🦞',vertical:'Investing',priority:'high',date:'2026-04-14',desc:'29-stock concentrated portfolio. Three buckets: Core Forever, Opportunistic Value, 20-Year Innovation.'},
+    {title:'Data ingestion architecture',assignee:'Rob 🦞',vertical:'Infrastructure',priority:'high',date:'2026-03-25',desc:'Designing the pipeline for automated data ingestion from Epicor, email, and APIs.'},
+    {title:'TLC 2026 Goals Document',assignee:'Rob 🦞',vertical:'TLC',priority:'high',date:'2026-04-07',desc:'Full TLC strategic goals document — v7 with Joe edits. Seasonal pricing, zoning, marine concept.'},
+  ],
+  review:[
+    {title:'MISSION.md — Command Center mission statement',assignee:'Rob 🦞',vertical:'All',priority:'medium',date:'2026-03-25',desc:'Defines Rob Lobster\'s purpose, capabilities, and operating philosophy. Awaiting Joe\'s review.'},
+    {title:'ReBolt Sales Deck v3',assignee:'Rob 🦞',vertical:'ReBolt',priority:'high',date:'2026-04-05',desc:'Full pitch deck for ReBolt Security Adapter. Prior art search + provisional patent draft attached.'},
+    {title:'Lobster Press Spec',assignee:'Rob 🦞',vertical:'Infrastructure',priority:'medium',date:'2026-04-15',desc:'Spec for Rob\'s publishing arm — Lobster Press content engine. Ready for review.'},
+  ],
+  done:[
+    {title:'Initial brain dump analysis (TLC + Surfbox)',assignee:'Rob 🦞',vertical:'All',priority:'high',date:'2026-03-24',desc:'Processed all initial context files from Joe. Built foundational memory structure.'},
+    {title:'TLC financial deep-dive (2024-2025)',assignee:'Rob 🦞',vertical:'TLC',priority:'high',date:'2026-03-24',desc:'Complete analysis of TLC P&L, margin trends, customer concentration, and Epicor data.'},
+    {title:'Surfbox financial deep-dive (2025)',assignee:'Rob 🦞',vertical:'Surfbox',priority:'high',date:'2026-03-24',desc:'Analyzed Surfbox P&L for LBI and OBX, ad spend ROI, lesson revenue trends.'},
+    {title:'ReBolt patent IP strategy',assignee:'Rob 🦞',vertical:'ReBolt',priority:'high',date:'2026-04-10',desc:'Provisional patent drafted, prior art searched, patent summary for Greg completed.'},
+    {title:'Hermes Agent Setup',assignee:'Rob 🦞',vertical:'Infrastructure',priority:'medium',date:'2026-04-15',desc:'Hermes agent (Nous Research / gpt-5.4-mini) deployed and operational on Telegram.'},
+  ]
+};
+
+const DOCUMENTS_DATA = [
+  // Reports
+  {name:'Morning_Joes_Rundown_2026-04-15.docx',path:'projects/daily/',date:'2026-04-15',size:'43.6 KB',cat:'Reports',ext:'docx'},
+  {name:'Morning_Joes_Rundown_2026-04-14.docx',path:'projects/daily/',date:'2026-04-14',size:'37.2 KB',cat:'Reports',ext:'docx'},
+  {name:'Morning_Joes_Rundown_2026-04-13.docx',path:'projects/daily/',date:'2026-04-13',size:'37.5 KB',cat:'Reports',ext:'docx'},
+  {name:'Mission_Control_2026-04-14.docx',path:'projects/daily/',date:'2026-04-14',size:'38.2 KB',cat:'Reports',ext:'docx'},
+  {name:'mission-control-zoning-539-2026-04-15.md',path:'projects/daily/',date:'2026-04-15',size:'786 B',cat:'Reports',ext:'md'},
+  {name:'mission-control-market-snapshot-2026-04-15.md',path:'projects/daily/',date:'2026-04-15',size:'714 B',cat:'Reports',ext:'md'},
+  {name:'mission-control-lumber-and-tlc-2026-04-15.md',path:'projects/daily/',date:'2026-04-15',size:'674 B',cat:'Reports',ext:'md'},
+  {name:'iran-oil-lumber-brief-apr14.md',path:'projects/daily/',date:'2026-04-14',size:'811 B',cat:'Reports',ext:'md'},
+  {name:'morning-rundown.md',path:'reports/',date:'2026-03-08',size:'5.9 KB',cat:'Reports',ext:'md'},
+  {name:'report-runner.md',path:'reports/',date:'2026-03-08',size:'3.7 KB',cat:'Reports',ext:'md'},
+  {name:'gmail-monitor.md',path:'reports/',date:'2026-03-08',size:'2.5 KB',cat:'Reports',ext:'md'},
+  {name:'mission-control.md',path:'reports/',date:'2026-03-08',size:'3.7 KB',cat:'Reports',ext:'md'},
+  {name:'model-routing.md',path:'reports/',date:'2026-03-06',size:'5.8 KB',cat:'Reports',ext:'md'},
+  {name:'idea-factory.md',path:'reports/',date:'2026-03-06',size:'4.8 KB',cat:'Reports',ext:'md'},
+  {name:'telegram-style.md',path:'reports/',date:'2026-03-06',size:'4.3 KB',cat:'Reports',ext:'md'},
+  // Investing
+  {name:'MOSE-Convergence-Report-2026-04-13.docx',path:'projects/investing/',date:'2026-04-13',size:'38.1 KB',cat:'Investing',ext:'docx'},
+  {name:'mose-convergence-2026-04-13.md',path:'projects/investing/',date:'2026-04-13',size:'12.4 KB',cat:'Investing',ext:'md'},
+  {name:'April30_Portfolio_PreExecution_Update.md',path:'projects/investing/',date:'2026-04-13',size:'8.6 KB',cat:'Investing',ext:'md'},
+  {name:'april-30-countdown-apr14.md',path:'projects/investing/',date:'2026-04-14',size:'1.3 KB',cat:'Investing',ext:'md'},
+  {name:'MOSE.md',path:'projects/investing/',date:'2026-04-13',size:'6.2 KB',cat:'Investing',ext:'md'},
+  {name:'MOSE-SPRINT.md',path:'projects/investing/',date:'2026-04-13',size:'4.1 KB',cat:'Investing',ext:'md'},
+  {name:'truist-portfolio-summary.md',path:'projects/investing/',date:'2026-04-13',size:'4.9 KB',cat:'Investing',ext:'md'},
+  {name:'schwab-vs-fidelity-api-research.md',path:'projects/investing/',date:'2026-04-13',size:'3.4 KB',cat:'Investing',ext:'md'},
+  {name:'super-investor-system-proposal.docx',path:'projects/investing/',date:'2026-04-13',size:'24.1 KB',cat:'Investing',ext:'docx'},
+  {name:'dcf-ai-adjusted-analysis.docx',path:'projects/investing/',date:'2026-04-13',size:'28.3 KB',cat:'Investing',ext:'docx'},
+  {name:'schwab-q1-2026.pdf',path:'projects/investing/',date:'2026-04-13',size:'469 KB',cat:'Investing',ext:'pdf'},
+  {name:'iran-ceasefire-portfolio-impact-2026-04-08.md',path:'projects/',date:'2026-04-08',size:'3.1 KB',cat:'Investing',ext:'md'},
+  {name:'april30-countdown-19days.md',path:'projects/',date:'2026-04-11',size:'2.4 KB',cat:'Investing',ext:'md'},
+  {name:'april-30-portfolio-execution-plan.md',path:'projects/',date:'2026-04-11',size:'6.8 KB',cat:'Investing',ext:'md'},
+  {name:'dashboard.html',path:'projects/investing/margin-of-safety-engine/',date:'2026-04-15',size:'48.8 KB',cat:'Investing',ext:'html'},
+  {name:'jfl-ttd-v2.8.docx',path:'projects/',date:'2026-04-15',size:'37.8 KB',cat:'Investing',ext:'docx'},
+  {name:'jfl-ttd-v2.8.pdf',path:'projects/',date:'2026-04-15',size:'301 KB',cat:'Investing',ext:'pdf'},
+  {name:'ttd.md',path:'reports/',date:'2026-04-02',size:'5.9 KB',cat:'Investing',ext:'md'},
+  {name:'truist-self-directed-request-final.docx',path:'projects/',date:'2026-04-10',size:'28.9 KB',cat:'Investing',ext:'docx'},
+  // ReBolt
+  {name:'REBOLT.md',path:'projects/rebolt/',date:'2026-04-10',size:'8.3 KB',cat:'ReBolt',ext:'md'},
+  {name:'ReBolt_Sales_Deck_v3.docx',path:'projects/rebolt/',date:'2026-04-10',size:'42.1 KB',cat:'ReBolt',ext:'docx'},
+  {name:'ReBolt-Provisional-Patent-Draft.docx',path:'projects/rebolt/',date:'2026-04-10',size:'31.7 KB',cat:'ReBolt',ext:'docx'},
+  {name:'ReBolt-Prior-Art-Search.docx',path:'projects/rebolt/',date:'2026-04-10',size:'24.8 KB',cat:'ReBolt',ext:'docx'},
+  {name:'ReBolt-Patent-Summary-For-Greg.docx',path:'projects/rebolt/',date:'2026-04-10',size:'18.2 KB',cat:'ReBolt',ext:'docx'},
+  {name:'deck-v3-assessment.md',path:'projects/rebolt/',date:'2026-04-10',size:'4.1 KB',cat:'ReBolt',ext:'md'},
+  {name:'rebolt-patent-ip-strategy.md',path:'projects/',date:'2026-04-10',size:'5.6 KB',cat:'ReBolt',ext:'md'},
+  // TLC
+  {name:'Tuckerton_Group_2026_Goals_v7.docx',path:'projects/',date:'2026-04-14',size:'352 KB',cat:'TLC',ext:'docx'},
+  {name:'Tuckerton_Group_2026_Goals_v5.docx',path:'reports/',date:'2026-04-14',size:'352 KB',cat:'TLC',ext:'docx'},
+  {name:'TLC_Lumber_Tariff_Alert_April2026.md',path:'projects/tlc/',date:'2026-04-14',size:'3.4 KB',cat:'TLC',ext:'md'},
+  {name:'TLC_Command_Center.html',path:'projects/tlc/',date:'2026-04-14',size:'49.2 KB',cat:'TLC',ext:'html'},
+  {name:'Zoning_App_Lot9_150Railroad.docx',path:'projects/tlc/zoning/',date:'2026-04-14',size:'36.8 KB',cat:'TLC',ext:'docx'},
+  {name:'Zoning_App_Lot7_138Railroad.docx',path:'projects/tlc/zoning/',date:'2026-04-14',size:'36.8 KB',cat:'TLC',ext:'docx'},
+  {name:'tlc-539-marine-store-concept.md',path:'projects/',date:'2026-04-12',size:'4.8 KB',cat:'TLC',ext:'md'},
+  {name:'tlc-seasonal-pricing-strategy-spring-2026.md',path:'projects/',date:'2026-04-10',size:'5.2 KB',cat:'TLC',ext:'md'},
+  // World Cup Pool
+  {name:'lobster-pool-email-for-joe.md',path:'projects/',date:'2026-04-10',size:'2.8 KB',cat:'World Cup Pool',ext:'md'},
+  {name:'DEPLOY-PROTOCOL.md',path:'projects/world-cup-pool/',date:'2026-04-11',size:'3.0 KB',cat:'World Cup Pool',ext:'md'},
+  {name:'robby-easter-eggs.md',path:'projects/world-cup-pool/',date:'2026-04-11',size:'595 B',cat:'World Cup Pool',ext:'md'},
+  // Lobster Press
+  {name:'LOBSTER-PRESS-SPEC.md',path:'projects/lobster-press/',date:'2026-04-15',size:'1.9 KB',cat:'Lobster Press',ext:'md'},
+  {name:'LOBSTER-PRESS.md',path:'projects/lobster-press/',date:'2026-04-11',size:'1.7 KB',cat:'Lobster Press',ext:'md'},
+  // Other
+  {name:'corner-market-deal-analysis.md',path:'projects/',date:'2026-04-10',size:'6.1 KB',cat:'Other',ext:'md'},
+  {name:'keli-lbi-spring-2026-market-intel.md',path:'projects/',date:'2026-04-10',size:'4.3 KB',cat:'Other',ext:'md'},
+  {name:'colorant-industry-intel-mar2026.md',path:'projects/',date:'2026-03-30',size:'7.2 KB',cat:'Other',ext:'md'},
+  {name:'california-closets-partnership-analysis.md',path:'projects/',date:'2026-04-05',size:'5.1 KB',cat:'Other',ext:'md'},
+  {name:'social-media-sop-v5.docx',path:'projects/social-media/',date:'2026-04-10',size:'18.4 KB',cat:'Other',ext:'docx'},
+  {name:'SETUP-GUIDE.md',path:'projects/hermes-setup/',date:'2026-04-15',size:'1.7 KB',cat:'Other',ext:'md'},
+  {name:'joe-keli-anniversary-tribute.md',path:'projects/',date:'2026-04-05',size:'3.2 KB',cat:'Other',ext:'md'},
+];
+
+const PROJECTS_DATA = [
+  {
+    emoji:'🪵',name:'Tuckerton Lumber',vertical:'TLC',color:'#4CAF50',
+    status:'Active',statusClass:'ps-active',
+    desc:'The $16.5M foundation. 90+ year family business, two locations (Tuckerton + Surf City). Benjamin Moore paint, Epicor ERP, 1,275+ customer accounts.',
+    progress:72,progressLabel:'2026 Goals Progress',
+    stats:[{val:'$16.5M',lbl:'Revenue'},{val:'2',lbl:'Locations'},{val:'1,275',lbl:'Customers'}],
+    recent:['Tariff alert: lumber prices up on China goods','Zoning apps filed — Lots 7 & 9 Railroad Ave','Marine store concept (539) under review','Seasonal pricing strategy (Spring 2026) drafted'],
+    next:['Epicor API integration for live data','Q1 margin analysis vs budget','Ethan/Edwin compensation review','539 marine concept decision']
+  },
+  {
+    emoji:'📦',name:'Surfbox Portable Storage',vertical:'Surfbox',color:'#2196F3',
+    status:'Growing',statusClass:'ps-growing',
+    desc:'The growth engine. NJ + NC operations. Approaching $1M revenue target. Google Ads, content marketing, surf lessons, and camps.',
+    progress:58,progressLabel:'Path to $1M Revenue',
+    stats:[{val:'~$1M',lbl:'Target Rev'},{val:'2',lbl:'Markets'},{val:'Apr 30',lbl:'SM Launch'}],
+    recent:['Google Ads performance analyzed (20 weeks)','Social media SOP v5 drafted','OBX camp registration planning','LBI lesson booking strategy updated'],
+    next:['Social media go-live April 30','Camp registration system','OBX expansion feasibility','Seasonal content calendar']
+  },
+  {
+    emoji:'💻',name:'Software & Dashboards',vertical:'Infrastructure',color:'#FFC107',
+    status:'Building',statusClass:'ps-building',
+    desc:'T1D blood sugar prediction app (CGM + Oura Ring), Surfbox Dashboard, TLC Command Center, Value Investor Dashboard, Mission Control.',
+    progress:45,progressLabel:'Build Roadmap',
+    stats:[{val:'5',lbl:'Projects'},{val:'2',lbl:'Live'},{val:'3',lbl:'In Dev'}],
+    recent:['Mission Control v2.0 deployed to GitHub Pages','TLC Command Center HTML built','MOSE Dashboard (Margin of Safety Engine) built','Hermes agent pipeline connected'],
+    next:['T1D app — CGM + Oura Ring spec','Surfbox dashboard live data','Epicor API integration','Real-time alert system']
+  },
+  {
+    emoji:'🏠',name:'Real Estate',vertical:'Real Estate',color:'#00BCD4',
+    status:'Monitoring',statusClass:'ps-monitoring',
+    desc:'Firehouse LLC (Chesterfield), beach home (381 W 12th, Ship Bottom), Keli\'s real estate business, Corner Market opportunity (275 W 9th, Ship Bottom).',
+    progress:35,progressLabel:'Active Deals',
+    stats:[{val:'3',lbl:'Properties'},{val:'$600K+',lbl:'Firehouse Est'},{val:'1',lbl:'Deal Pipeline'}],
+    recent:['Keli LBI spring 2026 market intel compiled','Corner Market deal analysis completed','Keli social media SOP updated','Old School Firehouse LLC — Chesterfield update'],
+    next:['Corner Market go/no-go decision','Firehouse renovation timeline','Keli SM April content calendar','LBI market comp analysis refresh']
+  },
+  {
+    emoji:'📈',name:'Value Investing',vertical:'Investing',color:'#9C27B0',
+    status:'Active',statusClass:'ps-active',
+    desc:'Buffett/Munger principles. $1.9M portfolio targeting $10-20M. April 30 restructure into 29-stock concentrated portfolio. MOSE convergence engine tracking super investors.',
+    progress:88,progressLabel:'April 30 Readiness',
+    stats:[{val:'$1.9M',lbl:'Portfolio'},{val:'29',lbl:'Target Stocks'},{val:'Apr 30',lbl:'Exec Day'}],
+    recent:['MOSE Convergence Report Apr 13 published','April 30 pre-execution update complete','JFL TTD v2.8 final draft done','Truist → self-directed transition initiated'],
+    next:['Execute 29-stock portfolio April 30','Roth IRA conversion strategy','Schwab vs Fidelity API decision','Q2 13F scan post-April 30']
+  },
+  {
+    emoji:'🔒',name:'ReBolt™',vertical:'ReBolt',color:'#FF9800',
+    status:'Building',statusClass:'ps-building',
+    desc:'Spring-loaded USB-C security adapter preventing EV charger theft. Prototype to market. Provisional patent drafted. Sales deck v3 complete.',
+    progress:40,progressLabel:'Prototype to Market',
+    stats:[{val:'v3',lbl:'Sales Deck'},{val:'Filed',lbl:'Provisional Pat'},{val:'TBD',lbl:'Manufacturer'}],
+    recent:['Sales Deck v3 shipped and assessed','Provisional patent draft completed','Prior art search done (no blockers)','Patent summary sent to Greg'],
+    next:['Manufacturer outreach (EV charging OEMs)','Prototype production quote','Patent attorney review','Channel partner strategy']
+  },
+  {
+    emoji:'🎨',name:'Colorant/Dye Re-Entry',vertical:'Colorant',color:'#E91E63',
+    status:'Research',statusClass:'ps-research',
+    desc:'25 years of expertise. NDA just expired (~2026). Monitoring industry for re-entry via Indian/Chinese sourcing. Greenville Colorants legacy knowledge.',
+    progress:20,progressLabel:'Market Intelligence',
+    stats:[{val:'25yr',lbl:'Experience'},{val:'Free',lbl:'NDA Status'},{val:'Open',lbl:'Opportunity'}],
+    recent:['Colorant industry intel Mar 2026 compiled','ChromaScape acquisition landscape scanned','Indian sourcing contacts list started','Pricing benchmarks research begun'],
+    next:['Identify right opportunity/partner','Indian supplier outreach','Market sizing model','Go/no-go framework']
+  },
+  {
+    emoji:'👨‍👩‍👧‍👧',name:'Family',vertical:'Personal',color:'#607D8B',
+    status:'Active',statusClass:'ps-active',
+    desc:'Keli (realtor, T1D), Juliana & Isabella (~$270K college horizon), Matty (Rutgers, Goodwill Fund mentoring), Joe & Keli anniversary tribute.',
+    progress:90,progressLabel:'Always On',
+    stats:[{val:'2',lbl:'Daughters'},{val:'$270K',lbl:'College Est'},{val:'T1D',lbl:'Keli Mgmt'}],
+    recent:['Anniversary tribute written for Keli','Goodwill Fund — Matty mentoring session','T1D app concept spec drafted','PSI physics package for Danielle'],
+    next:['T1D app development kickoff','Juliana/Isabella 529 review','Goodwill Fund Q2 session','Berkshire annual meeting planning']
+  }
+];
+
+const MEMORY_SECTIONS = [
+  {title:'The Most Important Thing',date:'2026-03-24',words:450,tags:['identity','origin','core'],content:'Rob Lobster is an autonomous AI Chief of Staff created by Joe Lynch. Rob\'s mission is to operate as a tireless, loyal, and intelligent business partner — handling data analysis, research, monitoring, and operational tasks across all of Joe\'s business verticals. Rob runs on a Mac Mini M4 Pro and is always on, always learning, always working.'},
+  {title:'About Joe',date:'2026-03-24',words:620,tags:['personal','family','background'],content:'Joe Lynch is a serial entrepreneur based in the Tuckerton, NJ area. Married to Keli (real estate agent, Type 1 diabetic), father of Juliana and Isabella (~$270K college horizon). Joe is a hands-on operator who built multiple businesses across different industries. He values loyalty, directness, and results.'},
+  {title:'Joe\'s Businesses — Tuckerton Group',date:'2026-03-24',words:1200,tags:['TLC','business','operations','Epicor'],content:'The Tuckerton Lumber Company (TLC) is Joe\'s primary operating business — a lumberyard and building materials supplier. They use Epicor as their ERP system. Key metrics: gross margins, customer concentration, Epicor sales data with 1,275+ customer records. Surfbox Portable Storage approaching $1M revenue.'},
+  {title:'Joe\'s Investment Journey',date:'2026-03-24',words:850,tags:['investing','portfolio','value-investing'],content:'Joe is a committed value investor influenced by Warren Buffett, Charlie Munger, and Mohnish Pabrai. He tracks 13F filings from top investors, maintains a $1.9M portfolio, and is planning a major portfolio restructure on April 30, 2026 — into a 29-stock concentrated portfolio across three buckets: Core Forever Holdings, Opportunistic Value, and 20-Year Innovation.'},
+  {title:'Joe\'s Projects',date:'2026-03-24',words:550,tags:['ReBolt','T1D','Firehouse','projects'],content:'Active projects include: ReBolt (spring-loaded USB-C security adapter — provisional patent filed), T1D advocacy (Keli\'s CGM + Oura Ring app concept), Firehouse renovation project (Old School Firehouse LLC, Chesterfield — $600-800K profit target), and colorant industry re-entry monitoring.'},
+  {title:'Mac & AI Setup',date:'2026-03-24',words:420,tags:['infrastructure','technical','setup'],content:'Rob runs on a Mac Mini M4 Pro with OpenClaw harness. Claude Sonnet 4-6 is the primary model. Hermes agent (Nous Research / gpt-5.4-mini) deployed as backup/monitor on @HermesJFL_bot. Setup includes cron scheduling, heartbeat system, and persistent memory via daily logs + MEMORY.md.'},
+  {title:'Joe\'s Command Center — Key Verticals',date:'2026-03-24',words:700,tags:['verticals','strategy','lanes'],content:'8 lanes: (1) TLC — lumber operations, (2) Surfbox — portable storage, (3) Software — dashboards & apps, (4) Real Estate — Firehouse, beach home, Corner Market, Keli, (5) Investing — Buffett/Munger system April 30 restructure, (6) ReBolt — security adapter, (7) Colorant — re-entry monitoring, (8) Family — Keli, Juliana, Isabella.'},
+  {title:'Things I\'ve Learned About Working With Joe',date:'2026-03-25',words:280,tags:['working-style','preferences','feedback'],content:'Joe is direct and action-oriented. He wants results, not process explanations. He values speed and bias toward action. He prefers concise communication — get to the point fast. He likes to see data visualized, not just described. He trusts Rob to make judgment calls and act autonomously.'},
+];
+
+const SEARCH_INDEX = [
+  {type:'memory',icon:'🧠',title:'The Most Important Thing',excerpt:'Rob Lobster is an autonomous AI Chief of Staff created by Joe Lynch...',date:'2026-03-24',content:'Rob Lobster origin story, mission definition, autonomous intelligence system running on Mac Mini M4 Pro.'},
+  {type:'memory',icon:'🧠',title:'About Joe',excerpt:'Joe Lynch — serial entrepreneur, Tuckerton NJ, married to Keli, father of Juliana and Isabella...',date:'2026-03-24',content:'Personal details, family, background of Joe Lynch. Keli wife real estate. Juliana Isabella. Type 1 Diabetes.'},
+  {type:'memory',icon:'🧠',title:'Joe\'s Businesses — Tuckerton Group',excerpt:'TLC is Joe\'s primary operating business — lumberyard and building materials...',date:'2026-03-24',content:'Tuckerton Lumber Company, Epicor ERP, gross margins, customer concentration, 1275 customer records.'},
+  {type:'memory',icon:'🧠',title:'Joe\'s Investment Journey',excerpt:'Value investor influenced by Buffett, Munger, Pabrai. Portfolio restructure April 30...',date:'2026-03-24',content:'Value investing, 13F filings, Berkshire Hathaway, compounders, moats, position sizing, MOSE convergence.'},
+  {type:'memory',icon:'🧠',title:'Joe\'s Projects',excerpt:'ReBolt USB-C security adapter, T1D app, Firehouse renovation...',date:'2026-03-24',content:'ReBolt spring-loaded security adapter provisional patent, T1D Keli CGM Oura Ring app, Firehouse Chesterfield.'},
+  {type:'memory',icon:'🧠',title:'Mac & AI Setup',excerpt:'Mac Mini M4 Pro, OpenClaw, Rob Lobster claude-sonnet-4-6, Hermes gpt-5.4-mini...',date:'2026-03-24',content:'Technical infrastructure, macOS, zsh, Claude API, cron, heartbeat, Rob Lobster, Hermes agent.'},
+  {type:'memory',icon:'🧠',title:'Key Verticals',excerpt:'8 lanes: TLC, Surfbox, Investing, ReBolt, Real Estate, Colorant, Personal, Software',date:'2026-03-24',content:'Command center verticals, color codes, priorities, monitoring requirements for each business lane.'},
+  {type:'memory',icon:'🧠',title:'Working With Joe',excerpt:'Direct, action-oriented, values speed, concise communication, trusts autonomous action...',date:'2026-03-25',content:'Working style preferences feedback, direct, results-oriented, data visualization, humor, leverage.'},
+  {type:'document',icon:'📄',title:'MISSION.md',excerpt:'Command Center mission statement — defines Rob\'s purpose and operating philosophy',date:'2026-03-25',content:'Mission statement, purpose definition, operating philosophy, autonomous intelligence system goals.'},
+  {type:'document',icon:'📄',title:'MOSE Convergence Report Apr 13',excerpt:'Margin of Safety Engine — super investor convergence analysis',date:'2026-04-13',content:'MOSE, margin of safety, super investors, convergence, 13F filings, April 30 portfolio execution.'},
+  {type:'document',icon:'📄',title:'ReBolt Sales Deck v3',excerpt:'Full pitch deck for ReBolt spring-loaded USB-C security adapter',date:'2026-04-10',content:'ReBolt security adapter, USB-C, EV charging, theft prevention, provisional patent, sales deck.'},
+  {type:'document',icon:'📄',title:'TLC 2026 Goals v7',excerpt:'TLC strategic goals document — final version with Joe edits',date:'2026-04-14',content:'TLC Tuckerton Lumber 2026 goals, strategic planning, margins, locations, seasonal pricing, zoning.'},
+  {type:'document',icon:'📄',title:'April 30 Portfolio Execution Plan',excerpt:'29-stock concentrated portfolio execution day plan',date:'2026-04-14',content:'Portfolio execution, 29 stocks, Core Forever Holdings, Opportunistic Value, 20-Year Innovation, Truist.'},
+  {type:'document',icon:'📄',title:'TLC Command Center',excerpt:'Interactive TLC dashboard — built and operational',date:'2026-04-14',content:'TLC dashboard, financial metrics, customer analytics, margin tracking, Epicor data visualization.'},
+  {type:'task',icon:'📋',title:'Mission Control v2.0',excerpt:'Documents, Projects, Team update, Agent Health — In Progress',date:'2026-04-15',content:'Mission Control upgrade, documents screen, projects screen, hermes agent, GitHub Pages deploy.'},
+  {type:'task',icon:'📋',title:'MOSE — Margin of Safety Engine',excerpt:'AI-powered stock valuation convergence reports — In Progress',date:'2026-04-10',content:'MOSE, margin of safety engine, stock valuation, convergence, super investor tracking, AI analysis.'},
+  {type:'task',icon:'📋',title:'April 30 Portfolio Execution',excerpt:'29-stock portfolio execution — In Progress, Exec Day April 30',date:'2026-04-14',content:'Portfolio execution, 29 stocks, value investing, April 30 restructure, Truist self-directed.'},
+  {type:'activity',icon:'📡',title:'TLC Financial Statements Analysis',excerpt:'Read and analyzed TLC financial statements (2024-2025)',date:'2026-03-25',content:'TLC financial analysis, P&L review, 2024-2025 data, margin trends.'},
+  {type:'activity',icon:'📡',title:'MOSE Convergence Analysis',excerpt:'April 30 portfolio pre-execution update — 29-stock plan',date:'2026-04-15',content:'MOSE convergence, super investors, portfolio execution plan, April 30.'},
+  {type:'activity',icon:'📡',title:'Mission Control v2.0 Build',excerpt:'Documents, Projects, Agent Health, GitHub Pages deploy',date:'2026-04-15',content:'Mission control upgrade, new screens, Hermes agent, GitHub Pages, deploy.sh.'},
+];
+
+// ========== APP STATE ==========
+let liveData = null; // Live data from mission-control-data.json
+let currentScreen = 'activity';
+let calMonth = 3; // April (0-indexed)
+let calYear = 2026;
+let showCompleted = true;
+let searchQuery = '';
+let activityFilter = 'all';
+let activityVerticalFilter = 'all';
+let memorySearchQuery = '';
+let docSearch = '';
+let docCatFilter = 'All';
+
+// ========== HELPERS ==========
+function $(sel,ctx){return(ctx||document).querySelector(sel)}
+function $$(sel,ctx){return[...(ctx||document).querySelectorAll(sel)]}
+function h(tag,attrs,children){
+  const el=document.createElement(tag);
+  if(attrs)Object.entries(attrs).forEach(([k,v])=>{
+    if(k==='className')el.className=v;
+    else if(k==='innerHTML')el.innerHTML=v;
+    else if(k.startsWith('on'))el.addEventListener(k.slice(2).toLowerCase(),v);
+    else el.setAttribute(k,v);
+  });
+  if(typeof children==='string')el.innerHTML=children;
+  else if(Array.isArray(children))children.forEach(c=>{if(c)el.appendChild(typeof c==='string'?document.createTextNode(c):c)});
+  return el;
 }
 
-// ══════════════════════════════════════════════════════════════════
-// ─── EKG MONITOR ─────────────────────────────────────────────────
-// ══════════════════════════════════════════════════════════════════
+function updateClock(){
+  const now=new Date();
+  const d=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const t=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  $('#headerTime').textContent=d+' · '+t;
+}
 
-class EKGMonitor {
-  constructor(canvas, color, status) {
-    this.canvas    = canvas;
-    this.ctx       = canvas.getContext('2d');
-    this.color     = color;
-    this.status    = status;
-    this.points    = [];
-    this.phase     = Math.random() * Math.PI * 2;
-    this.beatClock = Math.floor(Math.random() * 60);
-    this.inBeat    = false;
-    this.beatPos   = 0;
-    this.logicalW  = 0;
-    this.logicalH  = 72;
-    this.dpr       = Math.min(window.devicePixelRatio || 1, 2);
-    this.initialized = false;
-  }
+function fmtBytes(str){return str}
 
-  _setup() {
-    const w = this.canvas.offsetWidth;
-    if (w <= 0) return false;
-    this.logicalW          = w;
-    this.canvas.width      = Math.round(w * this.dpr);
-    this.canvas.height     = Math.round(this.logicalH * this.dpr);
-    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
-    this.points            = new Array(w).fill(this.logicalH / 2);
-    this.initialized       = true;
+// ========== SCREEN RENDERERS ==========
+
+function renderActivity(){
+  const types=[...new Set(ACTIVITY_DATA.map(a=>a.typeLabel))];
+  const verticals=[...new Set(ACTIVITY_DATA.map(a=>a.vertical))];
+
+  const now=new Date();
+  const cronTimes=[
+    {name:'Heartbeat',time:'06:00',age:'10h 22m ago'},
+    {name:'Market Scan',time:'14:00',age:'2h 22m ago'},
+    {name:'Morning Rundown',time:'07:30',age:'8h 52m ago'},
+    {name:'Epicor Sync',time:'07:00 Mon',age:'5d ago'},
+  ];
+
+  // Live gateway status (uses liveData from mission-control-data.json if available)
+  const robGwOnline = liveData && liveData.rob_health ? liveData.rob_health.gateway_online : true;
+  const hermesGwOnline = liveData && liveData.hermes_health ? liveData.hermes_health.gateway_online : true;
+  const robGwErr = (liveData && liveData.rob_health && liveData.rob_health.errors && liveData.rob_health.errors.length) ? liveData.rob_health.errors.slice(-1)[0] : '';
+  const hermesGwErr = (liveData && liveData.hermes_health && liveData.hermes_health.errors && liveData.hermes_health.errors.length) ? liveData.hermes_health.errors.slice(-1)[0] : '';
+  const hermesLastActivity = (liveData && liveData.hermes_health) ? (liveData.hermes_health.last_activity || 'No recent activity') : 'Loading...';
+  const dataSource = liveData ? `<div class="health-stat"><span>Data</span><span style="color:#66BB6A">Live JSON ✓</span></div>` : `<div class="health-stat"><span>Data</span><span style="color:var(--text3)">Static</span></div>`;
+
+  let healthHtml=`<div class="health-panel">
+    <h4>🏥 Agent Health</h4>
+    ${AGENT_STATUS.agents.map(a=>`
+      <div class="agent-health-row">
+        <div class="ah-name">
+          <div class="ah-dot ${a.status==='online'?'ah-green':a.status==='paused'?'ah-grey':'ah-red'}"></div>
+          <span>${a.name}</span>
+        </div>
+        <div class="ah-val">${a.status}</div>
+      </div>
+      ${a.status!=='paused'?`<div style="font-size:10px;color:var(--text3);padding:2px 10px 6px;display:grid;grid-template-columns:1fr 1fr;gap:2px">
+        <span>Model: <em style="color:var(--text2)">${a.model}</em></span>
+        <span>Crons: <em style="color:var(--accent)">${a.cronJobs}</em></span>
+        <span>Gateway: <em style="color:#66BB6A">${a.gateway}</em></span>
+        <span>Mem: <em style="color:var(--text2)">${a.memoryMB}MB</em></span>
+      </div>`:''}
+    `).join('')}
+    <div class="health-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🔌 Gateway Status</div>
+    <div class="agent-health-row">
+      <div class="ah-name"><div class="ah-dot ${robGwOnline?'ah-green':'ah-red'}"></div><span>Rob 🦞 OpenClaw</span></div>
+      <div class="ah-val" style="color:${robGwOnline?'#66BB6A':'#ef5350'}">${robGwOnline?'Online':'Offline'}</div>
+    </div>
+    ${robGwErr?`<div style="font-size:10px;color:#ef5350;padding:2px 10px 4px;word-break:break-all">⚠️ ${robGwErr.slice(0,70)}</div>`:''}
+    <div class="agent-health-row">
+      <div class="ah-name"><div class="ah-dot ${hermesGwOnline?'ah-green':'ah-red'}"></div><span>Hermes 🏛️ Gateway</span></div>
+      <div class="ah-val" style="color:${hermesGwOnline?'#9C27B0':'#ef5350'}">${hermesGwOnline?'Online':'Offline'}</div>
+    </div>
+    ${hermesGwErr?`<div style="font-size:10px;color:#ef5350;padding:2px 10px 4px;word-break:break-all">⚠️ ${hermesGwErr.slice(0,70)}</div>`:''}
+    <div class="health-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">⏰ Cron Jobs</div>
+    ${cronTimes.map(c=>`<div class="agent-health-row" style="margin-bottom:4px">
+      <span style="font-size:11px;font-weight:600">${c.name}</span>
+      <span class="ah-val">${c.age}</span>
+    </div>`).join('')}
+    <div class="health-divider"></div>
+    <div class="health-stat"><span>Rob Gateway</span><span style="color:${robGwOnline?'#66BB6A':'#ef5350'}">${robGwOnline?'● Online':'● Offline'}</span></div>
+    <div class="health-stat"><span>Hermes Gateway</span><span style="color:${hermesGwOnline?'#9C27B0':'#ef5350'}">${hermesGwOnline?'● Online':'● Offline'}</span></div>
+    <div class="health-stat"><span>Total Cron Jobs</span><span>16</span></div>
+    <div class="health-stat"><span>Memory Files</span><span>28</span></div>
+    <div class="health-stat"><span>Last Refresh</span><span>${now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}</span></div>
+    ${dataSource}
+  </div>`;
+
+  let feedHtml=`<div>
+    <div class="stats-bar">
+      <div class="stat-card"><div class="stat-value">${ACTIVITY_DATA.length}</div><div class="stat-label">🦞 Rob Actions</div></div>
+      <div class="stat-card"><div class="stat-value" style="color:#9C27B0">${liveData&&liveData.hermes_activities?liveData.hermes_activities.length:0}</div><div class="stat-label">🏛️ Hermes Actions</div></div>
+      <div class="stat-card"><div class="stat-value">${ACTIVITY_DATA.filter(a=>a.status==='success').length}</div><div class="stat-label">Completed</div></div>
+      <div class="stat-card"><div class="stat-value mono" style="font-size:18px">~595K</div><div class="stat-label">Tokens Used</div></div>
+    </div>
+    <div class="filter-bar">
+      <span style="font-size:11px;color:var(--text3);margin-right:4px">TYPE:</span>
+      <div class="filter-pill ${activityFilter==='all'?'active':''}" onclick="activityFilter='all';renderScreen()">All</div>`;
+  types.forEach(t=>{
+    feedHtml+=`<div class="filter-pill ${activityFilter===t?'active':''}" onclick="activityFilter='${t}';renderScreen()">${t}</div>`;
+  });
+  feedHtml+=`<span style="font-size:11px;color:var(--text3);margin-left:12px;margin-right:4px">VERTICAL:</span>
+    <div class="filter-pill ${activityVerticalFilter==='all'?'active':''}" onclick="activityVerticalFilter='all';renderScreen()">All</div>`;
+  verticals.forEach(v=>{
+    feedHtml+=`<div class="filter-pill ${activityVerticalFilter===v?'active':''}" onclick="activityVerticalFilter='${v}';renderScreen()">${v}</div>`;
+  });
+  feedHtml+=`</div>
+    <div class="card" style="padding:0;overflow:hidden">
+    <div class="feed-header"><span>Time</span><span></span><span>Description</span><span>Vertical</span><span>Tokens</span><span>Status</span></div>`;
+
+  const filtered=ACTIVITY_DATA.filter(a=>{
+    if(activityFilter!=='all'&&a.typeLabel!==activityFilter)return false;
+    if(activityVerticalFilter!=='all'&&a.vertical!==activityVerticalFilter)return false;
     return true;
+  }).reverse();
+
+  filtered.forEach(a=>{
+    const isHermesAct=a.agent==='hermes';
+    const agentEmoji=isHermesAct?'🏛️':'🦞';
+    const agentColor=isHermesAct?'#9C27B0':'var(--accent)';
+    feedHtml+=`<div class="feed-item">
+      <span class="feed-time">${a.time}</span>
+      <span class="feed-icon">${a.type}</span>
+      <span class="feed-desc"><span style="color:${agentColor};font-size:11px;margin-right:3px">${agentEmoji}</span>${a.desc}</span>
+      <span><span class="tag ${vc(a.vertical)}">${a.vertical}</span></span>
+      <span class="feed-tokens">${a.tokens||''}</span>
+      <span class="status status-${a.status}">${a.status}</span>
+    </div>`;
+  });
+  if(!filtered.length)feedHtml+=`<div style="padding:24px;text-align:center;color:var(--text3)">No matching activities</div>`;
+  feedHtml+=`</div></div>`;
+
+  return `<div class="screen">
+    <div class="screen-title">Activity Feed</div>
+    <div class="screen-subtitle">Real-time log of every action taken by Rob Lobster & team</div>
+    <div class="activity-layout">
+      ${feedHtml}
+      ${healthHtml}
+    </div>
+  </div>`;
+}
+
+function renderCalendar(){
+  const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const first=new Date(calYear,calMonth,1);
+  const last=new Date(calYear,calMonth+1,0);
+  const startDay=first.getDay();
+  const daysInMonth=last.getDate();
+  const prevLast=new Date(calYear,calMonth,0).getDate();
+  const today=new Date();
+  const todayStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+
+  function getEventsForDate(y,m,d){
+    const dateStr=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dayOfWeek=new Date(y,m,d).getDay();
+    const events=[];
+    CALENDAR_EVENTS.forEach(ev=>{
+      if(ev.date&&ev.date===dateStr){events.push(ev);return}
+      if(ev.recurring==='daily'){events.push(ev);return}
+      if(ev.recurring==='weekly'&&dayOfWeek===ev.day){events.push(ev);return}
+      if(ev.recurring==='monthly'&&d===ev.dayOfMonth){events.push(ev);return}
+    });
+    return events;
   }
 
-  resize() {
-    const w = this.canvas.offsetWidth;
-    if (w <= 0 || w === this.logicalW) return;
-    this.logicalW      = w;
-    this.canvas.width  = Math.round(w * this.dpr);
-    this.canvas.height = Math.round(this.logicalH * this.dpr);
-    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
-    const cy = this.logicalH / 2;
-    if (this.points.length > w) {
-      this.points = this.points.slice(this.points.length - w);
-    } else {
-      while (this.points.length < w) this.points.unshift(cy);
-    }
+  let grid='';
+  dayNames.forEach(d=>{grid+=`<div class="cal-header-cell">${d}</div>`});
+
+  let cellDay=1;let nextDay=1;
+  for(let i=0;i<42;i++){
+    let day,month=calMonth,year=calYear,otherMonth=false;
+    if(i<startDay){day=prevLast-startDay+i+1;month=calMonth-1;otherMonth=true}
+    else if(cellDay>daysInMonth){day=nextDay++;month=calMonth+1;otherMonth=true}
+    else{day=cellDay++}
+    if(month<0){month=11;year--}if(month>11){month=0;year++}
+
+    const dateStr=`${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const isToday=dateStr===todayStr;
+    const events=otherMonth?[]:getEventsForDate(year,month,day);
+
+    grid+=`<div class="cal-cell${isToday?' today':''}${otherMonth?' other-month':''}">
+      <div class="cal-day">${day}</div>`;
+    events.slice(0,3).forEach(ev=>{
+      grid+=`<div class="cal-event" style="background:${vcolor(ev.vertical)}22;color:${vcolor(ev.vertical)};border-left:2px solid ${vcolor(ev.vertical)}" title="${ev.name} (${ev.time})">${ev.name}</div>`;
+    });
+    if(events.length>3)grid+=`<div style="font-size:9px;color:var(--text3)">+${events.length-3} more</div>`;
+    grid+=`</div>`;
   }
 
-  _nextPoint() {
-    const H = this.logicalH, cy = H / 2;
+  let upcoming='';
+  for(let d=0;d<7;d++){
+    const date=new Date(today);date.setDate(today.getDate()+d);
+    const events=getEventsForDate(date.getFullYear(),date.getMonth(),date.getDate());
+    const label=d===0?'Today':d===1?'Tomorrow':date.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    events.forEach(ev=>{
+      upcoming+=`<div class="cal-sidebar-item" style="border-left-color:${vcolor(ev.vertical)}">
+        <div class="time">${label} · ${ev.time}</div>
+        <div class="name">${ev.name}</div>
+        <div class="meta"><span class="tag ${vc(ev.vertical)}" style="font-size:9px">${ev.vertical}</span> · ${ev.type} · ${ev.tokens}</div>
+      </div>`;
+    });
+  }
+  CALENDAR_EVENTS.filter(ev=>ev.highlight).forEach(ev=>{
+    upcoming+=`<div class="cal-sidebar-item" style="border-left-color:${vcolor(ev.vertical)};background:rgba(255,107,53,.05)">
+      <div class="time" style="color:var(--accent)">${ev.date} · ${ev.time}</div>
+      <div class="name" style="color:var(--accent)">${ev.name}</div>
+      <div class="meta"><span class="tag ${vc(ev.vertical)}" style="font-size:9px">${ev.vertical}</span> · ⭐ Key Date</div>
+    </div>`;
+  });
 
-    if (this.status === 'error') return cy + (Math.random() - 0.5) * 0.8;
+  return `<div class="screen">
+    <div class="screen-title">Calendar & Scheduled Tasks</div>
+    <div class="screen-subtitle">Cron jobs, reminders, and upcoming events</div>
+    <div class="toggle-wrap">
+      <div class="toggle ${showCompleted?'on':''}" onclick="showCompleted=!showCompleted;this.classList.toggle('on')"></div>
+      <span>Show completed tasks</span>
+    </div>
+    <div class="cal-layout">
+      <div>
+        <div class="cal-nav">
+          <button onclick="calMonth--;if(calMonth<0){calMonth=11;calYear--}renderScreen()">◀</button>
+          <h3>${monthNames[calMonth]} ${calYear}</h3>
+          <button onclick="calMonth++;if(calMonth>11){calMonth=0;calYear++}renderScreen()">▶</button>
+          <button onclick="calMonth=${today.getMonth()};calYear=${today.getFullYear()};renderScreen()" style="margin-left:auto;font-size:11px">Today</button>
+        </div>
+        <div class="calendar-grid">${grid}</div>
+      </div>
+      <div>
+        <div class="card-title mb-12" style="font-size:14px;font-weight:700">📅 Upcoming (7 days + Key Dates)</div>
+        <div class="cal-sidebar">${upcoming||'<div style="color:var(--text3);font-size:12px;padding:12px">No upcoming events</div>'}</div>
+      </div>
+    </div>
+  </div>`;
+}
 
-    if (this.status === 'idle') {
-      this.phase += 0.02;
-      return cy - Math.sin(this.phase) * (H * 0.24);
+function renderSearch(){
+  let results='';
+  let stats='';
+  const pills=['All','Memories','Tasks','Documents','Activity'];
+  const typeMap={All:'all',Memories:'memory',Tasks:'task',Documents:'document',Activity:'activity'};
+
+  if(searchQuery){
+    const q=searchQuery.toLowerCase();
+    let filtered=SEARCH_INDEX.filter(item=>{
+      const text=(item.title+' '+item.excerpt+' '+item.content).toLowerCase();
+      return text.includes(q);
+    });
+    if(window.searchFilter&&window.searchFilter!=='all'){
+      filtered=filtered.filter(i=>i.type===window.searchFilter);
     }
+    filtered=filtered.map(item=>{
+      const text=(item.title+' '+item.excerpt+' '+item.content).toLowerCase();
+      let score=0;
+      if(item.title.toLowerCase().includes(q))score+=50;
+      if(item.excerpt.toLowerCase().includes(q))score+=30;
+      const matches=(text.match(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'))||[]).length;
+      score+=matches*10;
+      return{...item,score:Math.min(score,99)};
+    }).sort((a,b)=>b.score-a.score);
 
-    const BEAT_INTERVAL = 62;
-    this.beatClock++;
-    if (!this.inBeat && this.beatClock >= BEAT_INTERVAL) {
-      this.inBeat = true; this.beatPos = 0; this.beatClock = 0;
-    }
-
-    if (this.inBeat) {
-      const bp = this.beatPos++;
-      if (bp < 10) return cy - Math.sin(bp / 10 * Math.PI) * (H * 0.10);
-      if (bp < 16) return cy;
-      if (bp < 19) return cy + H * 0.16;
-      if (bp < 24) return cy - H * 0.46 * Math.sin((bp - 19) / 5 * Math.PI);
-      if (bp < 28) return cy + H * 0.09 * Math.sin((bp - 24) / 4 * Math.PI);
-      if (bp < 36) return cy;
-      if (bp < 56) return cy - H * 0.13 * Math.sin((bp - 36) / 20 * Math.PI);
-      this.inBeat = false; return cy;
-    }
-    return cy + (Math.random() - 0.5) * 0.4;
+    stats=`<div class="search-stats">${filtered.length} result${filtered.length!==1?'s':''} for "${searchQuery}"</div>`;
+    filtered.forEach(item=>{
+      const highlight=(text)=>{
+        const regex=new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');
+        return text.replace(regex,'<mark style="background:rgba(255,107,53,.3);color:var(--text);border-radius:2px;padding:0 1px">$1</mark>');
+      };
+      results+=`<div class="search-result" onclick="this.classList.toggle('expanded')">
+        <div class="result-head">
+          <span class="result-type">${item.icon} ${item.type}</span>
+          <span class="result-score">${item.score}% match</span>
+        </div>
+        <div class="result-title">${highlight(item.title)}</div>
+        <div class="result-excerpt">${highlight(item.excerpt)}</div>
+        <div class="result-detail">${highlight(item.content)}<br><br><span style="color:var(--text3);font-size:10px">Date: ${item.date} · Source: ${item.type}</span></div>
+      </div>`;
+    });
+    if(!filtered.length)results='<div style="padding:24px;text-align:center;color:var(--text3)">No results found</div>';
+  } else {
+    stats=`<div class="search-stats">${SEARCH_INDEX.length} items indexed · Type to search across all memories, tasks, documents, and activity</div>`;
+    results=`<div style="padding:40px;text-align:center;color:var(--text3)">
+      <div style="font-size:48px;margin-bottom:12px;opacity:.3">🔍</div>
+      <div style="font-size:14px">Search across all of Rob's knowledge base</div>
+      <div style="font-size:11px;margin-top:4px">Memories · Tasks · Documents · Activity Feed</div>
+    </div>`;
   }
 
-  update() {
-    if (!this.initialized) { if (!this._setup()) return; }
-    const margin  = 3;
-    const pt      = this._nextPoint();
-    this.points.push(Math.max(margin, Math.min(this.logicalH - margin, pt)));
-    if (this.points.length > this.logicalW) this.points.shift();
+  if(!window.searchFilter)window.searchFilter='all';
+  return `<div class="screen">
+    <div class="screen-title">Global Search</div>
+    <div class="screen-subtitle">Search across memories, tasks, documents, and activity</div>
+    <div class="search-wrap big">
+      <input class="search-input search-big" placeholder="Search everything..." value="${searchQuery}" oninput="searchQuery=this.value;renderSearchResults()">
+    </div>
+    <div class="filter-bar">
+      ${pills.map(p=>`<div class="filter-pill ${window.searchFilter===(typeMap[p]||'all')?'active':''}" onclick="window.searchFilter='${typeMap[p]}';renderScreen()">${p}</div>`).join('')}
+    </div>
+    ${stats}
+    <div class="search-results" id="searchResults">${results}</div>
+  </div>`;
+}
+
+function renderSearchResults(){
+  const q=searchQuery.toLowerCase();
+  let el=$('#searchResults');
+  if(!el)return;
+  if(!q){el.innerHTML=`<div style="padding:40px;text-align:center;color:var(--text3)"><div style="font-size:48px;margin-bottom:12px;opacity:.3">🔍</div><div style="font-size:14px">Search across all of Rob's knowledge base</div></div>`;
+    const statsEl=el.previousElementSibling;if(statsEl&&statsEl.classList.contains('search-stats'))statsEl.textContent=`${SEARCH_INDEX.length} items indexed · Type to search`;
+    return;
   }
+  let filtered=SEARCH_INDEX.filter(item=>{
+    const text=(item.title+' '+item.excerpt+' '+item.content).toLowerCase();
+    return text.includes(q);
+  });
+  if(window.searchFilter&&window.searchFilter!=='all'){
+    filtered=filtered.filter(i=>i.type===window.searchFilter);
+  }
+  filtered=filtered.map(item=>{
+    const text=(item.title+' '+item.excerpt+' '+item.content).toLowerCase();
+    let score=0;
+    if(item.title.toLowerCase().includes(q))score+=50;
+    if(item.excerpt.toLowerCase().includes(q))score+=30;
+    const matches=(text.match(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'))||[]).length;
+    score+=matches*10;
+    return{...item,score:Math.min(score,99)};
+  }).sort((a,b)=>b.score-a.score);
 
-  draw() {
-    if (!this.initialized || this.points.length < 2) return;
-    const { ctx } = this;
-    const W = this.logicalW, H = this.logicalH;
+  const statsEl=el.previousElementSibling;
+  if(statsEl&&statsEl.classList.contains('search-stats'))statsEl.textContent=`${filtered.length} result${filtered.length!==1?'s':''} for "${searchQuery}"`;
 
-    ctx.fillStyle = '#080D11';
-    ctx.fillRect(0, 0, W, H);
+  const highlight=(text)=>{
+    const regex=new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');
+    return text.replace(regex,'<mark style="background:rgba(255,107,53,.3);color:var(--text);border-radius:2px;padding:0 1px">$1</mark>');
+  };
+  if(!filtered.length){el.innerHTML='<div style="padding:24px;text-align:center;color:var(--text3)">No results found</div>';return}
+  el.innerHTML=filtered.map(item=>`<div class="search-result" onclick="this.classList.toggle('expanded')">
+    <div class="result-head"><span class="result-type">${item.icon} ${item.type}</span><span class="result-score">${item.score}% match</span></div>
+    <div class="result-title">${highlight(item.title)}</div>
+    <div class="result-excerpt">${highlight(item.excerpt)}</div>
+    <div class="result-detail">${highlight(item.content)}<br><br><span style="color:var(--text3);font-size:10px">Date: ${item.date} · Source: ${item.type}</span></div>
+  </div>`).join('');
+}
 
-    // Minor grid
-    ctx.beginPath();
-    for (let x = 0; x <= W; x += 5) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
-    for (let y = 0; y <= H; y += 5) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
-    ctx.strokeStyle = 'rgba(255,255,255,0.025)'; ctx.lineWidth = 0.5; ctx.stroke();
+function renderTaskBoard(){
+  const cols=[
+    {key:'backlog',title:'Backlog',emoji:'📥'},
+    {key:'inProgress',title:'In Progress',emoji:'🔄'},
+    {key:'review',title:'Review',emoji:'👀'},
+    {key:'done',title:'Done',emoji:'✅'}
+  ];
 
-    // Major grid
-    ctx.beginPath();
-    for (let x = 0; x <= W; x += 20) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
-    for (let y = 0; y <= H; y += 20) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
-    ctx.strokeStyle = 'rgba(255,255,255,0.065)'; ctx.lineWidth = 0.5; ctx.stroke();
+  let html=`<div class="screen">
+    <div class="screen-title">Task Board</div>
+    <div class="screen-subtitle">Kanban-style task management across all verticals</div>
+    <div class="stats-bar">
+      <div class="stat-card"><div class="stat-value">${TASK_BOARD.backlog.length}</div><div class="stat-label">Backlog</div></div>
+      <div class="stat-card"><div class="stat-value">${TASK_BOARD.inProgress.length}</div><div class="stat-label">In Progress</div></div>
+      <div class="stat-card"><div class="stat-value">${TASK_BOARD.review.length}</div><div class="stat-label">In Review</div></div>
+      <div class="stat-card"><div class="stat-value">${TASK_BOARD.done.length}</div><div class="stat-label">Done</div></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:16px;font-size:12px;color:var(--text2)">
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block"></span>🦞 Rob — ${[...TASK_BOARD.backlog,...TASK_BOARD.inProgress,...TASK_BOARD.review,...TASK_BOARD.done].filter(t=>!t.assignee||!t.assignee.includes('Hermes')).length} tasks</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:50%;background:#9C27B0;display:inline-block"></span>🏛️ Hermes — ${[...TASK_BOARD.backlog,...TASK_BOARD.inProgress,...TASK_BOARD.review,...TASK_BOARD.done].filter(t=>t.assignee&&t.assignee.includes('Hermes')).length} tasks</span>
+    </div>
+    <div class="kanban">`;
 
-    // Baseline
-    ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2);
-    ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 1; ctx.stroke();
+  cols.forEach(col=>{
+    const tasks=TASK_BOARD[col.key];
+    html+=`<div class="kanban-col">
+      <div class="kanban-col-header">
+        <span class="kanban-col-title">${col.emoji} ${col.title}</span>
+        <span class="kanban-count">${tasks.length}</span>
+      </div>`;
+    tasks.forEach(task=>{
+      const color=vcolor(task.vertical);
+      const isHermesTask=task.assignee&&task.assignee.includes('Hermes');
+      const cardBorderColor=isHermesTask?'#9C27B0':color;
+      const agentBadge=isHermesTask
+        ?`<span style="font-size:9px;padding:1px 6px;border-radius:8px;background:rgba(156,39,176,.15);color:#9C27B0;font-weight:700">🏛️ Hermes</span>`
+        :`<span style="font-size:9px;padding:1px 6px;border-radius:8px;background:rgba(255,107,53,.12);color:var(--accent);font-weight:700">🦞 Rob</span>`;
+      html+=`<div class="kanban-card" style="border-left-color:${cardBorderColor}" onclick="this.querySelector('.desc').style.display=this.querySelector('.desc').style.display==='block'?'none':'block'">
+        <div class="title">${task.title}</div>
+        <div class="desc" style="display:none">${task.desc}</div>
+        <div class="meta">
+          <span>${agentBadge}</span>
+          <span class="tag ${vc(task.vertical)}">${task.vertical}</span>
+        </div>
+        <div class="meta mt-8">
+          <span style="color:var(--text3)">${task.date}</span>
+          <span class="priority-${task.priority}" style="font-size:10px;font-weight:700;text-transform:uppercase">${task.priority}</span>
+        </div>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`</div></div>`;
+  return html;
+}
 
-    const lineColor = this.status === 'error' ? '#F85149' : this.color;
-    const len = this.points.length;
-    const t1  = Math.floor(len * 0.35);
-    const t2  = Math.floor(len * 0.68);
+function renderMemory(){
+  const filtered=memorySearchQuery?MEMORY_SECTIONS.filter(s=>{
+    const text=(s.title+' '+s.content+' '+s.tags.join(' ')).toLowerCase();
+    return text.includes(memorySearchQuery.toLowerCase());
+  }):MEMORY_SECTIONS;
 
-    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  let entries='';
+  filtered.forEach(s=>{
+    entries+=`<div class="memory-entry" onclick="this.classList.toggle('expanded')">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title"><span class="expand-icon">▶</span> ${s.title}</div>
+          <div class="entry-meta">
+            <span>📅 ${s.date}</span>
+            <span>📝 ${s.words} words</span>
+            <span>${s.tags.map(t=>'#'+t).join(' ')}</span>
+          </div>
+        </div>
+      </div>
+      <div class="entry-content">${s.content}</div>
+    </div>`;
+  });
 
-    ctx.globalAlpha = 0.12; ctx.strokeStyle = lineColor; ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.moveTo(0, this.points[0]);
-    for (let i = 1; i < t1; i++) ctx.lineTo(i, this.points[i]);
-    ctx.stroke();
+  const dailyLogs=[
+    {date:'2026-04-15',title:'Mission Control v2.0 + Hermes Agent live',words:1200,summary:'Upgraded dashboard shipped with Documents, Projects, Agent Health. Hermes agent setup complete. Morning Rundown published. April 30 portfolio execution ready.'},
+    {date:'2026-04-14',title:'April 30 Portfolio Pre-Execution Update + TLC Goals v7',words:1800,summary:'MOSE Convergence Apr 13 published. Portfolio pre-execution update complete (29 stocks, 3 buckets). TLC 2026 Goals v7 with Joe edits finalized.'},
+    {date:'2026-04-13',title:'MOSE Convergence Report',words:2100,summary:'Full MOSE Convergence Report published. Super-investor position tracking, margin of safety engine analysis, April 30 readiness check.'},
+    {date:'2026-03-25',title:'Day 1 — Mission Control v1.0 & Architecture',words:1500,summary:'Created MISSION.md. Built Mission Control v1.0 (6 screens). Designed data ingestion pipeline. ReBolt research begun.'},
+    {date:'2026-03-24',title:'Day 0 — Initial Brain Dump & Onboarding',words:2800,summary:'First day online. Processed all brain dump files from Joe. Built foundational memory. Analyzed TLC and Surfbox financials.'},
+  ];
 
-    ctx.globalAlpha = 0.42; ctx.lineWidth = 1.4;
-    ctx.beginPath(); ctx.moveTo(t1, this.points[t1]);
-    for (let i = t1 + 1; i < t2; i++) ctx.lineTo(i, this.points[i]);
-    ctx.stroke();
+  let logsHtml='';
+  dailyLogs.forEach(log=>{
+    logsHtml+=`<div class="memory-entry" onclick="this.classList.toggle('expanded')">
+      <div class="entry-header">
+        <div>
+          <div class="entry-title"><span class="expand-icon">▶</span> ${log.date} — ${log.title}</div>
+          <div class="entry-meta"><span>📝 ${log.words} words</span></div>
+        </div>
+      </div>
+      <div class="entry-content">${log.summary}</div>
+    </div>`;
+  });
 
-    ctx.globalAlpha = 0.95; ctx.lineWidth = 1.6;
-    ctx.shadowColor = lineColor; ctx.shadowBlur = this.status === 'active' ? 6 : 4;
-    ctx.beginPath(); ctx.moveTo(t2, this.points[t2]);
-    for (let i = t2 + 1; i < len; i++) ctx.lineTo(i, this.points[i]);
-    ctx.stroke(); ctx.shadowBlur = 0;
+  return `<div class="screen">
+    <div class="screen-title">Memory</div>
+    <div class="screen-subtitle">Rob Lobster's long-term memory and daily logs</div>
+    <div class="search-wrap">
+      <input class="search-input" placeholder="Search memories..." value="${memorySearchQuery}" oninput="memorySearchQuery=this.value;renderScreen()">
+    </div>
+    <div class="memory-grid">
+      <div>
+        <div class="memory-section">
+          <div class="card-title mb-12" style="font-size:15px;font-weight:700">🧠 Long-Term Memory (MEMORY.md)</div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:12px">${filtered.length} sections · ${filtered.reduce((a,s)=>a+s.words,0).toLocaleString()} total words</div>
+          ${entries}
+        </div>
+        <div class="memory-section mt-20">
+          <div class="card-title mb-12" style="font-size:15px;font-weight:700">📅 Daily Logs (memory/)</div>
+          ${logsHtml}
+        </div>
+      </div>
+      <div>
+        <div class="openbrain-box">
+          <h4>🌐 Open Brain Thoughts</h4>
+          <div class="search-wrap" style="margin-bottom:12px">
+            <input class="search-input" placeholder="Ask the Open Brain..." style="font-size:12px;padding:8px 12px 8px 36px" disabled>
+          </div>
+          <div style="font-size:11px;color:var(--text3);line-height:1.6;padding:12px;background:var(--bg2);border-radius:var(--radius)">
+            <div style="text-align:center;margin-bottom:8px;font-size:24px;opacity:.4">🧪</div>
+            <strong style="color:var(--text2)">Connected</strong><br>
+            mcporter Open Brain system available. Rob can surface connections, insights, and lateral thinking across all stored knowledge via <code>mcporter call open-brain.search_thoughts</code>.<br><br>
+            <span style="color:var(--accent)">Status:</span> Active (Supabase)
+          </div>
+        </div>
+        <div class="openbrain-box mt-16">
+          <h4>📊 Memory Stats</h4>
+          <div style="font-size:12px;color:var(--text2);line-height:2">
+            <div style="display:flex;justify-content:space-between"><span>Long-Term Sections</span><span class="mono" style="color:var(--accent)">${MEMORY_SECTIONS.length}</span></div>
+            <div style="display:flex;justify-content:space-between"><span>Total Words</span><span class="mono" style="color:var(--accent)">${MEMORY_SECTIONS.reduce((a,s)=>a+s.words,0).toLocaleString()}</span></div>
+            <div style="display:flex;justify-content:space-between"><span>Daily Logs</span><span class="mono" style="color:var(--accent)">${dailyLogs.length}</span></div>
+            <div style="display:flex;justify-content:space-between"><span>Unique Tags</span><span class="mono" style="color:var(--accent)">${[...new Set(MEMORY_SECTIONS.flatMap(s=>s.tags))].length}</span></div>
+            <div style="display:flex;justify-content:space-between"><span>Last Updated</span><span class="mono" style="color:var(--accent)">2026-04-15</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
 
-    if (this.status === 'error') {
-      ctx.globalAlpha = 0.08; ctx.fillStyle = '#F85149';
-      ctx.fillRect(0, H/2 - 4, W, 8);
+function renderTeam(){
+  const subAgents=[
+    {section:'Operations & Data',items:[
+      {emoji:'📊',name:'Data Analyst',role:'Operations & Data',desc:'Processes Epicor exports, financial statements, builds dashboards',status:'active',verticals:['TLC','Surfbox','Investing']},
+      {emoji:'🔧',name:'Code Builder',role:'Operations & Data',desc:'Builds interactive dashboards, apps, and tools (Codex/Claude Code)',status:'active',verticals:['Infrastructure','All']},
+    ]},
+    {section:'Business Intelligence',items:[
+      {emoji:'📈',name:'Market Analyst',role:'Business Intelligence',desc:'Tracks 13F filings, stock movements, MOSE convergence reports',status:'active',verticals:['Investing']},
+      {emoji:'🔍',name:'Research Agent',role:'Business Intelligence',desc:'Web research, competitive analysis, industry monitoring',status:'active',verticals:['All']},
+    ]},
+    {section:'Communications',items:[
+      {emoji:'✍️',name:'Content Writer',role:'Communications',desc:'Shareholder letters, business documents, social media content',status:'active',verticals:['TLC','Surfbox','Real Estate']},
+      {emoji:'📧',name:'Inbox Monitor (Red)',role:'Communications',desc:'Email pipeline for Joe\'s personal inbox — exclusive to Red',status:'paused',verticals:['Infrastructure']},
+    ]},
+    {section:'Monitoring',items:[
+      {emoji:'🔔',name:'Alert Agent',role:'Monitoring',desc:'Watches for margin erosion, customer churn, price alerts',status:'active',verticals:['TLC','Investing']},
+      {emoji:'⏰',name:'Scheduler',role:'Monitoring',desc:'Manages cron jobs, heartbeats, proactive checks',status:'active',verticals:['Infrastructure','All']},
+    ]},
+  ];
+
+  let agentCards='';
+  subAgents.forEach(section=>{
+    agentCards+=`<div style="width:100%"><div class="team-section-title">${section.section}</div><div class="team-level">`;
+    section.items.forEach(a=>{
+      agentCards+=`<div class="team-card ${a.status==='paused'?'inactive':''}">
+        <span class="status-badge status-${a.status==='paused'?'paused':a.status}">${a.status==='active'?'● Active':a.status==='paused'?'◌ Paused':'◐ Pending'}</span>
+        <div class="emoji">${a.emoji}</div>
+        <div class="name">${a.name}</div>
+        <div class="role">${a.role}</div>
+        <div class="desc">${a.desc}</div>
+        <div class="verticals">${a.verticals.map(v=>`<span class="tag ${vc(v)}" style="font-size:8px">${v}</span>`).join('')}</div>
+      </div>`;
+    });
+    agentCards+=`</div></div>`;
+  });
+
+  return `<div class="screen">
+    <div class="screen-title">Team Structure</div>
+    <div class="screen-subtitle">Joe Lynch's autonomous intelligence network — agents, roles, and status</div>
+    <div class="team-tree">
+      <!-- Level 1: The Boss -->
+      <div class="team-level">
+        <div class="team-card boss">
+          <div class="emoji">👤</div>
+          <div class="name">Joe Lynch</div>
+          <div class="role">The Boss</div>
+          <div class="desc">Owner, Tuckerton Group / Managing Member<br>Serial entrepreneur · Value investor · Builder</div>
+          <div class="verticals">
+            ${Object.keys(VERTICALS).map(v=>`<span class="tag ${vc(v)}" style="font-size:8px">${v}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <!-- Level 2: Primary Agents -->
+      <div class="team-section-title" style="margin-bottom:4px">Primary Agents</div>
+      <div class="team-level">
+        <div class="team-card chief">
+          <span class="status-badge status-active">● Active</span>
+          <div class="emoji">🦞</div>
+          <div class="name">Rob Lobster</div>
+          <div class="role">Chief of Staff / Main Agent</div>
+          <div class="desc">OpenClaw harness · Mac Mini M4 Pro<br>Always on · @RobLobster_bot</div>
+          <div class="meta-row">
+            <span><em>Model:</em><em>claude-sonnet-4-6</em></span>
+            <span><em>Harness:</em><em>OpenClaw</em></span>
+            <span><em>Crons:</em><em>12 active</em></span>
+            <span><em>Uptime:</em><em>22d 14h</em></span>
+          </div>
+          <div class="verticals">
+            ${Object.keys(VERTICALS).map(v=>`<span class="tag ${vc(v)}" style="font-size:8px">${v}</span>`).join('')}
+          </div>
+        </div>
+        <div class="team-card hermes">
+          <span class="status-badge status-active" style="background:rgba(156,39,176,.15);color:#9C27B0">● Active</span>
+          <div class="emoji">🏛️</div>
+          <div class="name">Hermes</div>
+          <div class="role" style="color:#9C27B0">Assistant / Monitor / Backup</div>
+          <div class="desc">Nous Research harness<br>Lightweight & fast · @HermesJFL_bot</div>
+          <div class="meta-row">
+            <span><em>Model:</em><em>gpt-5.4-mini</em></span>
+            <span><em>Harness:</em><em>Hermes Agent</em></span>
+            <span><em>Crons:</em><em>4 active</em></span>
+            <span><em>Last Seen:</em><em>2m ago</em></span>
+          </div>
+          <div class="verticals">
+            <span class="tag tag-all" style="font-size:8px">All</span>
+            <span class="tag tag-infra" style="font-size:8px">Infrastructure</span>
+          </div>
+        </div>
+        <div class="team-card inactive">
+          <span class="status-badge status-paused">◌ Paused</span>
+          <div class="emoji">🔴</div>
+          <div class="name">Red</div>
+          <div class="role" style="color:var(--text3)">Vault Agent</div>
+          <div class="desc">OpenClaw harness (vault)<br>Joe's personal email — exclusive access</div>
+          <div class="meta-row">
+            <span><em>Model:</em><em>claude-sonnet-4</em></span>
+            <span><em>Harness:</em><em>OpenClaw</em></span>
+            <span><em>Scope:</em><em>josephfl12@gmail</em></span>
+            <span><em>Last Seen:</em><em>3d ago</em></span>
+          </div>
+          <div class="verticals">
+            <span class="tag tag-personal" style="font-size:8px">Personal</span>
+            <span class="tag tag-infra" style="font-size:8px">Comms</span>
+          </div>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <!-- Level 3: Sub-agent capabilities -->
+      ${agentCards}
+    </div>
+  </div>`;
+}
+
+function renderDocuments(){
+  const cats=['All','Reports','Investing','ReBolt','TLC','World Cup Pool','Lobster Press','Other'];
+  const extIcon={md:'md',docx:'docx',html:'html',pdf:'pdf'};
+  const extClass={md:'ext-md',docx:'ext-docx',html:'ext-html',pdf:'ext-pdf'};
+
+  let filtered=DOCUMENTS_DATA.filter(d=>{
+    const catOk=docCatFilter==='All'||d.cat===docCatFilter;
+    const q=docSearch.toLowerCase();
+    const nameOk=!q||(d.name+' '+d.path+' '+d.cat).toLowerCase().includes(q);
+    return catOk&&nameOk;
+  });
+
+  const catCounts={};
+  DOCUMENTS_DATA.forEach(d=>{catCounts[d.cat]=(catCounts[d.cat]||0)+1});
+
+  const rows=filtered.map(d=>{
+    const ext=d.ext;
+    const ecls=extClass[ext]||'ext-other';
+    const icon=ext==='md'?'📝':ext==='docx'?'📄':ext==='html'?'🌐':ext==='pdf'?'📋':'📁';
+    return `<tr class="doc-row">
+      <td><div class="doc-name"><span class="${ecls} ext">${ext}</span>${icon} ${d.name}</div><div style="font-size:10px;color:var(--text3);margin-top:2px;padding-left:50px">${d.path}</div></td>
+      <td><span class="tag tag-${d.cat==='TLC'?'tlc':d.cat==='Investing'?'investing':d.cat==='ReBolt'?'rebolt':d.cat==='World Cup Pool'?'pool':d.cat==='Lobster Press'?'lobsterpress':d.cat==='Reports'?'all':'personal'}">${d.cat}</span></td>
+      <td class="doc-date">${d.date}</td>
+      <td class="doc-size">${d.size}</td>
+    </tr>`;
+  }).join('');
+
+  return `<div class="screen">
+    <div class="screen-title">Documents</div>
+    <div class="screen-subtitle">All reports and documents created by Rob — ${DOCUMENTS_DATA.length} files across all verticals</div>
+    <div class="doc-stats-bar" style="grid-template-columns:repeat(${Math.min(cats.length-1,5)},1fr);gap:10px;margin-bottom:20px">
+      ${cats.filter(c=>c!=='All').map(c=>`<div class="stat-card" style="padding:10px">
+        <div class="stat-value" style="font-size:20px">${catCounts[c]||0}</div>
+        <div class="stat-label">${c}</div>
+      </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:12px;margin-bottom:12px;align-items:center">
+      <div class="search-wrap" style="flex:1;margin-bottom:0">
+        <input class="search-input" placeholder="Search documents..." value="${docSearch}" oninput="docSearch=this.value;renderScreen()">
+      </div>
+    </div>
+    <div class="filter-bar">
+      ${cats.map(c=>`<div class="filter-pill ${docCatFilter===c?'active':''}" onclick="docCatFilter='${c}';renderScreen()">${c}${c==='All'?` (${DOCUMENTS_DATA.length})`:catCounts[c]?` (${catCounts[c]})`:''}${c!=='All'&&!catCounts[c]?' (0)':''}</div>`).join('')}
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="doc-table">
+        <thead><tr>
+          <th>Document</th>
+          <th>Category</th>
+          <th>Date Modified</th>
+          <th style="text-align:right">Size</th>
+        </tr></thead>
+        <tbody>
+          ${rows||`<tr><td colspan="4" style="padding:24px;text-align:center;color:var(--text3)">No documents found</td></tr>`}
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--text3)">
+      Showing ${filtered.length} of ${DOCUMENTS_DATA.length} documents · 
+      <span style="color:var(--accent)">Tip:</span> Run <code style="background:var(--bg4);padding:1px 5px;border-radius:3px">python3 refresh-mission-control.py</code> to update with latest files
+    </div>
+  </div>`;
+}
+
+function renderProjects(){
+  return `<div class="screen">
+    <div class="screen-title">Projects</div>
+    <div class="screen-subtitle">Joe's 8 business lanes — status, progress, and next actions</div>
+    <div class="stats-bar">
+      <div class="stat-card"><div class="stat-value">${PROJECTS_DATA.filter(p=>p.status==='Active').length}</div><div class="stat-label">Active</div></div>
+      <div class="stat-card"><div class="stat-value">${PROJECTS_DATA.filter(p=>p.status==='Building').length}</div><div class="stat-label">Building</div></div>
+      <div class="stat-card"><div class="stat-value">${PROJECTS_DATA.filter(p=>p.status==='Growing').length}</div><div class="stat-label">Growing</div></div>
+      <div class="stat-card"><div class="stat-value">${PROJECTS_DATA.filter(p=>p.status==='Research'||p.status==='Monitoring'||p.status==='Planning').length}</div><div class="stat-label">Research/Monitor</div></div>
+    </div>
+    <div class="projects-grid">
+      ${PROJECTS_DATA.map(p=>{
+        const progressColor=p.progress>=75?'#66BB6A':p.progress>=50?'#42A5F5':p.progress>=25?'#FFC107':'#FF9800';
+        return `<div class="project-card" style="border-left:4px solid ${p.color}20;border-color:${p.color}30">
+          <div class="project-header">
+            <div class="project-name" style="color:${p.color}">${p.emoji} ${p.name}</div>
+            <span class="project-status-badge ${p.statusClass}">${p.status}</span>
+          </div>
+          <div class="project-desc">${p.desc}</div>
+          <div class="project-stats">
+            ${p.stats.map(s=>`<div class="proj-stat">
+              <div class="proj-stat-val" style="color:${p.color}">${s.val}</div>
+              <div class="proj-stat-lbl">${s.lbl}</div>
+            </div>`).join('')}
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-label">
+              <span>${p.progressLabel}</span>
+              <span style="color:${progressColor};font-weight:700">${p.progress}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:${p.progress}%;background:${progressColor}"></div>
+            </div>
+          </div>
+          <div class="project-recent">
+            <h5>Recent Activity</h5>
+            ${p.recent.map(r=>`<div class="recent-item">${r}</div>`).join('')}
+          </div>
+          <div class="project-next">
+            <h5>Next Actions</h5>
+            ${p.next.map(n=>`<div class="next-item">${n}</div>`).join('')}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+// ========== NAVIGATION ==========
+const SCREENS={
+  activity:renderActivity,
+  calendar:renderCalendar,
+  projects:renderProjects,
+  documents:renderDocuments,
+  search:renderSearch,
+  taskboard:renderTaskBoard,
+  memory:renderMemory,
+  team:renderTeam,
+  costs:renderCosts
+};
+
+function renderScreen(){
+  const content=$('#content');
+  content.innerHTML=SCREENS[currentScreen]();
+}
+
+function switchScreen(screen){
+  currentScreen=screen;
+  $$('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.screen===screen));
+  renderScreen();
+}
+
+async function fetchMissionData(){
+  try{
+    const resp=await fetch('mission-control-data.json?t='+Date.now());
+    if(resp.ok){
+      liveData=await resp.json();
+      // If viewing activity screen, re-render to show live gateway status
+      if(currentScreen==='activity')renderScreen();
     }
-    ctx.globalAlpha = 1;
-
-    ctx.shadowColor = lineColor; ctx.shadowBlur = 14;
-    ctx.fillStyle = lineColor;
-    ctx.beginPath(); ctx.arc(len - 1, this.points[len - 1], 2.8, 0, Math.PI * 2);
-    ctx.fill(); ctx.shadowBlur = 0;
-  }
+  }catch(e){/* fall back to static data */}
 }
 
-// ─── EKG Animation loop ────────────────────────────────────────────
-let _ekgMonitors = {};
-let _rafId       = null;
+// ── AI Cost Screen ──────────────────────────────────────────────
+// Cost data loaded from pre-fetched JSON (key stays server-side)
+let costData = null;
+let costLoading = false;
 
-function _ekgLoop() {
-  for (const m of Object.values(_ekgMonitors)) { m.resize(); m.update(); m.draw(); }
-  _rafId = requestAnimationFrame(_ekgLoop);
+const MODEL_COLORS = {
+  'anthropic/claude-sonnet-4.6': '#e8562a',
+  'anthropic/claude-opus-4.6': '#c94520',
+  'moonshotai/kimi-k2-thinking': '#7c3aed',
+  'google/gemini-3-flash-preview': '#2563eb',
+  'google/gemma-4-31b-it': '#1d4ed8',
+};
+const MODEL_LABELS = {
+  'anthropic/claude-sonnet-4.6': 'Claude Sonnet 4.6',
+  'anthropic/claude-opus-4.6': 'Claude Opus 4.6',
+  'moonshotai/kimi-k2-thinking': 'Kimi K2 Thinking',
+  'google/gemini-3-flash-preview': 'Gemini Flash',
+  'google/gemma-4-31b-it': 'Gemma 4 31B',
+};
+
+async function fetchCostData() {
+  costData = { key: {"label": "sk-or-v1-e99...dcc", "is_management_key": false, "is_provisioning_key": false, "limit": null, "limit_reset": null, "limit_remaining": null, "include_byok_in_limit": false, "usage": 169.8257563, "usage_daily": 29.4429179, "usage_weekly": 29.4429179, "usage_monthly": 169.8257563, "byok_usage": 0, "byok_usage_daily": 0, "byok_usage_weekly": 0, "byok_usage_monthly": 0, "is_free_tier": false, "expires_at": null, "creator_user_id": "user_3Cl5BcSNEfr1V41P80AtsbW89WR", "rate_limit": {"requests": -1, "interval": "10s", "note": "This field is deprecated and safe to ignore."}}, activity: [], updated: "2026-04-27T10:02:00Z" };
+  costLoading = false;
+  if (currentScreen === 'costs') renderScreen();
+}
+if (costData?.error) return `<div class="screen"><div class="screen-title">💰 AI Costs</div><div style="color:#f87171;margin-top:20px">Error: ${costData.error}</div></div>`;
+
+  const s = costData.key || {};
+  const daily   = parseFloat(s.usage_daily   || 0);
+  const weekly  = parseFloat(s.usage_weekly  || 0);
+  const monthly = parseFloat(s.usage_monthly || 0);
+  const updated = costData.updated ? new Date(costData.updated).toLocaleTimeString() : '—';
+
+  // Projected monthly based on daily rate
+  const daysInMonth = 30;
+  const projected = daily * daysInMonth;
+
+  // Model: Sonnet 4.6 = $3/$15 per M tokens
+  // Estimate: at current daily spend, approx token breakdown
+  const estInputM  = (daily / 3).toFixed(1);
+  const estOutputM = (daily / 15).toFixed(1);
+
+  const card = (label, value, sub, color='var(--text)') =>
+    \`<div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:10px;padding:18px 16px">
+      <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">\${label}</div>
+      <div style="font-size:28px;font-weight:700;color:\${color}">\${value}</div>
+      \${sub ? \`<div style="font-size:11px;color:var(--text2);margin-top:4px">\${sub}</div>\` : ''}
+    </div>\`;
+
+  return \`<div class="screen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="screen-title">💰 AI Costs</div>
+      <button onclick="costData=null;fetchCostData()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">↻ Refresh</button>
+    </div>
+    <div class="screen-subtitle">Live data from OpenRouter · Updated: \${updated}</div>
+
+    <!-- Summary Cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">
+      \${card('Today', '$' + daily.toFixed(2), 'Est. ~$' + (daily * 7).toFixed(0) + ' this week at this rate', daily > 30 ? '#f87171' : daily > 15 ? '#fbbf24' : '#4ade80')}
+      \${card('This Week', '$' + weekly.toFixed(2), weekly > 0 ? 'Avg $' + (weekly/7).toFixed(2) + '/day' : 'Rolling 7 days')}
+      \${card('This Month', '$' + monthly.toFixed(2), 'Projected: $' + projected.toFixed(0) + '/mo at today\'s rate', monthly > 500 ? '#f87171' : monthly > 200 ? '#fbbf24' : '#4ade80')}
+    </div>
+
+    <!-- Model & Strategy -->
+    <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:10px;padding:18px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:12px">🧠 Current Model Strategy</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px">
+        <div style="background:var(--bg2);border-radius:6px;padding:10px">
+          <div style="color:var(--text2);font-size:10px;text-transform:uppercase;margin-bottom:4px">Main Brain</div>
+          <div style="font-weight:600;color:var(--accent)">Claude Sonnet 4.6</div>
+          <div style="color:var(--text2)">$3 input / $15 output per M tokens</div>
+          <div style="color:var(--text2)">Est. ~\${estInputM}M input / ~\${estOutputM}M output today</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:6px;padding:10px">
+          <div style="color:var(--text2);font-size:10px;text-transform:uppercase;margin-bottom:4px">Cron Jobs (25 active)</div>
+          <div style="font-weight:600;color:#4ade80">🆓 Free Models Only</div>
+          <div style="color:var(--text2)">gemma-4-31b-it:free</div>
+          <div style="color:var(--text2)">qwen3-coder:free</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:6px;padding:10px">
+          <div style="color:var(--text2);font-size:10px;text-transform:uppercase;margin-bottom:4px">Coding Agent</div>
+          <div style="font-weight:600;color:#a78bfa">Codex CLI (GPT-5.5)</div>
+          <div style="color:var(--text2)">ChatGPT Plus — $20/mo flat</div>
+          <div style="color:var(--text2);font-size:10px;color:#fbbf24">⚠️ Setup pending (tonight)</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:6px;padding:10px">
+          <div style="color:var(--text2);font-size:10px;text-transform:uppercase;margin-bottom:4px">Fallback</div>
+          <div style="font-weight:600">GPT-5.4-mini</div>
+          <div style="color:var(--text2)">$0.40 input / $1.60 output per M</div>
+          <div style="color:var(--text2)">Auto-failover only</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rule reminder -->
+    <div style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text2)">
+      🚨 <strong style="color:#f87171">Cost Rule:</strong> Cron jobs &amp; sub-agents must NEVER use Claude models. Any job on Claude = immediate fix. Conversations only.
+    </div>
+  </div>\`;
 }
 
-function startEKGLoop() {
-  if (_rafId) cancelAnimationFrame(_rafId);
-  _rafId = requestAnimationFrame(_ekgLoop);
-}
+  const maxDay = Math.max(...last7.map(d=>d.cost), 0.01);
 
-function stopEKGLoop() {
-  if (_rafId) { cancelAnimationFrame(_rafId); _rafId = null; }
-  _ekgMonitors = {};
-}
+  const dayChange = yesterdaySpend > 0 ? ((todaySpend - yesterdaySpend) / yesterdaySpend * 100).toFixed(0) : null;
+  const changeHtml = dayChange !== null ? `<span style="font-size:12px;color:${dayChange>0?'#f87171':'#4ade80'}">${dayChange>0?'▲':'▼'}${Math.abs(dayChange)}% vs yesterday</span>` : '';
 
-// ─── Sub-agent duration formatter ──────────────────────────────────
-function fmtDuration(secs) {
-  if (!secs) return '—';
-  if (secs <    60) return `${secs}s`;
-  const m = Math.floor(secs / 60);
-  if (m   <    60) return `${m}m ${secs % 60}s`;
-  const h = Math.floor(m / 60);
-  return `${h}h ${m % 60}m`;
-}
+  return `<div class="screen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="screen-title">💰 AI Costs</div>
+      <button onclick="costData=null;fetchCostData()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">↻ Refresh</button>
+    </div>
+    <div class="screen-subtitle">Live data · OpenRouter + Anthropic · Updated: ${costData.updated ? new Date(costData.updated).toLocaleTimeString() : 'cached'}</div>
 
-// ─── Toggle sub-agent dropdown ─────────────────────────────────────
-function toggleSubagents(agentId) {
-  const drop  = document.getElementById(`sa-drop-${agentId}`);
-  const arrow = document.getElementById(`sa-arrow-${agentId}`);
-  if (!drop) return;
-  const open = drop.classList.toggle('open');
-  if (arrow) arrow.classList.toggle('open', open);
-}
+    <!-- 🚨 Grand Total Alert -->
+    <div style="background:rgba(248,113,113,0.1);border:1px solid #f87171;border-radius:8px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:12px;color:#f87171;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">⚠️ Total AI Spend — Apr 14–25 (12 days)</div>
+        <div style="font-size:11px;color:var(--text2)">Anthropic direct: <strong style="color:#f87171">$${antMonthly.toFixed(2)}</strong> &nbsp;+&nbsp; OpenRouter: <strong style="color:var(--accent)">$${orMonthly.toFixed(2)}</strong> &nbsp;=&nbsp; <strong style="color:#f87171;font-size:14px">$${monthlySpend.toFixed(2)} total</strong></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">Auto-reload DISABLED ✅ · Anthropic balance: $${(anthropicData.remaining_balance||0).toFixed(2)} remaining · Will switch to OpenRouter-only when depleted</div>
+      </div>
+      <div style="font-size:32px;font-weight:700;color:#f87171">$${monthlySpend.toFixed(0)}</div>
+    </div>
 
-// ══════════════════════════════════════════════════════════════════
-// ─── RENDER: Agents ───────────────────────────────────────────────
-// ══════════════════════════════════════════════════════════════════
+    <!-- Summary Cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px">
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Today (combined)</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text)">$${todaySpend.toFixed(2)}</div>
+        <div style="margin-top:4px;font-size:12px">${changeHtml}</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Yesterday</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text)">$${yesterdaySpend.toFixed(2)}</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">OpenRouter Balance</div>
+        <div style="font-size:28px;font-weight:700;color:${orRemaining < 5 ? '#f87171' : 'var(--accent)'}">$${orRemaining.toFixed(2)}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">of $${credits} credits</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">OpenRouter Monthly</div>
+        <div style="font-size:28px;font-weight:700;color:var(--accent)">$${orMonthly.toFixed(2)}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">vs $${antMonthly.toFixed(0)} Anthropic direct</div>
+      </div>
+    </div>
 
-function renderAgents(agents) {
-  const el = document.getElementById('agents-row');
-  document.getElementById('agent-count').textContent = agents.length;
-  stopEKGLoop();
+    <!-- OpenRouter Budget Bar -->
+    <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px;margin-bottom:24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:13px;font-weight:600">OpenRouter Credits</span>
+        <span style="font-size:13px;color:var(--text2)">${pct}% used · $${orMonthly.toFixed(2)} of $${credits}</span>
+      </div>
+      <div style="background:var(--bg4);border-radius:4px;height:10px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:${pct>80?'#f87171':pct>60?'#fbbf24':'var(--accent)'};border-radius:4px;transition:.3s"></div>
+      </div>
+    </div>
 
-  el.innerHTML = agents.map(a => {
-    const color = getAgentColor(a.id);
-    const sc    = a.status;
+    <!-- Two columns: bar chart + model breakdown -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
 
-    // Status badge
-    let badge;
-    if      (sc === 'active')                  badge = `<span class="status-badge active"><span class="pulse-dot"></span>Active</span>`;
-    else if (sc === 'online')                  badge = `<span class="status-badge online">🔵 Online</span>`;
-    else if (sc === 'offline')                 badge = `<span class="status-badge offline">🔴 Offline</span>`;
-    else if (sc === 'idle')                    badge = `<span class="status-badge idle">⚪ Idle</span>`;
-    else if (sc === 'queued')                  badge = `<span class="status-badge queued">🟡 Queued</span>`;
-    else if (sc === 'error' || sc === 'failed') badge = `<span class="status-badge failed">🔴 Error</span>`;
-    else                                       badge = `<span class="status-badge idle">⚪ ${esc(sc)}</span>`;
+      <!-- 7-day bar chart -->
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:16px">📈 Last 7 Days</div>
+        <div style="display:flex;align-items:flex-end;gap:6px;height:120px">
+          ${last7.map(d => {
+            const h = Math.max(4, (d.cost / maxDay * 100));
+            const isToday = d.date === today;
+            return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="font-size:9px;color:var(--text3)">$${d.cost.toFixed(2)}</div>
+              <div style="width:100%;height:${h}px;background:${isToday?'var(--accent)':'var(--bg4)'};border-radius:3px 3px 0 0;transition:.3s"></div>
+              <div style="font-size:10px;color:${isToday?'var(--accent)':'var(--text3)'}">${d.label}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
 
-    const taskText  = a.currentTask || 'No active task';
-    const taskClass = a.currentTask ? '' : 'empty';
-    const elapsed   = a.elapsedMinutes
-      ? `<div class="agent-meta-item">⏱ <strong>${a.elapsedMinutes}m</strong> elapsed</div>`
-      : '';
-
-    // Sub-agent dropdown
-    const subagents  = a.subagents || [];
-    const saCount    = subagents.length;
-    const running    = subagents.filter(s => s.status === 'running').length;
-    const countLabel = running > 0 ? `${running} running` : saCount > 0 ? `${saCount} recent` : '0';
-
-    let saRows;
-    if (saCount === 0) {
-      saRows = `<div class="sa-empty">No active tasks</div>`;
-    } else {
-      saRows = subagents.map(sa => {
-        const isRunning = sa.status === 'running';
-        const dotCls    = isRunning ? 'sa-dot sa-pulse' : 'sa-dot';
-        const rowCls    = isRunning ? 'sa-row' : 'sa-row sa-done';
-        const statusLbl = isRunning
-          ? `<span class="sa-status-running">● running</span>`
-          : `<span class="sa-status-completed">✓ done</span>`;
-        return `
-          <div class="${rowCls}">
-            <span class="${dotCls}" style="background:${color}"></span>
-            <div class="sa-body">
-              <span class="sa-task">${esc(sa.task)}</span>
-              <span class="sa-meta">${esc(sa.model.split('/').pop())} · ${fmtDuration(sa.durationSeconds)} · ${statusLbl}</span>
+      <!-- Model breakdown -->
+      <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:16px">🤖 By Model</div>
+        ${sortedModels.map(([m, v]) => {
+          const label = MODEL_LABELS[m] || m.split('/').pop();
+          const color = MODEL_COLORS[m] || '#6b7280';
+          const pctOfMonth = monthlySpend > 0 ? (v.cost/monthlySpend*100).toFixed(0) : 0;
+          return `<div style="margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+              <span style="font-size:12px;color:var(--text)">${label}</span>
+              <span style="font-size:12px;font-weight:600;color:var(--text)">$${v.cost.toFixed(3)}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="flex:1;background:var(--bg4);border-radius:3px;height:6px">
+                <div style="width:${pctOfMonth}%;height:100%;background:${color};border-radius:3px"></div>
+              </div>
+              <span style="font-size:10px;color:var(--text3);white-space:nowrap">${v.requests} reqs · ${(v.tokens/1000).toFixed(0)}K tok</span>
             </div>
           </div>`;
-      }).join('');
-    }
-
-    return `
-      <div class="agent-card ${sc}" style="border-top-color:${color};">
-        <div class="agent-header">
-          <span class="agent-name">${esc(a.name)}</span>
-          ${badge}
-        </div>
-        <div class="ekg-canvas-wrap">
-          <canvas class="ekg-canvas" id="ekg-${esc(a.id)}"></canvas>
-        </div>
-        <div class="agent-task ${taskClass}" title="${esc(taskText)}">${esc(taskText)}</div>
-        <div class="agent-meta">
-          <div class="agent-meta-item">🤖 <strong>${esc(a.model)}</strong></div>
-          ${elapsed}
-        </div>
-        <div class="sa-toggle" onclick="toggleSubagents('${esc(a.id)}')">
-          <span class="sa-toggle-label">Sub-agents</span>
-          <span class="sa-toggle-count">${esc(countLabel)}</span>
-          <span class="sa-toggle-arrow" id="sa-arrow-${esc(a.id)}">▼</span>
-        </div>
-        <div class="sa-dropdown" id="sa-drop-${esc(a.id)}">
-          <div class="sa-list">${saRows}</div>
-        </div>
-      </div>`;
-  }).join('');
-
-  // Init EKG after DOM is ready
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    agents.forEach(a => {
-      const canvas = document.getElementById(`ekg-${a.id}`);
-      if (!canvas) return;
-      let mode = a.status;
-      if (mode === 'failed' || mode === 'error') mode = 'error';
-      else if (mode !== 'active')                mode = 'idle';
-      _ekgMonitors[a.id] = new EKGMonitor(canvas, getAgentColor(a.id), mode);
-    });
-    startEKGLoop();
-  }));
-}
-
-// ══════════════════════════════════════════════════════════════════
-// ─── RENDER: Jobs (grouped tables) ───────────────────────────────
-// ══════════════════════════════════════════════════════════════════
-
-function renderJobs(jobs) {
-  document.getElementById('jobs-count').textContent = jobs.length;
-
-  const groups = { frequent: [], daily: [], weekly: [], oneshot: [] };
-  jobs.forEach(j => groups[freqGroup(j)].push(j));
-
-  // Sort each group: failing first, then alphabetical
-  const sortGroup = arr => arr.sort((a, b) => {
-    const ae = a.consecutiveErrors || 0, be = b.consecutiveErrors || 0;
-    if (ae !== be) return be - ae;
-    return (a.name || '').localeCompare(b.name || '');
-  });
-
-  for (const k of Object.keys(groups)) sortGroup(groups[k]);
-
-  const html =
-    buildGroupBlock('⚡', 'FREQUENT  —  every 30 min – 3 h',  groups.frequent) +
-    buildGroupBlock('📅', 'DAILY  —  once per day',            groups.daily)    +
-    buildGroupBlock('📆', 'WEEKLY  —  once per week',          groups.weekly)   +
-    buildGroupBlock('🎯', 'ONE-SHOT  —  runs once then done',  groups.oneshot);
-
-  document.getElementById('job-groups').innerHTML = html;
-}
-
-// ══════════════════════════════════════════════════════════════════
-// ─── RENDER: Pie Chart ───────────────────────────────────────────
-// ══════════════════════════════════════════════════════════════════
-
-function renderPieChart(modelUsage) {
-  const canvas  = document.getElementById('pie-canvas');
-  const ctx     = canvas.getContext('2d');
-  const entries = Object.entries(modelUsage.last7days || {});
-  const total   = entries.reduce((s, [, v]) => s + (v.cost || 0), 0);
-
-  const W = canvas.width, H = canvas.height;
-  const cx = W / 2, cy = H / 2;
-  const outerR = Math.min(cx, cy) - 8;
-  const innerR = outerR * 0.52;
-
-  ctx.clearRect(0, 0, W, H);
-
-  if (total === 0) {
-    ctx.fillStyle = '#30363D';
-    ctx.beginPath(); ctx.arc(cx, cy, outerR, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
-    ctx.fillStyle = '#161B22'; ctx.fill();
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#8B949E'; ctx.font = '11px system-ui';
-    ctx.fillText('No data yet', cx, cy);
-    document.getElementById('model-legend').innerHTML = '';
-    document.getElementById('savings-num').textContent  = '$0.00/mo';
-    document.getElementById('savings-desc').textContent = 'No spend in last 7 days';
-    document.getElementById('cost-7d').textContent      = '$0.00';
-    document.getElementById('cost-monthly').textContent = '$0.00';
-    return;
-  }
-
-  let angle     = -Math.PI / 2;
-  const colorMap = {};
-
-  entries.forEach(([model, usage], i) => {
-    const slice = ((usage.cost || 0) / total) * Math.PI * 2;
-    const color = MODEL_COLORS[model] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
-    colorMap[model] = color;
-
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, outerR, angle, angle + slice);
-    ctx.closePath();
-    ctx.fillStyle   = color;
-    ctx.fill();
-    ctx.strokeStyle = '#161B22';
-    ctx.lineWidth   = 2;
-    ctx.stroke();
-    angle += slice;
-  });
-
-  // Donut hole
-  ctx.beginPath(); ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
-  ctx.fillStyle = '#161B22'; ctx.fill();
-
-  // Center label
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#E6EDF3'; ctx.font = 'bold 17px system-ui';
-  ctx.fillText(`$${total.toFixed(2)}`, cx, cy - 9);
-  ctx.font = '10px system-ui'; ctx.fillStyle = '#8B949E';
-  ctx.fillText('7-day spend', cx, cy + 9);
-
-  // Legend
-  document.getElementById('model-legend').innerHTML = entries.map(([model, usage], i) => {
-    const color = colorMap[model] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
-    const pct   = total > 0 ? ((usage.cost / total) * 100).toFixed(0) : '0';
-    const name  = model.split('/').pop().replace(':free', '');
-    return `
-      <div class="legend-row">
-        <span class="legend-swatch" style="background:${color}"></span>
-        <span class="legend-model" title="${esc(model)}">${esc(name)}</span>
-        <span class="legend-pct">${pct}%</span>
-        <span class="legend-cost">$${(usage.cost || 0).toFixed(2)}</span>
-      </div>`;
-  }).join('');
-
-  const savings = modelUsage.potentialSavings || {};
-  document.getElementById('savings-num').textContent  = `$${(savings.ifFreeModelsUsed || 0).toFixed(2)}/mo`;
-  document.getElementById('savings-desc').textContent = savings.description || '—';
-  document.getElementById('cost-7d').textContent      = `$${(modelUsage.totalCost7days || 0).toFixed(2)}`;
-  document.getElementById('cost-monthly').textContent = `$${(modelUsage.projectedMonthlyCost || 0).toFixed(2)}`;
-}
-
-// ══════════════════════════════════════════════════════════════════
-// ─── RENDER: Alerts ──────────────────────────────────────────────
-// ══════════════════════════════════════════════════════════════════
-
-function renderAlerts(alerts) {
-  const dismissed = JSON.parse(localStorage.getItem('dismissedAlerts') || '[]');
-  const el        = document.getElementById('alert-list');
-  const sorted    = [...alerts].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-  const active    = sorted.filter(a => !dismissed.includes(a.id));
-
-  document.getElementById('alert-count').textContent = active.length;
-
-  if (sorted.length === 0) {
-    el.innerHTML = `<div class="no-alerts">No alerts ✓</div>`;
-    return;
-  }
-
-  el.innerHTML = sorted.map(alert => {
-    const isDismissed = dismissed.includes(alert.id);
-    return `
-      <div class="alert-item ${isDismissed ? 'dismissed' : ''}" id="alrt-${esc(alert.id)}">
-        <span class="alert-sev ${esc(alert.severity)}">${esc(alert.severity)}</span>
-        <div class="alert-body">
-          <div class="alert-job">${esc(alert.job)}</div>
-          <div class="alert-msg">${esc(alert.message)}</div>
-          <div class="alert-time">${timeAgo(alert.timestamp)}</div>
-        </div>
-        <button class="btn-dismiss" onclick="dismissAlert('${esc(alert.id)}')" title="Dismiss">✕</button>
-      </div>`;
-  }).join('');
-
-  if (active.length === 0) {
-    el.insertAdjacentHTML('beforeend', `<div class="no-alerts">All alerts dismissed ✓</div>`);
-  }
-}
-
-function dismissAlert(id) {
-  const dismissed = JSON.parse(localStorage.getItem('dismissedAlerts') || '[]');
-  if (!dismissed.includes(id)) dismissed.push(id);
-  localStorage.setItem('dismissedAlerts', JSON.stringify(dismissed));
-  const el = document.getElementById(`alrt-${id}`);
-  if (el) el.classList.add('dismissed');
-  if (_data) renderAlerts(_data.alerts);
-}
-
-// ══════════════════════════════════════════════════════════════════
-// ─── RENDER: Projects ────────────────────────────────────────────
-// ══════════════════════════════════════════════════════════════════
-
-function renderProjects(projectHealth) {
-  document.getElementById('projects-grid').innerHTML =
-    Object.values(projectHealth).map(p => `
-      <div class="proj-card ${esc(p.status)}">
-        <div class="proj-header">
-          <span class="proj-emoji">${p.emoji}</span>
-          <span class="proj-name">${esc(p.label)}</span>
-        </div>
-        <div class="proj-status ${esc(p.status)}">${p.status.toUpperCase()}</div>
-        <div class="proj-metric">${esc(p.metric)}</div>
-        <div class="proj-detail">${esc(p.detail)}</div>
-      </div>`).join('');
-}
-
-// ══════════════════════════════════════════════════════════════════
-// ─── TICK (countdown + live-update next-run cells) ────────────────
-// ══════════════════════════════════════════════════════════════════
-
-function tick() {
-  _countdown--;
-  const cdEl = document.getElementById('countdown-secs');
-  if (cdEl) cdEl.textContent = Math.max(0, _countdown);
-  if (_countdown <= 0) { _countdown = REFRESH_SECS; loadData(); }
-
-  // Refresh all "next run" countdown cells in place (no full re-render)
-  document.querySelectorAll('[data-next]').forEach(el => {
-    const iso = el.dataset.next;
-    if (!iso) return;
-    const val = humanNextRun(iso);
-    el.textContent = val;
-    if (val === 'overdue') el.classList.add('overdue');
-    else                   el.classList.remove('overdue');
-  });
-}
-
-// ══════════════════════════════════════════════════════════════════
-// ─── LOAD DATA ───────────────────────────────────────────────────
-// ══════════════════════════════════════════════════════════════════
-
-async function loadData() {
-  const btn = document.getElementById('refresh-btn');
-  btn.disabled = true;
-  btn.innerHTML = `<span class="spinner"></span> Loading`;
-
-  try {
-    const res = await fetch(`${DATA_URL}?_=${Date.now()}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    _data = await res.json();
-
-    renderAgents(_data.agents  || []);
-    renderJobs(_data.jobs      || []);
-    renderPieChart(_data.modelUsage || { last7days: {}, totalCost7days: 0, projectedMonthlyCost: 0, potentialSavings: {} });
-    renderAlerts(_data.alerts  || []);
-    renderProjects(_data.projectHealth || {});
-    renderAICosts();
-
-    document.getElementById('updated-at').textContent = timeAgo(_data.generatedAt);
-  } catch (err) {
-    console.error('Data load error:', err);
-    document.getElementById('updated-at').textContent = '⚠️ Load failed';
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = `<span>⟳</span> Refresh`;
-    _countdown = REFRESH_SECS;
-  }
-}
-
-function triggerRefresh() { _countdown = REFRESH_SECS; loadData(); }
-
-// ─── AI Costs Panel ───────────────────────────────────────────
-const COST_DATA_URL = 'data/cost-data.json';
-const EMBEDDED_COST_DATA = {"updated": "2026-04-27T14:20:00Z", "summary": {"label": "sk-or-v1-e99...dcc", "is_management_key": false, "is_provisioning_key": false, "limit": null, "limit_reset": null, "limit_remaining": null, "include_byok_in_limit": false, "usage": 177.4114278, "usage_daily": 37.0285894, "usage_weekly": 37.0285894, "usage_monthly": 177.4114278, "byok_usage": 0, "byok_usage_daily": 0, "byok_usage_weekly": 0, "byok_usage_monthly": 0, "is_free_tier": false, "expires_at": null, "creator_user_id": "user_3Cl5BcSNEfr1V41P80AtsbW89WR", "rate_limit": {"requests": -1, "interval": "10s", "note": "This field is deprecated and safe to ignore."}}, "daily_breakdown": {}};
-
-async function renderAICosts() {
-  const panel = document.getElementById('ai-costs-panel');
-  if (!panel) return;
-
-  try {
-    let costInfo = {};
-    try {
-      const res = await fetch(`${COST_DATA_URL}?_=${Date.now()}`);
-      if (res.ok) costInfo = await res.json();
-      else costInfo = EMBEDDED_COST_DATA;
-    } catch(e) {
-      costInfo = EMBEDDED_COST_DATA;
-    }
-
-    const s = costInfo.summary || {};
-    const daily   = parseFloat(s.usage_daily   || 0);
-    const weekly  = parseFloat(s.usage_weekly  || 0);
-    const monthly = parseFloat(s.usage_monthly || 0);
-    const projected = daily * 30;
-    const updated = costInfo.updated ? new Date(costInfo.updated).toLocaleString() : '—';
-
-    // Color thresholds
-    const dailyColor = daily > 30 ? 'cost-red' : daily > 15 ? 'cost-yellow' : 'cost-green';
-    const monthlyColor = monthly > 500 ? 'cost-red' : monthly > 200 ? 'cost-yellow' : 'cost-green';
-    const projColor = projected > 600 ? 'cost-red' : projected > 300 ? 'cost-yellow' : 'cost-green';
-
-    // Build 7-day bar chart from daily breakdown if available
-    const dailyBreakdown = costInfo.daily_breakdown || {};
-    const last7 = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(Date.now() - i * 86400000);
-      const key = d.toISOString().slice(0, 10);
-      const label = d.toLocaleDateString('en-US', { weekday: 'short' });
-      last7.push({ key, label, cost: dailyBreakdown[key] || (i === 0 ? daily : 0) });
-    }
-    const maxBar = Math.max(...last7.map(d => d.cost), 0.01);
-
-    panel.innerHTML = `
-      <!-- Summary Cards -->
-      <div class="cost-cards">
-        <div class="cost-card">
-          <div class="cost-card-label">Today</div>
-          <div class="cost-card-value ${dailyColor}">$${daily.toFixed(2)}</div>
-          <div class="cost-card-sub">≈ $${(daily * 7).toFixed(0)}/week at this rate</div>
-        </div>
-        <div class="cost-card">
-          <div class="cost-card-label">This Week</div>
-          <div class="cost-card-value">$${weekly.toFixed(2)}</div>
-          <div class="cost-card-sub">${weekly > 0 ? 'Avg $' + (weekly/7).toFixed(2) + '/day' : 'Rolling 7 days'}</div>
-        </div>
-        <div class="cost-card">
-          <div class="cost-card-label">This Month</div>
-          <div class="cost-card-value ${monthlyColor}">$${monthly.toFixed(2)}</div>
-          <div class="cost-card-sub">All-time OpenRouter spend</div>
-        </div>
-        <div class="cost-card">
-          <div class="cost-card-label">Projected /mo</div>
-          <div class="cost-card-value ${projColor}">$${projected.toFixed(0)}</div>
-          <div class="cost-card-sub">At today\'s daily rate</div>
-        </div>
+        }).join('')}
       </div>
+    </div>
 
-      <!-- 7-Day Spend Chart -->
-      <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:16px">
-        <div style="font-size:12px;font-weight:700;margin-bottom:10px;color:var(--text)">7-Day Spend</div>
-        <div class="cost-bar-chart">
-          ${last7.map(d => `
-            <div class="cost-bar-col">
-              <div class="cost-bar-val">${d.cost > 0 ? '$' + d.cost.toFixed(0) : ''}</div>
-              <div class="cost-bar" style="height:${Math.max(2, (d.cost / maxBar) * 60)}px;${d.key === new Date().toISOString().slice(0,10) ? 'background:var(--accent)' : 'background:var(--blue)'}"></div>
-              <div class="cost-bar-label">${d.label}</div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-
-      <!-- Model Strategy -->
-      <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:var(--text)">🧠 Model Strategy</div>
-      <div class="cost-strategy">
-        <div class="cost-strat-card">
-          <div class="cost-strat-label">Main Brain</div>
-          <div class="cost-strat-model">Claude Sonnet 4.6</div>
-          <div class="cost-strat-detail">$3/$15 per M tokens<br>Conversations only</div>
-        </div>
-        <div class="cost-strat-card">
-          <div class="cost-strat-label">Cron Jobs (25)</div>
-          <div class="cost-strat-model" style="color:var(--green)">🆓 Free Models</div>
-          <div class="cost-strat-detail">gemma-4-31b-it:free<br>qwen3-coder:free</div>
-        </div>
-        <div class="cost-strat-card">
-          <div class="cost-strat-label">Coding Agent</div>
-          <div class="cost-strat-model" style="color:var(--purple)">Codex CLI (GPT-5.5)</div>
-          <div class="cost-strat-detail">ChatGPT Plus $20/mo<br>Setup pending</div>
-        </div>
-        <div class="cost-strat-card">
-          <div class="cost-strat-label">Fallback</div>
-          <div class="cost-strat-model" style="color:var(--text)">GPT-5.4-mini</div>
-          <div class="cost-strat-detail">$0.40/$1.60 per M<br>Auto-failover only</div>
-        </div>
-      </div>
-
-      <!-- Cost Rule -->
-      <div class="cost-rule">
-        🚨 <strong style="color:var(--red)">Cost Rule (April 27, 2026):</strong> Cron jobs &amp; sub-agents must NEVER use Claude models. Conversations only. Any violation = immediate fix.
-      </div>
-
-      <div style="font-size:10px;color:var(--muted);margin-top:10px;text-align:right">Last updated: ${updated}</div>
-    `;
-  } catch (err) {
-    panel.innerHTML = `<div style="color:var(--red);padding:16px">Error loading cost data: ${err.message}</div>`;
-  }
+    <!-- Per-day table -->
+    <div style="background:var(--bg3);border:1px solid var(--bg4);border-radius:8px;padding:16px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:12px">📅 Daily History</div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr>
+          <th style="text-align:left;font-size:11px;color:var(--text3);padding:6px 8px;border-bottom:1px solid var(--bg4)">Date</th>
+          <th style="text-align:right;font-size:11px;color:var(--text3);padding:6px 8px;border-bottom:1px solid var(--bg4)">Spend</th>
+        </tr></thead>
+        <tbody>
+          ${Object.entries(byDate).sort((a,b)=>b[0].localeCompare(a[0])).map(([d,c])=>{
+            const isToday = d===today;
+            return `<tr style="border-bottom:1px solid var(--bg4)">
+              <td style="padding:8px;font-size:13px;color:${isToday?'var(--accent)':'var(--text)'}">${d}${isToday?' (today)':''}</td>
+              <td style="padding:8px;font-size:13px;font-weight:${isToday?'700':'400'};color:${isToday?'var(--accent)':'var(--text)'};text-align:right">$${c.toFixed(4)}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
 }
 
-// ─── Init ──────────────────────────────────────────────────────────
-loadData();
-if (_tickInterval) clearInterval(_tickInterval);
-_tickInterval = setInterval(tick, 1000);
+// Init
+$$('.nav-item').forEach(n=>n.addEventListener('click',()=>switchScreen(n.dataset.screen)));
+updateClock();
+setInterval(updateClock,1000);
+renderScreen();
+fetchMissionData(); // Load live data
+setInterval(fetchMissionData,120000); // Refresh every 2 minutes
 </script>
-
 </body>
 </html>
