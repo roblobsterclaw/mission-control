@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T13:39:22.821492+00:00",
+  "generatedAt": "2026-05-27T19:39:22.033280+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 6h",
       "scheduleCron": "every:6h",
-      "lastRun": "2026-05-27T07:38:33.836000+00:00",
+      "lastRun": "2026-05-27T13:38:33.846000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 68888,
+      "lastDurationMs": 55230,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-05-27T13:38:33.836000+00:00",
+      "nextRun": "2026-05-27T19:38:33.846000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -29,12 +29,12 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-05-27T12:39:45.165000+00:00",
+      "lastRun": "2026-05-27T18:39:45.234000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 47548,
+      "lastDurationMs": 38997,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-05-27T13:39:45.165000+00:00",
+      "nextRun": "2026-05-27T19:39:45.234000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -49,37 +49,17 @@
       "enabled": true,
       "schedule": "Every 30 min",
       "scheduleCron": "*/30 * * * *",
-      "lastRun": "2026-05-27T13:30:00.026000+00:00",
+      "lastRun": "2026-05-27T19:30:00.014000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 48985,
+      "lastDurationMs": 46419,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-05-27T14:00:00+00:00",
+      "nextRun": "2026-05-27T20:00:00+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
       "deliveryStatus": "pending"
-    },
-    {
-      "id": "dd069748",
-      "fullId": "dd069748-4936-4ff3-bc00-89f68ad62bbf",
-      "name": "🔍 Monitor: Moonshot People (Lamm, Gallagher, Ismail)",
-      "project": "monitoring",
-      "enabled": true,
-      "schedule": "Wed 10 AM ET",
-      "scheduleCron": "0 10 * * 3",
-      "lastRun": "2026-05-20T14:00:00.014000+00:00",
-      "lastStatus": "error",
-      "lastDurationMs": 59089,
-      "lastError": null,
-      "consecutiveErrors": 1,
-      "nextRun": "2026-05-27T14:00:00+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "delivered"
     },
     {
       "id": "fe8093f1",
@@ -89,12 +69,12 @@
       "enabled": true,
       "schedule": "Every hour",
       "scheduleCron": "0 * * * *",
-      "lastRun": "2026-05-27T13:01:56.662000+00:00",
+      "lastRun": "2026-05-27T19:01:56.665000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 36489,
+      "lastDurationMs": 35372,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-05-27T14:01:56.651000+00:00",
+      "nextRun": "2026-05-27T20:01:56.651000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -109,12 +89,12 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-05-27T13:37:30.996000+00:00",
+      "lastRun": "2026-05-27T19:37:31.074000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 62354,
+      "lastDurationMs": 47050,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-05-27T14:37:30.996000+00:00",
+      "nextRun": "2026-05-27T20:37:31.074000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -129,12 +109,12 @@
       "enabled": true,
       "schedule": "Every 3h",
       "scheduleCron": "every:3h",
-      "lastRun": "2026-05-27T13:34:42.485000+00:00",
+      "lastRun": "2026-05-27T19:34:42.514000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 46807,
+      "lastDurationMs": 79152,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-05-27T16:34:42.485000+00:00",
+      "nextRun": "2026-05-27T22:34:42.514000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -260,16 +240,36 @@
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
       "deliveryStatus": "pending"
+    },
+    {
+      "id": "dd069748",
+      "fullId": "dd069748-4936-4ff3-bc00-89f68ad62bbf",
+      "name": "🔍 Monitor: Moonshot People (Lamm, Gallagher, Ismail)",
+      "project": "monitoring",
+      "enabled": true,
+      "schedule": "Wed 10 AM ET",
+      "scheduleCron": "0 10 * * 3",
+      "lastRun": "2026-05-27T14:00:00.021000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 106430,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-06-03T14:00:00+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "delivered"
     }
   ],
   "agents": [
     {
       "id": "main",
       "name": "Rob Lobster 🦞",
-      "status": "idle",
+      "status": "active",
       "model": "anthropic/claude-opus-4-6",
-      "currentTask": null,
-      "elapsedMinutes": 0,
+      "currentTask": "telegram:8612618386",
+      "elapsedMinutes": 3,
       "subagents": []
     },
     {
@@ -295,9 +295,9 @@
   "modelUsage": {
     "last7days": {
       "openai/gpt-5.4-mini": {
-        "inputTokens": 3761006,
-        "outputTokens": 341745,
-        "cost": 5.6639
+        "inputTokens": 3659670,
+        "outputTokens": 351036,
+        "cost": 5.6343
       },
       "anthropic/claude-opus-4-6": {
         "inputTokens": 113321,
@@ -305,21 +305,14 @@
         "cost": 4.9231
       }
     },
-    "totalCost7days": 10.5871,
-    "projectedMonthlyCost": 45.37,
+    "totalCost7days": 10.5575,
+    "projectedMonthlyCost": 45.25,
     "potentialSavings": {
-      "ifFreeModelsUsed": 45.37,
+      "ifFreeModelsUsed": 45.25,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
   "alerts": [
-    {
-      "id": "err-dd069748-1",
-      "severity": "warning",
-      "job": "🔍 Monitor: Moonshot People (Lamm, Gallagher, Ismail)",
-      "message": "1 consecutive error — last run failed",
-      "timestamp": "2026-05-20T14:00:00.014000+00:00"
-    },
     {
       "id": "err-db7fc6fb-5",
       "severity": "critical",
@@ -367,8 +360,8 @@
     "monitoring": {
       "label": "Intel Monitors",
       "emoji": "🔍",
-      "status": "degraded",
-      "metric": "1/2 jobs healthy",
+      "status": "healthy",
+      "metric": "2/2 jobs healthy",
       "detail": "Alex Finn + Moonshot People weekly pulse"
     },
     "system": {
