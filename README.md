@@ -17,11 +17,9 @@ Joe Lynch's autonomous intelligence command center.
 
 ## Agents
 
-| Agent | Model | Status |
-|-------|-------|--------|
-| Rob Lobster 🦞 | claude-opus-4-6 | ● Active |
-| Hermes 🏛️ | gpt-5.4-mini | ● Active |
-| Red 🔴 | claude-sonnet-4 | ◌ Paused |
+- Rob Lobster 🦞 — claude-opus-4-6 — Active
+- Hermes 🏛️ — gpt-5.4-mini — Active
+- Red 🔴 — claude-sonnet-4 — Paused
 
 ## Data Refresh
 
