@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T21:43:36.566Z",
+  "updated": "2026-06-28T22:43:30.958Z",
   "summary": {
     "label": "sk-or-v1-e99...dcc",
     "is_management_key": false,
@@ -8,10 +8,10 @@
     "limit_reset": null,
     "limit_remaining": null,
     "include_byok_in_limit": false,
-    "usage": 1539.790658861,
-    "usage_daily": 3.057161133,
-    "usage_weekly": 26.784781736,
-    "usage_monthly": 174.643063636,
+    "usage": 1539.896518961,
+    "usage_daily": 3.163021233,
+    "usage_weekly": 26.890641836,
+    "usage_monthly": 174.748923736,
     "byok_usage": 0,
     "byok_usage_daily": 0,
     "byok_usage_weekly": 0,
