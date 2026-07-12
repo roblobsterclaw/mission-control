@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T09:58:25.125675+00:00",
+  "generatedAt": "2026-07-12T15:58:54.881809+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,34 +9,14 @@
       "enabled": true,
       "schedule": "Every 6h",
       "scheduleCron": "every:6h",
-      "lastRun": "2026-07-12T03:57:48.328000+00:00",
+      "lastRun": "2026-07-12T09:57:48.338000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 45103,
+      "lastDurationMs": 41739,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-12T09:57:48.328000+00:00",
+      "nextRun": "2026-07-12T15:57:48.338000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "delivered"
-    },
-    {
-      "id": "55963e02",
-      "fullId": "55963e02-91f3-4ecf-b237-f87226cbe5f7",
-      "name": "Morning Joe's Rundown — 6 AM (Combined)",
-      "project": "ttd",
-      "enabled": true,
-      "schedule": "Daily 6 AM",
-      "scheduleCron": "0 6 * * *",
-      "lastRun": "2026-07-11T15:59:00.296000+00:00",
-      "lastStatus": "error",
-      "lastDurationMs": 449842,
-      "lastError": null,
-      "consecutiveErrors": 1,
-      "nextRun": "2026-07-12T10:00:00+00:00",
-      "model": "openrouter/qwen/qwen3-coder:free",
-      "recommendedModel": "openrouter/qwen/qwen3-coder:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
       "deliveryStatus": "delivered"
@@ -49,12 +29,12 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-07-12T09:55:09.425000+00:00",
+      "lastRun": "2026-07-12T15:55:09.628000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 36224,
+      "lastDurationMs": 39559,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-12T10:55:09.425000+00:00",
+      "nextRun": "2026-07-12T16:55:09.628000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -69,32 +49,12 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-07-12T09:56:10.031000+00:00",
+      "lastRun": "2026-07-12T15:56:10.094000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 35212,
+      "lastDurationMs": 37974,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-12T10:56:10.031000+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "pending"
-    },
-    {
-      "id": "91d94689",
-      "fullId": "91d94689-2815-410b-a46a-a01e1853858f",
-      "name": "🦞 MOSE — Daily Deep Dive Runner",
-      "project": "system",
-      "enabled": true,
-      "schedule": "cron: 0 7 * * *",
-      "scheduleCron": "0 7 * * *",
-      "lastRun": "2026-07-11T16:06:32.279000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 44182,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-07-12T11:00:00+00:00",
+      "nextRun": "2026-07-12T16:56:10.094000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -109,12 +69,12 @@
       "enabled": true,
       "schedule": "Every 3h",
       "scheduleCron": "every:3h",
-      "lastRun": "2026-07-12T09:56:53.011000+00:00",
+      "lastRun": "2026-07-12T15:56:53.034000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 51643,
+      "lastDurationMs": 75246,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-12T12:56:53.011000+00:00",
+      "nextRun": "2026-07-12T18:56:53.034000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -160,6 +120,46 @@
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
       "deliveryStatus": "pending"
+    },
+    {
+      "id": "55963e02",
+      "fullId": "55963e02-91f3-4ecf-b237-f87226cbe5f7",
+      "name": "Morning Joe's Rundown — 6 AM (Combined)",
+      "project": "ttd",
+      "enabled": true,
+      "schedule": "Daily 6 AM",
+      "scheduleCron": "0 6 * * *",
+      "lastRun": "2026-07-12T10:00:00.016000+00:00",
+      "lastStatus": "error",
+      "lastDurationMs": 364009,
+      "lastError": null,
+      "consecutiveErrors": 2,
+      "nextRun": "2026-07-13T10:00:00+00:00",
+      "model": "openrouter/qwen/qwen3-coder:free",
+      "recommendedModel": "openrouter/qwen/qwen3-coder:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "91d94689",
+      "fullId": "91d94689-2815-410b-a46a-a01e1853858f",
+      "name": "🦞 MOSE — Daily Deep Dive Runner",
+      "project": "system",
+      "enabled": true,
+      "schedule": "cron: 0 7 * * *",
+      "scheduleCron": "0 7 * * *",
+      "lastRun": "2026-07-12T11:00:00.011000+00:00",
+      "lastStatus": "error",
+      "lastDurationMs": 41478,
+      "lastError": null,
+      "consecutiveErrors": 1,
+      "nextRun": "2026-07-13T11:00:00+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "failed"
     },
     {
       "id": "18a735bb",
@@ -237,7 +237,7 @@
       "name": "Hermes",
       "status": "online",
       "model": "z-ai/glm-5.2",
-      "currentTask": "Last session: 2026-07-11 11:55 UTC",
+      "currentTask": "Last session: 2026-07-12 10:04 UTC",
       "elapsedMinutes": 0,
       "processAlive": true,
       "subagents": []
@@ -255,25 +255,32 @@
   "modelUsage": {
     "last7days": {
       "openai/gpt-5.4-mini": {
-        "inputTokens": 1516483,
-        "outputTokens": 172254,
-        "cost": 2.4853
+        "inputTokens": 2047552,
+        "outputTokens": 269200,
+        "cost": 3.5196
       }
     },
-    "totalCost7days": 2.4853,
-    "projectedMonthlyCost": 10.65,
+    "totalCost7days": 3.5196,
+    "projectedMonthlyCost": 15.08,
     "potentialSavings": {
-      "ifFreeModelsUsed": 10.65,
+      "ifFreeModelsUsed": 15.08,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
   "alerts": [
     {
-      "id": "err-55963e02-1",
+      "id": "err-55963e02-2",
       "severity": "warning",
       "job": "Morning Joe's Rundown — 6 AM (Combined)",
+      "message": "2 consecutive errors — last run failed",
+      "timestamp": "2026-07-12T10:00:00.016000+00:00"
+    },
+    {
+      "id": "err-91d94689-1",
+      "severity": "warning",
+      "job": "🦞 MOSE — Daily Deep Dive Runner",
       "message": "1 consecutive error — last run failed",
-      "timestamp": "2026-07-11T15:59:00.296000+00:00"
+      "timestamp": "2026-07-12T11:00:00.011000+00:00"
     }
   ],
   "projectHealth": {
@@ -315,8 +322,8 @@
     "system": {
       "label": "System Ops",
       "emoji": "⚙️",
-      "status": "healthy",
-      "metric": "7/7 jobs healthy",
+      "status": "degraded",
+      "metric": "6/7 jobs healthy",
       "detail": "Gmail token refresh + RobGmail inbox check"
     }
   }
