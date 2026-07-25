@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-25T16:00:13.275702+00:00",
+  "generatedAt": "2026-07-25T22:00:15.622744+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 6h",
       "scheduleCron": "every:6h",
-      "lastRun": "2026-07-25T09:59:35.270000+00:00",
+      "lastRun": "2026-07-25T15:59:35.281000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 44870,
+      "lastDurationMs": 64195,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-25T15:59:35.270000+00:00",
+      "nextRun": "2026-07-25T21:59:35.281000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -29,12 +29,12 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-07-25T15:55:21.103000+00:00",
+      "lastRun": "2026-07-25T21:55:21.178000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 37682,
+      "lastDurationMs": 40967,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-25T16:55:21.103000+00:00",
+      "nextRun": "2026-07-25T22:55:21.178000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -49,12 +49,12 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-07-25T15:56:47.658000+00:00",
+      "lastRun": "2026-07-25T21:56:47.725000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 33713,
+      "lastDurationMs": 39202,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-25T16:56:47.658000+00:00",
+      "nextRun": "2026-07-25T22:56:47.725000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -69,12 +69,12 @@
       "enabled": true,
       "schedule": "Every 3h",
       "scheduleCron": "every:3h",
-      "lastRun": "2026-07-25T15:58:22.152000+00:00",
+      "lastRun": "2026-07-25T21:58:22.171000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 40548,
+      "lastDurationMs": 45954,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-25T18:58:22.152000+00:00",
+      "nextRun": "2026-07-26T00:58:22.171000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -255,15 +255,15 @@
   "modelUsage": {
     "last7days": {
       "openai/gpt-5.4-mini": {
-        "inputTokens": 1613583,
-        "outputTokens": 166032,
-        "cost": 2.4554
+        "inputTokens": 1540501,
+        "outputTokens": 158727,
+        "cost": 2.3458
       }
     },
-    "totalCost7days": 2.4554,
-    "projectedMonthlyCost": 10.52,
+    "totalCost7days": 2.3458,
+    "projectedMonthlyCost": 10.05,
     "potentialSavings": {
-      "ifFreeModelsUsed": 10.52,
+      "ifFreeModelsUsed": 10.05,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
