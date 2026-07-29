@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T10:14:06.244203+00:00",
+  "generatedAt": "2026-07-29T22:14:07.560054+00:00",
   "jobs": [
     {
       "id": "9eb6bcc2",
@@ -9,12 +9,12 @@
       "enabled": true,
       "schedule": "Every 6h",
       "scheduleCron": "every:6h",
-      "lastRun": "2026-07-29T04:13:23.473000+00:00",
+      "lastRun": "2026-07-29T16:13:23.501000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 58012,
+      "lastDurationMs": 42977,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-29T10:13:23.473000+00:00",
+      "nextRun": "2026-07-29T22:13:23.501000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -29,12 +29,12 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-07-29T09:55:24.318000+00:00",
+      "lastRun": "2026-07-29T21:55:24.479000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 41745,
+      "lastDurationMs": 46574,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-29T10:55:24.318000+00:00",
+      "nextRun": "2026-07-29T22:55:24.479000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -49,32 +49,12 @@
       "enabled": true,
       "schedule": "Every 1h",
       "scheduleCron": "every:1h",
-      "lastRun": "2026-07-29T09:57:26.306000+00:00",
+      "lastRun": "2026-07-29T21:57:26.462000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 38013,
+      "lastDurationMs": 44310,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-29T10:57:26.306000+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "pending"
-    },
-    {
-      "id": "91d94689",
-      "fullId": "91d94689-2815-410b-a46a-a01e1853858f",
-      "name": "🦞 MOSE — Daily Deep Dive Runner",
-      "project": "system",
-      "enabled": true,
-      "schedule": "cron: 0 7 * * *",
-      "scheduleCron": "0 7 * * *",
-      "lastRun": "2026-07-28T11:00:00.011000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 61931,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-07-29T11:00:00+00:00",
+      "nextRun": "2026-07-29T22:57:26.462000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
@@ -89,37 +69,17 @@
       "enabled": true,
       "schedule": "Every 3h",
       "scheduleCron": "every:3h",
-      "lastRun": "2026-07-29T09:58:31.414000+00:00",
+      "lastRun": "2026-07-29T21:58:31.463000+00:00",
       "lastStatus": "ok",
-      "lastDurationMs": 55582,
+      "lastDurationMs": 52026,
       "lastError": null,
       "consecutiveErrors": 0,
-      "nextRun": "2026-07-29T12:58:31.414000+00:00",
+      "nextRun": "2026-07-30T00:58:31.463000+00:00",
       "model": "openrouter/google/gemma-4-31b-it:free",
       "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
       "deliveryStatus": "pending"
-    },
-    {
-      "id": "dd069748",
-      "fullId": "dd069748-4936-4ff3-bc00-89f68ad62bbf",
-      "name": "🔍 Monitor: Moonshot People (Lamm, Gallagher, Ismail)",
-      "project": "monitoring",
-      "enabled": true,
-      "schedule": "Wed 10 AM ET",
-      "scheduleCron": "0 10 * * 3",
-      "lastRun": "2026-07-22T14:00:00.012000+00:00",
-      "lastStatus": "ok",
-      "lastDurationMs": 65816,
-      "lastError": null,
-      "consecutiveErrors": 0,
-      "nextRun": "2026-07-29T14:00:00+00:00",
-      "model": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
-      "recommendedReason": "Free model — zero cost for this job ✅",
-      "estimatedCostPerRun": 0.0,
-      "deliveryStatus": "delivered"
     },
     {
       "id": "37d3ee4f",
@@ -182,6 +142,26 @@
       "deliveryStatus": "delivered"
     },
     {
+      "id": "91d94689",
+      "fullId": "91d94689-2815-410b-a46a-a01e1853858f",
+      "name": "🦞 MOSE — Daily Deep Dive Runner",
+      "project": "system",
+      "enabled": true,
+      "schedule": "cron: 0 7 * * *",
+      "scheduleCron": "0 7 * * *",
+      "lastRun": "2026-07-29T11:00:00.011000+00:00",
+      "lastStatus": "ok",
+      "lastDurationMs": 61497,
+      "lastError": null,
+      "consecutiveErrors": 0,
+      "nextRun": "2026-07-30T11:00:00+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "pending"
+    },
+    {
       "id": "7d0f0dd5",
       "fullId": "7d0f0dd5-8a70-440e-b0e9-0e6fa674397d",
       "name": "Chase Inc Monthly Statements Reminder",
@@ -220,6 +200,26 @@
       "recommendedReason": "Free model — zero cost for this job ✅",
       "estimatedCostPerRun": 0.0,
       "deliveryStatus": "pending"
+    },
+    {
+      "id": "dd069748",
+      "fullId": "dd069748-4936-4ff3-bc00-89f68ad62bbf",
+      "name": "🔍 Monitor: Moonshot People (Lamm, Gallagher, Ismail)",
+      "project": "monitoring",
+      "enabled": true,
+      "schedule": "Wed 10 AM ET",
+      "scheduleCron": "0 10 * * 3",
+      "lastRun": "2026-07-29T14:00:00.011000+00:00",
+      "lastStatus": "error",
+      "lastDurationMs": 89516,
+      "lastError": null,
+      "consecutiveErrors": 1,
+      "nextRun": "2026-08-05T14:00:00+00:00",
+      "model": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedModel": "openrouter/google/gemma-4-31b-it:free",
+      "recommendedReason": "Free model — zero cost for this job ✅",
+      "estimatedCostPerRun": 0.0,
+      "deliveryStatus": "delivered"
     }
   ],
   "agents": [
@@ -237,7 +237,7 @@
       "name": "Hermes",
       "status": "online",
       "model": "z-ai/glm-5.2",
-      "currentTask": "Last session: 2026-07-28 06:57 UTC",
+      "currentTask": "Last session: 2026-07-29 15:14 UTC",
       "elapsedMinutes": 0,
       "processAlive": true,
       "subagents": []
@@ -255,15 +255,15 @@
   "modelUsage": {
     "last7days": {
       "openai/gpt-5.4-mini": {
-        "inputTokens": 1980788,
-        "outputTokens": 149277,
-        "cost": 2.6539
+        "inputTokens": 1899063,
+        "outputTokens": 148184,
+        "cost": 2.5454
       }
     },
-    "totalCost7days": 2.6539,
-    "projectedMonthlyCost": 11.37,
+    "totalCost7days": 2.5454,
+    "projectedMonthlyCost": 10.91,
     "potentialSavings": {
-      "ifFreeModelsUsed": 11.37,
+      "ifFreeModelsUsed": 10.91,
       "description": "Potential monthly savings by routing eligible cron jobs to free models"
     }
   },
@@ -274,6 +274,13 @@
       "job": "Morning Joe's Rundown — 6 AM (Combined)",
       "message": "1 consecutive error — last run failed",
       "timestamp": "2026-07-29T10:00:00.013000+00:00"
+    },
+    {
+      "id": "err-dd069748-1",
+      "severity": "warning",
+      "job": "🔍 Monitor: Moonshot People (Lamm, Gallagher, Ismail)",
+      "message": "1 consecutive error — last run failed",
+      "timestamp": "2026-07-29T14:00:00.011000+00:00"
     }
   ],
   "projectHealth": {
@@ -308,8 +315,8 @@
     "monitoring": {
       "label": "Intel Monitors",
       "emoji": "🔍",
-      "status": "healthy",
-      "metric": "2/2 jobs healthy",
+      "status": "degraded",
+      "metric": "1/2 jobs healthy",
       "detail": "Alex Finn + Moonshot People weekly pulse"
     },
     "system": {
